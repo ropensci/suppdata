@@ -116,18 +116,126 @@ figshare <- function(doi, si.no, save.name=NULL, dir=NULL){
     }
 
     #Find, download, and return
-    url <- .grep.text(paste0("http://dx.doi.org/", doi), "(http://figshare.com/articles/)[A-Za-z0-9_/]*")
-    url <- .grep.text(url, "(http://files\\.figshare\\.com/)[-a-zA-Z0-9\\_/\\.]*", si.no)
+    url <- .grep.url(paste0("http://dx.doi.org/", doi), "(http://figshare.com/articles/)[A-Za-z0-9_/]*")
+    url <- .grep.url(url, "(http://files\\.figshare\\.com/)[-a-zA-Z0-9\\_/\\.]*", si.no)
     return(.download(url, dir, save.name))
 }
 
-#' Internal regexp function
-.grep.text <- function(url, regexp, which=1){
-    html <- getURL(url)
-    links <- gregexpr(regexp, html)
-    pos <- as.numeric(links[[1]][which])
-    return(substr(html, pos, pos+attr(links[[1]], "match.length")[which]-1))
+#' Downloads supplementary materials from Ecological Archives
+#' @param esa ESA code for the article (just below the title in the
+#' manuscript)
+#' @param si.name *name* of the file to be downloaded
+#' @param save.name a name for the file to download. If \code{NULL}
+#' (default) this will be a combination of the DOI and SI number
+#' @param dir directory to save file to. If \code{NULL} (default) this
+#' will be a temporary directory created for your files
+#' @author Will Pearse
+#' @examples
+#' esa.archives("E093-059", "myco_db.csv")
+#' @export
+esa.archives <- function(esa, si.name, save.name=NULL, dir=NULL){
+    #Argument handling
+    if(!is.character(si.name))
+        stop("'si.no' must be a character")    
+    if(!is.null(dir)){
+        if(!file.exists(dir))
+            stop("'dir' must exist unless NULL")
+    } else dir <- tempdir()
+    if(is.null(save.name)){
+        save.name <- paste(esa,si.name, sep="_")
+        save.name <- gsub(.Platform$file.sep, "_", save.name, fixed=TRUE)
+    }
+
+    #Download, and return
+    esa <- gsub("-", "/", esa, fixed=TRUE)
+    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/", si.name), dir, save.name))
 }
+
+#' Downloads supplementary materials from Science
+#' @param doi DOI of article
+#' @param si.name *name* of the file to be downloaded
+#' @param save.name a name for the file to download. If \code{NULL}
+#' (default) this will be a combination of the DOI and SI number
+#' @param dir directory to save file to. If \code{NULL} (default) this
+#' will be a temporary directory created for your files
+#' @author Will Pearse
+#' @examples
+#' science("10.1126/science.1255768", "Appendix_BanksLeite_etal.txt")
+#' @export
+science <- function(doi, si.name, save.name=NULL, dir=NULL){
+    #Argument handling
+    if(!is.character(si.name))
+        stop("'si.name' must be a character")    
+    if(!is.null(dir)){
+        if(!file.exists(dir))
+            stop("'dir' must exist unless NULL")
+    } else dir <- tempdir()
+    if(is.null(save.name)){
+        save.name <- paste(doi,si.name, sep="_")
+        save.name <- gsub(.Platform$file.sep, "_", save.name, fixed=TRUE)
+    }
+
+    #Find, download, and return
+    url <- paste0("http://www.sciencemag.org", .grep.url(paste0("http://www.sciencemag.org/lookup/doi/", doi), "(/content/)[0-9/]*"), "/suppl/DC1")
+    url <- paste0("http://www.sciencemag.org", .grep.url(url, "(/content/suppl/)[A-Z0-9/\\.]*(Appendix_BanksLeite_etal.txt)"))
+    return(.download(url, dir, save.name))
+}
+
+#' Downloads supplementary materials from Proceedings journals
+#' @param doi DOI of article
+#' @param vol volume of article
+#' @param issue issue of article
+#' @param si.no which supplement (first, second, etc.) as printed in
+#' the article, to download. Note that "Fig S1" is not valid; this
+#' should be a number
+#' @param save.name a name for the file to download. If \code{NULL}
+#' (default) this will be a combination of the DOI and SI number
+#' @param dir directory to save file to. If \code{NULL} (default) this
+#' will be a temporary directory created for your files
+#' @author Will Pearse
+#' @importFrom RCurl getURL
+#' @examples
+#' proceedings("10.1098/rspb.2015.0338", 282, 1811, 1)
+#' @export
+proceedings <- function(doi, si.no, vol, issue, save.name=NULL, dir=NULL){
+    #Argument handling
+    if(!is.numeric(si.no))
+        stop("'si.no' must be numeric")    
+    if(!is.null(dir)){
+        if(!file.exists(dir))
+            stop("'dir' must exist unless NULL")
+    } else dir <- tempdir()
+    if(is.null(save.name)){
+        save.name <- paste(doi,si.no, sep="_")
+        save.name <- gsub(.Platform$file.sep, "_", save.name, fixed=TRUE)
+    }
+
+    #Find, download, and return
+    journal <- .grep.text(doi, "(rsp)[a-z]")
+    tail <- gsub(".", "", .grep.text(doi, "[0-9]+\\.[0-9]*", 2), fixed=TRUE)
+    url <- paste0("http://", journal, ".royalsocietypublishing.org/content/", vol, "/", issue, "/", tail, ".figures-only")
+    url <- paste0("http://rspb.royalsocietypublishing.org/", .grep.url(url, "(highwire/filestream)[a-zA-Z0-9_/\\.]*"))
+    return(.download(url, dir, save.name))
+}
+
+#PNAS doesn't seem to have SI other than PDFs, so ignored
+#url <- paste0("http://www.pnas.org",.grep.url(paste0("http://www.pnas.org/lookup/doi/",doi), "(/content/)[0-9/]*"),".abstract")
+#nature
+#frontiers
+#cell (TREE)
+#arXiv
+
+#' Internal regexp functions
+.grep.url <- function(url, regexp, which=1){
+    html <- getURL(url)
+    return(.grep.text(html, regexp, which))
+}
+.grep.text <- function(text, regexp, which=1){
+    links <- gregexpr(regexp, text)
+    pos <- as.numeric(links[[1]][which])
+    return(substr(text, pos, pos+attr(links[[1]], "match.length")[which]-1))
+}
+
 
 #' Internal download function
 .download <- function(url, dir, save.name){
@@ -137,7 +245,3 @@ figshare <- function(doi, si.no, save.name=NULL, dir=NULL){
         stop("Error code", result, " downloading file; file may not exist")
     return(destination)
 }
-
-#elsevier
-
-#http://www.sciencedirect.com.proxy3.library.mcgill.ca/science/article/pii/S0960982215005370
