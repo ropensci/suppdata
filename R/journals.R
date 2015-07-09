@@ -89,6 +89,55 @@ wiley <- function(doi, si.no, save.name=NULL, dir=NULL){
     return(destination)
 }
 
-elsevier
+#' Downloads supplementary materials from FigShare
+#' @param doi DOI of article
+#' @param si.no which supplement (first, second, etc.) as printed in
+#' the article, to download. Note that "Fig S1" is not valid; this
+#' should be a number
+#' @param save.name a name for the file to download. If \code{NULL}
+#' (default) this will be a combination of the DOI and SI number
+#' @param dir directory to save file to. If \code{NULL} (default) this
+#' will be a temporary directory created for your files
+#' @author Will Pearse
+#' @examples
+#' figshare("10.6084/m9.figshare.979288", 1)
+#' @export
+figshare <- function(doi, si.no, save.name=NULL, dir=NULL){
+    #Argument handling
+    if(!is.numeric(si.no))
+        stop("'si.no' must be numeric")    
+    if(!is.null(dir)){
+        if(!file.exists(dir))
+            stop("'dir' must exist unless NULL")
+    } else dir <- tempdir()
+    if(is.null(save.name)){
+        save.name <- paste(doi,si.no, sep="_")
+        save.name <- gsub(.Platform$file.sep, "_", save.name, fixed=TRUE)
+    }
 
-http://www.sciencedirect.com.proxy3.library.mcgill.ca/science/article/pii/S0960982215005370
+    #Find, download, and return
+    url <- .grep.text(paste0("http://dx.doi.org/", doi), "(http://figshare.com/articles/)[A-Za-z0-9_/]*")
+    url <- .grep.text(url, "(http://files\\.figshare\\.com/)[-a-zA-Z0-9\\_/\\.]*", si.no)
+    return(.download(url, dir, save.name))
+}
+
+#' Internal regexp function
+.grep.text <- function(url, regexp, which=1){
+    html <- getURL(url)
+    links <- gregexpr(regexp, html)
+    pos <- as.numeric(links[[1]][which])
+    return(substr(html, pos, pos+attr(links[[1]], "match.length")[which]-1))
+}
+
+#' Internal download function
+.download <- function(url, dir, save.name){
+    destination <- file.path(dir, save.name)
+    result <- download.file(url, destination, quiet=TRUE)
+    if(result != 0)
+        stop("Error code", result, " downloading file; file may not exist")
+    return(destination)
+}
+
+#elsevier
+
+#http://www.sciencedirect.com.proxy3.library.mcgill.ca/science/article/pii/S0960982215005370
