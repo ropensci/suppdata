@@ -1,0 +1,68 @@
+% \VignetteIndexEntry{pez-intro}
+%\VignettePackage{pez}
+%\VignetteEngine{knitr::knitr}
+\documentclass[12pt]{article}
+\usepackage{amssymb,amsmath}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{natbib}
+\usepackage{color} \definecolor{dark-gray}{gray}{0.3}
+\usepackage[colorlinks=true,urlcolor=dark-gray,breaklinks,citecolor=black,linkcolor=black]{hyperref}
+\bibliographystyle{besjournals}
+\title{Grabbing (published) data with \emph{grabr}}
+\author{William D.\ Pearse}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+<<include=FALSE>>=
+require(grabr)
+options(width=40)
+@ 
+\section{Overview}
+\emph{grabr} is intended to make more analyses reproducible. Instead
+of manually downloading files, saving them somewhere, (editting them
+by hand), and losing track of what came from where, use \emph{grabr}
+to pull the data down in a script for you. This ensure you have a
+complete audit trail of all your work, and makes keeping track of
+things easier. This is particularly useful for meta-analyses.
+
+\section{Data with DOIs}
+In most cases, all you need is the DOI of the article you're trying to
+get data from, and which supplement (the first, second, third, etc.)
+that you want to download. For example, to download the third
+supplement from \citet{crabs} (what a lovely paper
+written by such lovely people), run:
+
+<<>>=
+require(grabr)
+data <- read.csv(figshare("10.6084/m9.figshare.979288", 3))
+@ 
+
+That's it! Note that the function downloads the file and then returns
+the location of the file on your hard-drive, so you can use
+\texttt{read.csv} on it just like any other file.
+
+\section{Data from APIs}
+At the moment, there's only one API you can access with \emph{grabr},
+but hopefully there will be more soon. That's Xeno-Canto, the bird
+call database. Use \texttt{xeno.canto.meta} to search for calls from
+particular birds, and then \texttt{xeno.canto.download} to download
+those calls onto your computer.
+
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem[{Pearse \emph{et~al.}(2014)Pearse, Green \& Aldridge}]{crabs}
+  Pearse, WD, Green, HK \& Aldridge, D (2014) {Catching crabs: a case
+    study in local-scale English conservation}. \emph{arXiv preprint}
+  arXiv:104.0290.
+
+\end{thebibliography}
+
+\end{document}

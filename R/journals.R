@@ -217,10 +217,3 @@ proceedings <- function(doi, si.no, vol, issue, save.name=NULL, dir=NULL){
     url <- paste0("http://rspb.royalsocietypublishing.org/", .grep.url(url, "(highwire/filestream)[a-zA-Z0-9_/\\.]*"))
     return(.download(url, dir, save.name))
 }
-
-#PNAS doesn't seem to have SI other than PDFs, so ignored
-#url <- paste0("http://www.pnas.org",.grep.url(paste0("http://www.pnas.org/lookup/doi/",doi), "(/content/)[0-9/]*"),".abstract")
-#nature
-#frontiers
-#cell (TREE)
-#arXiv
