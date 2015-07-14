@@ -8,5 +8,11 @@ Maintainer: William D. Pearse <will.pearse@gmail.com>
 Description: Downloads data supplementary materials from manuscripts,
     using functions mostly named by publisher (e.g., \link{wiley},
     \link{plos}, \link{proceedings}). A (growing) number of APIs to
-    web services, such as \link{xeno.canto.data}.
+    web services, such as \link{xeno.canto.download}.
 License: GPL-3
+VignetteBuilder: knitr
+Suggests:
+    knitr (>= 1.6),
+Imports:
+    RCurl (>= 1.95-4.5),
+    rjson (>= 0.2.15)

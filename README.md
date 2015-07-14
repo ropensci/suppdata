@@ -1,4 +1,4 @@
-Grabbing (published) data in R
+##Grabbing (published) data in R
 [![Build Status](https://travis-ci.org/willpearse/grabr.svg)](https://travis-ci.org/willpearse/grabr)
 ============================================
 William D. Pearse
