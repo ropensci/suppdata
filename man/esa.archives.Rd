@@ -4,13 +4,18 @@
 \alias{esa.archives}
 \title{Downloads supplementary materials from Ecological Archives}
 \usage{
-esa.archives(esa, si.name, save.name = NULL, dir = NULL)
+esa.archives(esa, si.name, data.paper = TRUE, save.name = NULL,
+  dir = NULL)
 }
 \arguments{
 \item{esa}{ESA code for the article (just below the title in the
 manuscript)}
 
 \item{si.name}{*name* of the file to be downloaded}
+
+\item{data.paper}{whether paper is an ESA data paper (default:
+TRUE), or you are attempting to download the supplement to a
+standard paper (e.g., one in Ecology)}
 
 \item{save.name}{a name for the file to download. If \code{NULL}
 (default) this will be a combination of the DOI and SI number}
@@ -22,7 +27,8 @@ will be a temporary directory created for your files}
 Downloads supplementary materials from Ecological Archives
 }
 \examples{
-esa.archives("E093-059", "myco_db.csv")
+fungi <- read.csv(esa.archives("E093-059", "myco_db.csv"))
+mammals <- read.csv(esa.archives("E092-201", "MCDB_communities.csv", FALSE))
 }
 \author{
 Will Pearse

@@ -28,7 +28,6 @@ xeno.canto.download(xeno.canto.meta(setNames(c("bearded bellbird",
     "A"), c("species", "q")))$id[1])
 xeno.canto.download("247117")
 xeno.canto.download(247117:247120)
-xeno.canto.meta()
 }
 \author{
 Will Pearse

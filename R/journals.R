@@ -76,7 +76,7 @@ wiley <- function(doi, si.no, save.name=NULL, dir=NULL){
 
     #Download SI HTML page and find SI link
     html <- getURL(paste0("http://onlinelibrary.wiley.com/doi/", doi, "/suppinfo"))
-    links <- gregexpr("(asset/supinfo/)[-0-9a-zA-Z\\.\\?\\=\\&\\,\\;]*", as.character(html), useBytes=FALSE)
+    links <- gregexpr("(asset/supinfo/)[-0-9a-zA-Z\\.\\?\\=\\&\\,\\;_]*", as.character(html), useBytes=FALSE)
     pos <- as.numeric(links[[si.no]])
     link <- substr(html, pos, pos+attr(links[[si.no]], "match.length")-1)
     url <- paste0("http://onlinelibrary.wiley.com/store/", doi, "/", link)
@@ -129,12 +129,18 @@ figshare <- function(doi, si.no, save.name=NULL, dir=NULL){
 #' (default) this will be a combination of the DOI and SI number
 #' @param dir directory to save file to. If \code{NULL} (default) this
 #' will be a temporary directory created for your files
+#' @param data.paper whether paper is an ESA data paper (default:
+#' TRUE), or you are attempting to download the supplement to a
+#' standard paper (e.g., one in Ecology)
 #' @author Will Pearse
 #' @examples
-#' esa.archives("E093-059", "myco_db.csv")
+#' fungi <- read.csv(esa.archives("E093-059", "myco_db.csv"))
+#' mammals <- read.csv(esa.archives("E092-201", "MCDB_communities.csv", FALSE))
 #' @export
-esa.archives <- function(esa, si.name, save.name=NULL, dir=NULL){
+esa.archives <- function(esa, si.name, data.paper=TRUE, save.name=NULL, dir=NULL){
     #Argument handling
+    if(data.paper)
+        data.paper <- "" else data.paper <- "/data"
     if(!is.character(si.name))
         stop("'si.no' must be a character")    
     if(!is.null(dir)){
@@ -148,7 +154,7 @@ esa.archives <- function(esa, si.name, save.name=NULL, dir=NULL){
 
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
-    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/", si.name), dir, save.name))
+    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, data.paper, "/", si.name), dir, save.name))
 }
 
 #' Downloads supplementary materials from Science
