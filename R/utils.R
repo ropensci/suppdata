@@ -10,8 +10,10 @@
 }
 
 #' Internal download function
-.download <- function(url, dir, save.name){
+.download <- function(url, dir, save.name, cache=TRUE){
     destination <- file.path(dir, save.name)
+    if(cache==TRUE & file.exists(destination))
+        return(destination)
     result <- download.file(url, destination, quiet=TRUE)
     if(result != 0)
         stop("Error code", result, " downloading file; file may not exist")

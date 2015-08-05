@@ -14,7 +14,7 @@
 #' calls. Defaults are intended to be everything everything; for space
 #' reasons you might not want everything.
 #' @examples
-#' xeno.canto(setNames(c("bearded bellbird", "A"), c("species", "q")))
+#' xeno.canto.meta(setNames(c("bearded bellbird", "A"), c("species", "q")))
 #' @author Will Pearse
 #' @importFrom RCurl getURL
 #' @importFrom rjson fromJSON

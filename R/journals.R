@@ -7,6 +7,9 @@
 #' (default) this will be a combination of the DOI and SI number
 #' @param dir directory to save file to. If \code{NULL} (default) this
 #' will be a temporary directory created for your files
+#' @param cache if \code{TRUE} (default), the file won't be downloaded
+#' again if it already exists (in the temporary directory \code{grabr}
+#' creates, or your chosen \code{dir})
 #' @author Will Pearse
 #' @examples
 #' plos("10.1371/journal.pone.0127900", 1)
@@ -17,7 +20,7 @@
 #' plos("10.1371/journal.ppat.1005005", 1)
 #' plos("10.1371/journal.pntd.0003824", 1)
 #' @export
-plos <- function(doi, si.no, save.name=NULL, dir=NULL){
+plos <- function(doi, si.no, save.name=NULL, dir=NULL, cache=TRUE){
     #Argument handling
     if(!is.numeric(si.no))
         stop("'si.no' must be numeric")    
@@ -41,10 +44,7 @@ plos <- function(doi, si.no, save.name=NULL, dir=NULL){
     #Download and return
     destination <- file.path(dir, save.name)
     url <- paste0("http://journals.plos.org/", journal, "/article/asset?unique&id=info:doi/", doi, ".s", formatC(si.no, width=3, flag="0"))
-    result <- download.file(url, destination, quiet=TRUE)
-    if(result != 0)
-        stop("Error code", result, " downloading file; file may not exist")
-    return(destination)
+    return(.download(url, dir, save.name, cache))
 }
 
 #' Downloads supplementary materials from Wiley journals
@@ -56,12 +56,15 @@ plos <- function(doi, si.no, save.name=NULL, dir=NULL){
 #' (default) this will be a combination of the DOI and SI number
 #' @param dir directory to save file to. If \code{NULL} (default) this
 #' will be a temporary directory created for your files
+#' @param cache if \code{TRUE} (default), the file won't be downloaded
+#' again if it already exists (in the temporary directory \code{grabr}
+#' creates, or your chosen \code{dir})
 #' @author Will Pearse
 #' @importFrom RCurl getURL
 #' @examples
 #' wiley("10.1111/ele.12437", 1)
 #' @export
-wiley <- function(doi, si.no, save.name=NULL, dir=NULL){
+wiley <- function(doi, si.no, save.name=NULL, dir=NULL, cache=TRUE){
     #Argument handling
     if(!is.numeric(si.no))
         stop("'si.no' must be numeric")    
@@ -83,10 +86,7 @@ wiley <- function(doi, si.no, save.name=NULL, dir=NULL){
 
     #Download and return
     destination <- file.path(dir, save.name)
-    result <- download.file(url, destination, quiet=TRUE)
-    if(result != 0)
-        stop("Error code", result, " downloading file; file may not exist")
-    return(destination)
+    return(.download(url, dir, save.name, cache))
 }
 
 #' Downloads supplementary materials from FigShare
@@ -98,11 +98,14 @@ wiley <- function(doi, si.no, save.name=NULL, dir=NULL){
 #' (default) this will be a combination of the DOI and SI number
 #' @param dir directory to save file to. If \code{NULL} (default) this
 #' will be a temporary directory created for your files
+#' @param cache if \code{TRUE} (default), the file won't be downloaded
+#' again if it already exists (in the temporary directory \code{grabr}
+#' creates, or your chosen \code{dir})
 #' @author Will Pearse
 #' @examples
 #' figshare("10.6084/m9.figshare.979288", 1)
 #' @export
-figshare <- function(doi, si.no, save.name=NULL, dir=NULL){
+figshare <- function(doi, si.no, save.name=NULL, dir=NULL, cache=TRUE){
     #Argument handling
     if(!is.numeric(si.no))
         stop("'si.no' must be numeric")    
@@ -118,7 +121,7 @@ figshare <- function(doi, si.no, save.name=NULL, dir=NULL){
     #Find, download, and return
     url <- .grep.url(paste0("http://dx.doi.org/", doi), "(http://figshare.com/articles/)[A-Za-z0-9_/]*")
     url <- .grep.url(url, "(http://files\\.figshare\\.com/)[-a-zA-Z0-9\\_/\\.]*", si.no)
-    return(.download(url, dir, save.name))
+    return(.download(url, dir, save.name, cache))
 }
 
 #' Downloads supplementary materials from Ecological Archives
@@ -132,12 +135,15 @@ figshare <- function(doi, si.no, save.name=NULL, dir=NULL){
 #' @param data.paper whether paper is an ESA data paper (default:
 #' TRUE), or you are attempting to download the supplement to a
 #' standard paper (e.g., one in Ecology)
+#' @param cache if \code{TRUE} (default), the file won't be downloaded
+#' again if it already exists (in the temporary directory \code{grabr}
+#' creates, or your chosen \code{dir})
 #' @author Will Pearse
 #' @examples
 #' fungi <- read.csv(esa.archives("E093-059", "myco_db.csv"))
 #' mammals <- read.csv(esa.archives("E092-201", "MCDB_communities.csv", FALSE))
 #' @export
-esa.archives <- function(esa, si.name, data.paper=TRUE, save.name=NULL, dir=NULL){
+esa.archives <- function(esa, si.name, data.paper=TRUE, save.name=NULL, dir=NULL, cache=TRUE){
     #Argument handling
     if(data.paper)
         data.paper <- "" else data.paper <- "/data"
@@ -154,7 +160,7 @@ esa.archives <- function(esa, si.name, data.paper=TRUE, save.name=NULL, dir=NULL
 
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
-    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, data.paper, "/", si.name), dir, save.name))
+    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, data.paper, "/", si.name), dir, save.name, cache))
 }
 
 #' Downloads supplementary materials from Science
@@ -164,11 +170,14 @@ esa.archives <- function(esa, si.name, data.paper=TRUE, save.name=NULL, dir=NULL
 #' (default) this will be a combination of the DOI and SI number
 #' @param dir directory to save file to. If \code{NULL} (default) this
 #' will be a temporary directory created for your files
+#' @param cache if \code{TRUE} (default), the file won't be downloaded
+#' again if it already exists (in the temporary directory \code{grabr}
+#' creates, or your chosen \code{dir})
 #' @author Will Pearse
 #' @examples
 #' science("10.1126/science.1255768", "Appendix_BanksLeite_etal.txt")
 #' @export
-science <- function(doi, si.name, save.name=NULL, dir=NULL){
+science <- function(doi, si.name, save.name=NULL, dir=NULL, cache=TRUE){
     #Argument handling
     if(!is.character(si.name))
         stop("'si.name' must be a character")    
@@ -184,7 +193,7 @@ science <- function(doi, si.name, save.name=NULL, dir=NULL){
     #Find, download, and return
     url <- paste0("http://www.sciencemag.org", .grep.url(paste0("http://www.sciencemag.org/lookup/doi/", doi), "(/content/)[0-9/]*"), "/suppl/DC1")
     url <- paste0("http://www.sciencemag.org", .grep.url(url, "(/content/suppl/)[A-Z0-9/\\.]*(Appendix_BanksLeite_etal.txt)"))
-    return(.download(url, dir, save.name))
+    return(.download(url, dir, save.name, cache))
 }
 
 #' Downloads supplementary materials from Proceedings journals
@@ -198,12 +207,15 @@ science <- function(doi, si.name, save.name=NULL, dir=NULL){
 #' (default) this will be a combination of the DOI and SI number
 #' @param dir directory to save file to. If \code{NULL} (default) this
 #' will be a temporary directory created for your files
+#' @param cache if \code{TRUE} (default), the file won't be downloaded
+#' again if it already exists (in the temporary directory \code{grabr}
+#' creates, or your chosen \code{dir})
 #' @author Will Pearse
 #' @importFrom RCurl getURL
 #' @examples
 #' proceedings("10.1098/rspb.2015.0338", 282, 1811, 1)
 #' @export
-proceedings <- function(doi, si.no, vol, issue, save.name=NULL, dir=NULL){
+proceedings <- function(doi, si.no, vol, issue, save.name=NULL, dir=NULL, cache=TRUE){
     #Argument handling
     if(!is.numeric(si.no))
         stop("'si.no' must be numeric")    

@@ -4,7 +4,7 @@
 \alias{science}
 \title{Downloads supplementary materials from Science}
 \usage{
-science(doi, si.name, save.name = NULL, dir = NULL)
+science(doi, si.name, save.name = NULL, dir = NULL, cache = TRUE)
 }
 \arguments{
 \item{doi}{DOI of article}
@@ -16,6 +16,10 @@ science(doi, si.name, save.name = NULL, dir = NULL)
 
 \item{dir}{directory to save file to. If \code{NULL} (default) this
 will be a temporary directory created for your files}
+
+\item{cache}{if \code{TRUE} (default), the file won't be downloaded
+again if it already exists (in the temporary directory \code{grabr}
+creates, or your chosen \code{dir})}
 }
 \description{
 Downloads supplementary materials from Science

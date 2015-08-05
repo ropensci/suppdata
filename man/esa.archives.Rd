@@ -5,7 +5,7 @@
 \title{Downloads supplementary materials from Ecological Archives}
 \usage{
 esa.archives(esa, si.name, data.paper = TRUE, save.name = NULL,
-  dir = NULL)
+  dir = NULL, cache = TRUE)
 }
 \arguments{
 \item{esa}{ESA code for the article (just below the title in the
@@ -22,6 +22,10 @@ standard paper (e.g., one in Ecology)}
 
 \item{dir}{directory to save file to. If \code{NULL} (default) this
 will be a temporary directory created for your files}
+
+\item{cache}{if \code{TRUE} (default), the file won't be downloaded
+again if it already exists (in the temporary directory \code{grabr}
+creates, or your chosen \code{dir})}
 }
 \description{
 Downloads supplementary materials from Ecological Archives

@@ -27,7 +27,7 @@ the 'page' parameter; I've yet to write a 'continue downloading'
 wrapper, in part for fear of over-using the API.
 }
 \examples{
-xeno.canto(setNames(c("bearded bellbird", "A"), c("species", "q")))
+xeno.canto.meta(setNames(c("bearded bellbird", "A"), c("species", "q")))
 }
 \author{
 Will Pearse
