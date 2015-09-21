@@ -3,6 +3,13 @@
 ============================================
 William D. Pearse
 
+*This packaged has now been merged into
+ [fulltext](http://www.github.com/ropensci/fulltext) and is no longer
+ maintained*. Please use _fulltext_ from now on; specifically its
+ ```ft_get _si``` function.
+
+
+
 ##Overview 
 
 The aim of this package is to aid downloading data from published
