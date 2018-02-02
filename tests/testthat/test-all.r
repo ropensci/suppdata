@@ -1,5 +1,8 @@
-context("suppdata")
+library(suppdata)
+library(testthat)
 library(fulltext)
+
+context("suppdata")
 
 test_that("suppdata returns...", {
   skip_on_cran()
@@ -46,7 +49,7 @@ test_that("suppdata returns...", {
 test_that("suppdata fails well", {
   skip_on_cran()
 
-  expect_error(suppdata('nonsense', 1))
+  expect_error(suppdata('nonsense', 1)) #warning?
   expect_error(suppdata('10.6084/m9.figshare.979288', 20))
   expect_error(suppdata('10.6084/m9.figshare.979288', "does_exist.csv"))
 })

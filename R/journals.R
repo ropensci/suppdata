@@ -65,11 +65,15 @@
     if(is.numeric(si)){
         if(si > nrow(results))
             stop("SI number '", si, "' greater than number of detected SIs (", nrow(results), ")")
-        return(.download(results$downloadUrl[si], dir, save.name, cache))
+        suffix <- strsplit(results$name[si], "\\.")[[1]]
+        suffix <- suffix[length(suffix)]
+        return(.download(results$downloadUrl[si], dir, save.name, cache, suffix))
     }
     if(!si %in% results$name)
         stop("SI name not in files on FigShare (which are: ", paste(results$name,collapse=","), ")")
-    return(.download(results$downloadUrl[results$name==si], dir, save.name, cache))
+    suffix <- strsplit(results$name[si], "\\.")[[1]]
+    suffix <- suffix[length(suffix)]
+    return(.download(results$downloadUrl[results$name==si], dir, save.name, cache, suffix))
 }
 
 .suppdata.esa_data_archives <- function(esa, si, save.name=NA, dir=NA, cache=TRUE, ...){
@@ -133,8 +137,8 @@
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")
     
     #Find, download, and return
-    pmc.id <- xml_text(xml_find_first(read_xml(paste0("http://www.ebi.ac.uk/europepmc/webservices/rest/search/query=", doi)), ".//pmcid"))
-    url <- paste0("http://www.ebi.ac.uk/europepmc/webservices/rest/", pmc.id[[1]], "/supplementaryFiles")
+    pmc.id <- xml_text(xml_find_first(read_xml(paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/search/query=", doi)), ".//pmcid"))
+    url <- paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/", pmc.id[[1]], "/supplementaryFiles")
     zip <- tryCatch(.download(url,dir,zip.save.name,cache), error=function(x) stop("Cannot find supplementary materials for (seemingly) valid EPMC article ID ",pmc.id[[1]]))
     return(.unzip(zip, dir, save.name, cache, si, list))
 }

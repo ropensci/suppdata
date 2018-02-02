@@ -68,9 +68,10 @@
 
 # Internal download function
 #' @importFrom utils download.file
-.download <- function(url, dir, save.name, cache=TRUE){
+.download <- function(url, dir, save.name, cache=TRUE, suffix=NULL){
     destination <- file.path(dir, save.name)
-    suffix <- .file.suffix(url, 4)
+    if(is.null(suffix))
+        suffix <- .file.suffix(url, 4)
     
     if(cache==TRUE & file.exists(destination)){
         if(!is.na(suffix))
