@@ -1,14 +1,7 @@
-##Grabbing (published) data in R
-[![Build Status](https://travis-ci.org/willpearse/grabr.svg)](https://travis-ci.org/willpearse/grabr)
+##Loading SUPPlementary DATA into R
+[![Build Status](https://travis-ci.org/willpearse/suppdata.svg)](https://travis-ci.org/willpearse/suppdata)
 ============================================
-William D. Pearse
-
-*This packaged has now been merged into
- [fulltext](http://www.github.com/ropensci/fulltext) and is no longer
- maintained*. Please use _fulltext_ from now on; specifically its
- ```ft_get _si``` function.
-
-
+William D. Pearse and Scott Chamberlain
 
 ##Overview 
 
@@ -18,8 +11,8 @@ papers, and to provide some wrappers for APIs that are missing from R
 paper, for example, you would simply type:
 
 ```
-require(grabr)
-plos("10.1371/journal.pone.0127900", 1)
+library(suppdata)
+suppdata("10.1371/journal.pone.0127900", 1)
 ```
 
 ...and this would download the first SI from the paper.
