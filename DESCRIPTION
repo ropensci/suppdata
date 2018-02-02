@@ -1,18 +1,25 @@
-Package: grabr
+Package: suppdata
 Type: Package
-Title: Grab data from papers (and other things)
+Title: Download SUPPlementary DATA from published manuscripts
 Version: 0.9-0
-Date: 2015-07-09
-Author: William D. Pearse
-Maintainer: William D. Pearse <will.pearse@gmail.com>
+Date: 2018-02-02
+Author: William D. Pearse, Scott Chamberlain
+Maintainer: William D. Pearse <will.pearse@usu.edu>
 Description: Downloads data supplementary materials from manuscripts,
-    using functions mostly named by publisher (e.g., \link{wiley},
-    \link{plos}, \link{proceedings}). A (growing) number of APIs to
-    web services, such as \link{xeno.canto.download}.
-License: GPL-3
+    using papers' DOIs as references. Includes some code to download
+    from other Internet APIs (e.g., Xeno-Canto, EPMC).
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/fulltext
+BugReports: https://github.com/ropensci/fulltext/issues
 VignetteBuilder: knitr
+LazyLoad: yes
 Suggests:
     knitr (>= 1.6),
+    testthat (>= 2.0.0)
 Imports:
-    RCurl (>= 1.95-4.5),
-    rjson (>= 0.2.15)
+    httr (>= 1.0.0),
+    xml2 (>= 1.2.0),
+    jsonlite (>= 1.5),
+    RCurl (>= 1.95-4.10),
+    rjson(>= 0.2.15)
+RoxygenNote: 6.0.1

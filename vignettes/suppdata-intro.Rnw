@@ -1,5 +1,5 @@
-% \VignetteIndexEntry{pez-intro}
-%\VignettePackage{pez}
+% \VignetteIndexEntry{suppdata-intro}
+%\VignettePackage{suppdata}
 %\VignetteEngine{knitr::knitr}
 \documentclass[12pt]{article}
 \usepackage{amssymb,amsmath}
@@ -11,21 +11,21 @@
 \usepackage{color} \definecolor{dark-gray}{gray}{0.3}
 \usepackage[colorlinks=true,urlcolor=dark-gray,breaklinks,citecolor=black,linkcolor=black]{hyperref}
 \bibliographystyle{besjournals}
-\title{Grabbing (published) data with \emph{grabr}}
-\author{William D.\ Pearse}
+\title{Grabbing (published) data with \emph{suppdata}}
+\author{William D.\ Pearse \& Scott Chamberlain}
 \date{\today}
 
 \begin{document}
 \maketitle
 \tableofcontents
 <<include=FALSE>>=
-require(grabr)
+library(suppdata)
 options(width=40)
 @ 
 \section{Overview}
-\emph{grabr} is intended to make more analyses reproducible. Instead
+\emph{suppdata} is intended to make more analyses reproducible. Instead
 of manually downloading files, saving them somewhere, (editting them
-by hand), and losing track of what came from where, use \emph{grabr}
+by hand), and losing track of what came from where, use \emph{suppdata}
 to pull the data down in a script for you. This ensure you have a
 complete audit trail of all your work, and makes keeping track of
 things easier. This is particularly useful for meta-analyses.
@@ -38,8 +38,8 @@ supplement from \citet{crabs} (what a lovely paper
 written by such lovely people), run:
 
 <<>>=
-require(grabr)
-data <- read.csv(figshare("10.6084/m9.figshare.979288", 3))
+require(suppdata)
+data <- read.csv(suppdata("10.6084/m9.figshare.979288", 3))
 @ 
 
 That's it! Note that the function downloads the file and then returns
@@ -47,7 +47,7 @@ the location of the file on your hard-drive, so you can use
 \texttt{read.csv} on it just like any other file.
 
 \section{Data from APIs}
-At the moment, there's only one API you can access with \emph{grabr},
+At the moment, there's only one API you can access with \emph{suppdata},
 but hopefully there will be more soon. That's Xeno-Canto, the bird
 call database. Use \texttt{xeno.canto.meta} to search for calls from
 particular birds, and then \texttt{xeno.canto.download} to download

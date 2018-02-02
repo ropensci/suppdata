@@ -1,25 +1,25 @@
-\name{grabr-package}
-\alias{grabr-package}
-\alias{grabr}
+\name{suppdata-package}
+\alias{suppdata-package}
+\alias{suppdata}
 \docType{package}
 \title{
-\packageTitle{grabr}
+\packageTitle{suppdata}
 }
 \description{
-\packageDescription{grabr}
+\packageDescription{suppdata}
 }
 \details{
 
 The DESCRIPTION file:
-\packageDESCRIPTION{grabr}
-\packageIndices{grabr}
+\packageDESCRIPTION{suppdata}
+\packageIndices{suppdata}
 ~~ An overview of how to use the package, including the most important ~~
 ~~ functions ~~
 }
 \author{
-\packageAuthor{grabr}
+\packageAuthor{suppdata}
 
-Maintainer: \packageMaintainer{grabr}
+Maintainer: \packageMaintainer{suppdata}
 }
 \references{
 ~~ Literature or other references for background information ~~

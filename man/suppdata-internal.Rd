@@ -1,10 +1,10 @@
-\name{grabr-internal}
+\name{suppdata-internal}
 \title{Internal grabr Functions}
 \alias{.grep.url}
 \alias{.grep.text}
 \alias{.download}
 \description{
- Internal grabr functions
+ Internal suppdata functions
 }
 \details{
 
