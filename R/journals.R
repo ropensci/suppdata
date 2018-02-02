@@ -19,7 +19,7 @@
     return(.download(url, dir, save.name, cache))
 }
 
-#' @importFrom httr timeout
+#' @importFrom httr timeout GET
 #' @importFrom xml2 read_html xml_attr xml_find_all
 .suppdata.wiley <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, timeout=10, ...){
     #Argument handling
@@ -51,6 +51,7 @@
 
 #' @importFrom jsonlite fromJSON
 #' @importFrom xml2 xml_text xml_find_one
+#' @importFrom httr content
 .suppdata.figshare <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
     #Argument handling
     if(!(is.numeric(si) | is.character(si)))
@@ -76,7 +77,7 @@
     if(!is.character(si))
         stop("ESA Archives download requires character SI info")
     dir <- .tmpdir(dir)
-    save.name <- .save.name(doi, save.name, si)
+    save.name <- .save.name(esa, save.name, si)
 
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
@@ -87,7 +88,7 @@
     if(!is.character(si))
         stop("ESA Archives download requires character SI info")
     dir <- .tmpdir(dir)
-    save.name <- .save.name(doi, save.name, si)
+    save.name <- .save.name(esa, save.name, si)
 
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
@@ -151,6 +152,7 @@
     return(.download(.url.redir(paste0("http://biorxiv.org",file)), dir, save.name, cache))
 }
 
+#' @importFrom utils URLencode
 .suppdata.dryad <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))

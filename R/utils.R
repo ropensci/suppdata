@@ -1,3 +1,4 @@
+#' @importFrom rcrossref cr_works
 .suppdata.pub <- function(x){
     if(!is.character(x))
         stop("'x' must be a character")
@@ -18,31 +19,31 @@
 .suppdata.func <- function(x) {
     #Check by code, return if found
     output <- switch(x, 
-                     "340" = get_si_plos,
-                     "311" = get_si_wiley,
-                     "221" = get_si_science,
-                     "175" = get_si_proceedings,
-                     "246" = get_si_biorxiv
+                     "340" = .suppdata.plos,
+                     "311" = .suppdata.wiley,
+                     "221" = .suppdata.science,
+                     "175" = .suppdata.proceedings,
+                     "246" = .suppdata.biorxiv
                      )
     if(!is.null(output))
         return(output)
 
     #Check by letter code
     output <- switch(x, 
-                     "plos" = get_si_plos,
-                     "wiley" = get_si_wiley,
-                     "science" = get_si_science,
-                     "proceedings" = get_si_proceedings,
-                     "figshare" = get_si_figshare,
-                     "esa_data_archives" = get_si_esa_data_archives,
-                     "esa_archives" = get_si_esa_archives,
-                     "biorxiv" = get_si_biorxiv,
-                     "epmc" = get_si_epmc,
-                     "dryad" = get_si_dryad
+                     "plos" = .suppdata.plos,
+                     "wiley" = .suppdata.wiley,
+                     "science" = .suppdata.science,
+                     "proceedings" = .suppdata.proceedings,
+                     "figshare" = .suppdata.figshare,
+                     "esa_data_archives" = .suppdata.esa_data_archives,
+                     "esa_archives" = .suppdata.esa_archives,
+                     "biorxiv" = .suppdata.biorxiv,
+                     "epmc" = .suppdata.epmc,
+                     "dryad" = .suppdata.dryad
                      )
     #If all else fails, try EPMC
     if(is.null(output))
-        output <- get_si_epmc
+        output <- .suppdata.epmc
     return(output)
 }
 
@@ -66,6 +67,7 @@
 }
 
 # Internal download function
+#' @importFrom utils download.file
 .download <- function(url, dir, save.name, cache=TRUE){
     destination <- file.path(dir, save.name)
     suffix <- .file.suffix(url, 4)
@@ -86,6 +88,7 @@
 }
 
 # Internal unzip function
+#' @importFrom utils unzip
 .unzip <- function(zip, dir, save.name, cache, si, list=FALSE){
     files <- unzip(zip, list=TRUE)
     if(list){

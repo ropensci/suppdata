@@ -5,9 +5,11 @@
 #' in the same session.
 #' 
 #' @param x One of: vector of DOI(s) of article(s) (a
-#'     \code{character}), output from \code{\link{ft_get}}, or output
-#'     from \code{\link{ft_search}}. Note: if using ESA journal, you
-#'     can *only* use the ESA-specific article code (e.g., E092-201).
+#'     \code{character}), output from \code{fulltext}'s
+#'     \code{\link[fulltext]{ft_get}}, or output from
+#'     \code{fulltext}'s \code{\link[fulltext]{ft_search}}. Note: if
+#'     using ESA journal, you can *only* use the ESA-specific article
+#'     code (e.g., E092-201).
 #' @param si number of the supplement to be downloaded (1, 2, 3,
 #'     etc.), or (for ESA and Science journals) the name of the
 #'     supplment (e.g., "S1_data.csv"). Can be a \code{character} or
@@ -68,6 +70,7 @@
 #' }
 #' @template suppdata
 #' @export
+#' @importFrom stats setNames
 suppdata <- function(x, si, from=c("auto","plos","wiley","science","proceedings","figshare","esa_data_archives","esa_archives","biorxiv","epmc"), save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA, list=FALSE, timeout=10) UseMethod("suppdata")
 #' @export
 #' @rdname suppdata
@@ -109,8 +112,8 @@ suppdata.character <- function(x, si, from=c("auto","plos","wiley","science","pr
 
     #Find publisher, download, and return
     if(from == "auto")
-        from <- get_si_pub(x)
-    func <- get_si_func(from)
+        from <- .suppdata.pub(x)
+    func <- .suppdata.func(from)
     return(func(x, si, save.name=save.name, cache=cache, vol=vol, issue=issue, list=list, timeout=timeout))
 }
 #' @export

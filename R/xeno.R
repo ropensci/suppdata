@@ -17,7 +17,7 @@
 #' xeno.canto.meta(setNames(c("bearded bellbird", "A"), c("species", "q")))
 #' @author Will Pearse
 #' @importFrom RCurl getURL
-#' @importFrom rjson fromJSON
+#' @importFrom jsonlite fromJSON
 #' @export
 xeno.canto.meta <- function(params, verbose=TRUE, types=c("id","gen","sp","ssp","en","rec","cnt","loc","lat","lng","type","file","lic","url","q")){
     #Argument handling
@@ -29,14 +29,13 @@ xeno.canto.meta <- function(params, verbose=TRUE, types=c("id","gen","sp","ssp",
     #Download raw data
     url <- paste(names(params), params, sep=":", collapse="&")
     url <- URLencode(gsub("species:", "", url, fixed=TRUE))
-    url <- paste0("http://www.xeno-canto.org/api/2/recordings?query=", url)
+    url <- paste0("https://www.xeno-canto.org/api/2/recordings?query=", url)
 
     #Parse and return
     results <- fromJSON(getURL(url))
     if(verbose)
         cat("Downloading page ", results$page, " of ", results$numPages, "\n")
-    output <- data.frame(t(sapply(results$recordings, function(x) unlist(x)[types])))
-    return(output)
+    return(results$recordings)
 }
 
 #' Xeno-Canto data download wrapper
@@ -59,12 +58,12 @@ xeno.canto.meta <- function(params, verbose=TRUE, types=c("id","gen","sp","ssp",
 #' xeno.canto.download(247117:247120)
 #' @author Will Pearse
 #' @importFrom RCurl getURL
-#' @importFrom rjson fromJSON
+#' @importFrom jsonlite fromJSON
 #' @export
 xeno.canto.download <- function(ids, save.name=NULL, dir=NULL){
     #Internal wrapper
     .dwn <- function(x)
-        .download(paste0("http://www.xeno-canto.org/",x), dir, paste(save.name, x, sep="_"))
+        .download(paste0("https://www.xeno-canto.org/",x), dir, paste(save.name, x, sep="_"))
 
                   #Argument handling
     if(!is.null(dir)){

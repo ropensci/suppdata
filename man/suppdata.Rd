@@ -25,9 +25,11 @@ suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
 }
 \arguments{
 \item{x}{One of: vector of DOI(s) of article(s) (a
-\code{character}), output from \code{\link{ft_get}}, or output
-from \code{\link{ft_search}}. Note: if using ESA journal, you
-can *only* use the ESA-specific article code (e.g., E092-201).}
+\code{character}), output from \code{fulltext}'s
+\code{\link[fulltext]{ft_get}}, or output from
+\code{fulltext}'s \code{\link[fulltext]{ft_search}}. Note: if
+using ESA journal, you can *only* use the ESA-specific article
+code (e.g., E092-201).}
 
 \item{si}{number of the supplement to be downloaded (1, 2, 3,
 etc.), or (for ESA and Science journals) the name of the

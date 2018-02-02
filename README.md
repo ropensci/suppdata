@@ -1,9 +1,9 @@
-##Loading SUPPlementary DATA into R
+## Loading SUPPlementary DATA into R
 [![Build Status](https://travis-ci.org/willpearse/suppdata.svg)](https://travis-ci.org/willpearse/suppdata)
 ============================================
 William D. Pearse and Scott Chamberlain
 
-##Overview 
+## Overview 
 
 The aim of this package is to aid downloading data from published
 papers, and to provide some wrappers for APIs that are missing from R
@@ -21,7 +21,7 @@ This sort of thing is very useful if you're doing meta-analyses, or
 just want to make sure that you know where all your data came from and
 want a completely reproducible "audit trail" of what you've done.
 
-##How to contribute to the package
+## How to contribute to the package
 
 *Thank you* for helping out! Before making a pull request, make sure
  that you:
