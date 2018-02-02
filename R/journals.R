@@ -50,7 +50,7 @@
 }
 
 #' @importFrom jsonlite fromJSON
-#' @importFrom xml2 xml_text xml_find_one
+#' @importFrom xml2 xml_text xml_find_first
 #' @importFrom httr content
 .suppdata.figshare <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
     #Argument handling
@@ -61,7 +61,7 @@
     
     #Find, download, and return
     html <- read_html(content(GET(paste0("http://dx.doi.org/", doi)), "text"))
-    results <- fromJSON(xml_text(xml_find_one(html, "//script[@type=\"text/json\"]")))$article$files
+    results <- fromJSON(xml_text(xml_find_first(html, "//script[@type=\"text/json\"]")))$article$files
     if(is.numeric(si)){
         if(si > nrow(results))
             stop("SI number '", si, "' greater than number of detected SIs (", nrow(results), ")")
@@ -123,7 +123,7 @@
     return(.download(url, dir, save.name))
 }
 
-#' @importFrom xml2 xml_text xml_find_one read_xml
+#' @importFrom xml2 xml_text xml_find_first read_xml
 .suppdata.epmc <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, list=FALSE, ...){
     #Argument handling
     if(!is.character(si))
@@ -133,7 +133,7 @@
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")
     
     #Find, download, and return
-    pmc.id <- xml_text(xml_find_one(read_xml(paste0("http://www.ebi.ac.uk/europepmc/webservices/rest/search/query=", doi)), ".//pmcid"))
+    pmc.id <- xml_text(xml_find_first(read_xml(paste0("http://www.ebi.ac.uk/europepmc/webservices/rest/search/query=", doi)), ".//pmcid"))
     url <- paste0("http://www.ebi.ac.uk/europepmc/webservices/rest/", pmc.id[[1]], "/supplementaryFiles")
     zip <- tryCatch(.download(url,dir,zip.save.name,cache), error=function(x) stop("Cannot find supplementary materials for (seemingly) valid EPMC article ID ",pmc.id[[1]]))
     return(.unzip(zip, dir, save.name, cache, si, list))
