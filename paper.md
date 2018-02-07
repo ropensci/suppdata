@@ -1,5 +1,5 @@
 ---
-title: 'suppdata: Downloading supplementary data from published manuscripts'
+title: 'Suppdata: Downloading Supplementary Data from Published Manuscripts'
 tags:
 - supplementary materials
 - supplemental information

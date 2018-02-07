@@ -5,3 +5,4 @@ LICENCE
 ^\.travis\.yml$
 paper.md
 paper.bib
+man-roxygen/*

@@ -1,10 +1,10 @@
 Package: suppdata
 Type: Package
-Title: Download SUPPlementary DATA from published manuscripts
+Title: Downloading Supplementary Data from Published Manuscripts
 Version: 0.9-0
 Date: 2018-02-02
 Author: William D. Pearse, Scott Chamberlain
-Maintainer: William D. Pearse <will.pearse@usu.edu>
+Maintainer: William D. Pearse <will.pearse@gmail.com>
 Description: Downloads data supplementary materials from manuscripts,
     using papers' DOIs as references. Includes some code to download
     from other Internet APIs (e.g., Xeno-Canto, EPMC).

@@ -46,12 +46,6 @@ That's it! Note that the function downloads the file and then returns
 the location of the file on your hard-drive, so you can use
 \texttt{read.csv} on it just like any other file.
 
-\section{Data from APIs}
-At the moment, there's only one API you can access with \emph{suppdata},
-but hopefully there will be more soon. That's Xeno-Canto, the bird
-call database. Use \texttt{xeno.canto.meta} to search for calls from
-particular birds, and then \texttt{xeno.canto.download} to download
-those calls onto your computer.
 
 \begin{thebibliography}{6}
 \providecommand{\natexlab}[1]{#1}
