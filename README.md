@@ -1,5 +1,6 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://api.travis-ci.org/willpearse/suppdata.svg)](https://travis-ci.org/willpearse/suppdata)
+[![DOI](https://zenodo.org/badge/38581632.svg)](https://zenodo.org/badge/latestdoi/38581632)
 ## Loading SUPPlementary DATA into R
 
 William D. Pearse and Scott Chamberlain
@@ -21,6 +22,14 @@ suppdata("10.1371/journal.pone.0127900", 1)
 This sort of thing is very useful if you're doing meta-analyses, or
 just want to make sure that you know where all your data came from and
 want a completely reproducible "audit trail" of what you've done.
+
+## How to install and load this development version
+
+```
+library(devtools)
+install_github("willpearse/suppdata")
+library(suppdata)
+```
 
 ## How to contribute to the package
 
