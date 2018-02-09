@@ -1,6 +1,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://api.travis-ci.org/willpearse/suppdata.svg)](https://travis-ci.org/willpearse/suppdata)
 [![DOI](https://zenodo.org/badge/38581632.svg)](https://zenodo.org/badge/latestdoi/38581632)
+[![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
 ## Loading SUPPlementary DATA into R
 
 William D. Pearse and Scott Chamberlain
