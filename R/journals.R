@@ -60,7 +60,7 @@
     save.name <- .save.name(doi, save.name, si)
     
     #Find, download, and return
-    html <- read_html(content(GET(paste0("http://dx.doi.org/", doi)), "text"))
+    html <- read_html(content(GET(paste0("https://doi.org/", doi)), "text"))
     results <- fromJSON(xml_text(xml_find_first(html, "//script[@type=\"text/json\"]")))$article$files
     if(is.numeric(si)){
         if(si > nrow(results))
@@ -151,7 +151,7 @@
     save.name <- .save.name(doi, save.name, si)
     
     #Find, download, and return
-    url <- paste0(.url.redir(paste0("http://dx.doi.org/", doi)), ".figures-only")
+    url <- paste0(.url.redir(paste0("https://doi.org/", doi)), ".figures-only")
     file <- .grep.url(url, "/highwire/filestream/[a-z0-9A-Z\\./_-]*", si)
     return(.download(.url.redir(paste0("http://biorxiv.org",file)), dir, save.name, cache))
 }
@@ -165,7 +165,7 @@
     save.name <- .save.name(doi, save.name, si)
     
     #Find, download, and return
-    url <- .url.redir(paste0("http://dx.doi.org/", doi))
+    url <- .url.redir(paste0("https://doi.org/", doi))
     file <- .grep.url(url, paste0("/bitstream/handle/[0-9]+/dryad\\.[0-9]+/", URLencode(si,reserved=TRUE)))
     return(.download(.url.redir(paste0("http://datadryad.org",file)), dir, save.name, cache))
 }
