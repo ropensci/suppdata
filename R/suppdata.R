@@ -65,17 +65,30 @@
 #'                                         "esa_archives"))
 #' mammals <- read.csv(suppdata("E092-201", "MCDB_communities.csv",
 #'                                             "esa_data_archives"))
-#' epmc.fig <- suppdata("10.1371/journal.pone.0126524", "pone.0126524.g005.jpg", "epmc")
+#' epmc.fig <- suppdata("10.1371/journal.pone.0126524",
+#'                        "pone.0126524.g005.jpg", "epmc")
 #' #...note this 'SI' is not actually an SI, but rather an image from the paper.
 #' }
 #' # (examples not run on CRAN to avoid downloading files repeatedly)
 #' @template suppdata
 #' @export
 #' @importFrom stats setNames
-suppdata <- function(x, si, from=c("auto","plos","wiley","science","proceedings","figshare","esa_data_archives","esa_archives","biorxiv","epmc"), save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA, list=FALSE, timeout=10) UseMethod("suppdata")
+suppdata <- function(x, si,
+                     from=c("auto","plos","wiley","science","proceedings",
+                            "figshare","esa_data_archives","esa_archives",
+                            "biorxiv","epmc"),
+                     save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA,
+                     list=FALSE, timeout=10)
+    UseMethod("suppdata")
 #' @export
 #' @rdname suppdata
-suppdata.character <- function(x, si, from=c("auto","plos","wiley","science","proceedings","figshare","esa_data_archives","esa_archives","biorxiv","epmc"), save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA, list=FALSE, timeout=10){
+suppdata.character <- function(x, si,
+                               from=c("auto","plos","wiley","science",
+                                      "proceedings","figshare",
+                                      "esa_data_archives","esa_archives",
+                                      "biorxiv","epmc"),
+                               save.name=NA, dir=NA, cache=TRUE,
+                               vol=NA, issue=NA, list=FALSE, timeout=10){
     #Basic argument handling
     if(length(x) == 0)
         stop("'x' must contain some data!")
@@ -95,9 +108,14 @@ suppdata.character <- function(x, si, from=c("auto","plos","wiley","science","pr
     timeout <- .fix.param(x, timeout, "timeout")
     
     ############################
-    #Recurse if needed (can't use Recall because of potential argument length problems)
+    #Recurse if needed
+    # - can't use Recall because of potential argument length problems
     if(length(x) > 1)
-        return(setNames(unlist(mapply(suppdata.character, x=x,si=si,from=from,save.name=save.name,dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout)),x))
+        return(setNames(unlist(
+            mapply(suppdata.character, x=x,si=si,from=from,save.name=save.name,
+                   dir=dir,cache=cache,vol=vol,issue=issue,list=list,
+                   timeout=timeout))
+           ,x))
     ############################
     #...Do work
 
@@ -115,24 +133,37 @@ suppdata.character <- function(x, si, from=c("auto","plos","wiley","science","pr
     if(from == "auto")
         from <- .suppdata.pub(x)
     func <- .suppdata.func(from)
-    return(func(x, si, save.name=save.name, cache=cache, vol=vol, issue=issue, list=list, timeout=timeout))
+    return(func(x, si, save.name=save.name, cache=cache,
+                vol=vol, issue=issue, list=list, timeout=timeout))
 }
 #' @export
 #' @rdname suppdata
-suppdata.ft_data <- function(x, si, from=NA, save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA, list=FALSE, timeout=10){
+suppdata.ft_data <- function(x, si, from=NA, save.name=NA, dir=NA,
+                             cache=TRUE, vol=NA, issue=NA, list=FALSE,
+                             timeout=10){
     if(!is.na(from))
         stop("Cannot use 'from' argument with 'ft_data' input")
     from <- names(x)
-    x <- unlist(sapply(x, function(x) x$dois))
+    x <- unlist(vapply(x, function(x) x$dois,"character"))
     from <- .fix.param(x, from, "from")
-    return(setNames(unlist(mapply(suppdata.character, x=x,si=si,from=from,save.name=save.name,dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout)),x))
+    return(setNames(unlist(
+        mapply(
+            suppdata.character, x=x,si=si,from=from,save.name=save.name,
+            dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout
+        )
+    ),x))
 }
 #' @export
 #' @rdname suppdata
-suppdata.ft <- function(x, si, from=NA, save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA, list=FALSE, timeout=10){
+suppdata.ft <- function(x, si, from=NA, save.name=NA, dir=NA, cache=TRUE,
+                        vol=NA, issue=NA, list=FALSE, timeout=10){
     if(!is.na(from))
         stop("Cannot use 'from' argument with 'ft' input")
-    x <- unlist(sapply(x, function(x) x$data$id))
+    x <- unlist(vapply(x, function(x) x$data$id, "character"))
     from <- names(x)
-    return(setNames(unlist(mapply(suppdata.character, x=x,si=si,from=from,save.name=save.name,dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout)),x))
+    return(setNames(unlist(
+        mapply(suppdata.character, x=x,si=si,from=from,save.name=save.name,
+               dir=dir,cache=cache,vol=vol,issue=issue,list=list,
+               timeout=timeout)
+    ),x))
 }

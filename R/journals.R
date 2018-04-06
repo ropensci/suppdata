@@ -6,7 +6,12 @@
     save.name <- .save.name(doi, save.name, si)
     
     #Find journal from DOI
-    journals <- setNames(c("plosone", "plosbiology", "plosmedicine", "plosgenetics", "ploscompbiol", "plospathogens", "plosntds"), c("pone", "pbio", "pmed", "pgen", "pcbi", "ppat", "pntd"))
+    journals <- setNames(c("plosone", "plosbiology", "plosmedicine",
+                           "plosgenetics", "ploscompbiol", "plospathogens",
+                           "plosntds"),
+                         c("pone", "pbio", "pmed", "pgen", "pcbi",
+                           "ppat", "pntd"))
+    
     journal <- gsub("[0-9\\.\\/]*", "", doi)
     journal <- gsub("journal", "", journal)
     if(sum(journal %in% names(journals)) != 1)
@@ -15,13 +20,16 @@
 
 #Download and return
     destination <- file.path(dir, save.name)
-    url <- paste0("http://journals.plos.org/", journal, "/article/asset?unique&id=info:doi/", doi, ".s", formatC(si, width=3, flag="0"))
+    url <- paste0("http://journals.plos.org/", journal,
+                  "/article/asset?unique&id=info:doi/", doi, ".s",
+                  formatC(si, width=3, flag="0"))
     return(.download(url, dir, save.name, cache))
 }
 
 #' @importFrom httr timeout GET
 #' @importFrom xml2 read_html xml_attr xml_find_all
-.suppdata.wiley <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, timeout=10, ...){
+.suppdata.wiley <- function(doi, si, save.name=NA, dir=NA,
+                            cache=TRUE, timeout=10, ...){
     #Argument handling
     if(!is.numeric(si))
         stop("Wiley download requires numeric SI info")
@@ -30,10 +38,12 @@
 
     #Download SI HTML page and find SI link
     # - requires check for new Ecology Letters page (...the page seems buggy...)
-    html <- tryCatch(as.character(GET(paste0("http://onlinelibrary.wiley.com/doi/", doi, "/full"), httr::timeout(timeout))),
-                     silent=TRUE, error = function(x) NA)
+    html <- tryCatch(as.character(
+        GET(paste0("http://onlinelibrary.wiley.com/doi/", doi, "/full"), httr::timeout(timeout))
+    ), silent=TRUE, error = function(x) NA)
     if(is.na(html))
-        html <- as.character(GET(paste0("http://onlinelibrary.wiley.com/wol1/doi/", doi, "/full"), httr::timeout(timeout)))
+        html <- as.character(GET(paste0("http://onlinelibrary.wiley.com/wol1/doi/", doi, "/full"),
+                                 httr::timeout(timeout)))
     links <- gregexpr("(asset/supinfo/)[-0-9a-zA-Z\\.\\?\\=\\&\\,\\;_]*", html, useBytes=FALSE)
     if(any(links[[1]] == -1))
         links <- gregexpr("(asset/supinfo)[-0-9a-zA-Z\\.\\?\\=\\&\\,\\;_%]*", html, useBytes=FALSE)
@@ -52,7 +62,8 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom xml2 xml_text xml_find_first
 #' @importFrom httr content
-.suppdata.figshare <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.figshare <- function(doi, si, save.name=NA, dir=NA,
+                               cache=TRUE, ...){
     #Argument handling
     if(!(is.numeric(si) | is.character(si)))
         stop("FigShare download requires numeric or character SI info")
@@ -76,7 +87,8 @@
     return(.download(results$downloadUrl[results$name==si], dir, save.name, cache, suffix))
 }
 
-.suppdata.esa_data_archives <- function(esa, si, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.esa_data_archives <- function(esa, si, save.name=NA, dir=NA,
+                                        cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
         stop("ESA Archives download requires character SI info")
@@ -85,9 +97,11 @@
 
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
-    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/data", "/", si), dir, save.name, cache))
+    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/data", "/", si),
+                     dir, save.name, cache))
 }
-.suppdata.esa_archives <- function(esa, si, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.esa_archives <- function(esa, si, save.name=NA, dir=NA,
+                                   cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
         stop("ESA Archives download requires character SI info")
@@ -99,7 +113,8 @@
     return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/", si), dir, save.name, cache))
 }
 
-.suppdata.science <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.science <- function(doi, si, save.name=NA, dir=NA,
+                              cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
         stop("Science download requires character SI info")
@@ -112,7 +127,8 @@
     return(.download(url, dir, save.name, cache))
 }
 
-.suppdata.proceedings <- function(doi, si, vol, issue, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.proceedings <- function(doi, si, vol, issue, save.name=NA, dir=NA,
+                                  cache=TRUE, ...){
     #Argument handling
     if(!is.numeric(si))
         stop("Proceedings download requires numeric SI info")
@@ -122,13 +138,16 @@
     #Find, download, and return
     journal <- .grep.text(doi, "(rsp)[a-z]")
     tail <- gsub(".", "", .grep.text(doi, "[0-9]+\\.[0-9]*", 2), fixed=TRUE)
-    url <- paste0("http://", journal, ".royalsocietypublishing.org/content/", vol, "/", issue, "/", tail, ".figures-only")
-    url <- paste0("http://rspb.royalsocietypublishing.org/", .grep.url(url, "(highwire/filestream)[a-zA-Z0-9_/\\.]*"))
+    url <- paste0("http://", journal, ".royalsocietypublishing.org/content/",
+                  vol, "/", issue, "/", tail, ".figures-only")
+    url <- paste0("http://rspb.royalsocietypublishing.org/",
+                  .grep.url(url, "(highwire/filestream)[a-zA-Z0-9_/\\.]*"))
     return(.download(url, dir, save.name))
 }
 
 #' @importFrom xml2 xml_text xml_find_first read_xml
-.suppdata.epmc <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, list=FALSE, ...){
+.suppdata.epmc <- function(doi, si, save.name=NA, dir=NA,
+                           cache=TRUE, list=FALSE, ...){
     #Argument handling
     if(!is.character(si))
         stop("EPMB download requires numeric SI info")
@@ -137,13 +156,17 @@
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")
     
     #Find, download, and return
-    pmc.id <- xml_text(xml_find_first(read_xml(paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/search/query=", doi)), ".//pmcid"))
-    url <- paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/", pmc.id[[1]], "/supplementaryFiles")
-    zip <- tryCatch(.download(url,dir,zip.save.name,cache), error=function(x) stop("Cannot find supplementary materials for (seemingly) valid EPMC article ID ",pmc.id[[1]]))
+    pmc.id <- xml_text(xml_find_first(read_xml(
+        paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/search/query=", doi)), ".//pmcid"))
+    url <- paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/",
+                  pmc.id[[1]], "/supplementaryFiles")
+    zip <- tryCatch(.download(url,dir,zip.save.name,cache),
+                    error=function(x) stop("Cannot find SI for EPMC article ID ",pmc.id[[1]]))
     return(.unzip(zip, dir, save.name, cache, si, list))
 }
 
-.suppdata.biorxiv <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.biorxiv <- function(doi, si, save.name=NA, dir=NA,
+                              cache=TRUE, ...){
     #Argument handling
     if(!is.numeric(si))
         stop("bioRxiv download requires numeric SI info")
@@ -157,7 +180,8 @@
 }
 
 #' @importFrom utils URLencode
-.suppdata.dryad <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.dryad <- function(doi, si, save.name=NA, dir=NA,
+                            cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
         stop("DataDRYAD download requires numeric SI info")
@@ -166,6 +190,7 @@
     
     #Find, download, and return
     url <- .url.redir(paste0("http://dx.doi.org/", doi))
-    file <- .grep.url(url, paste0("/bitstream/handle/[0-9]+/dryad\\.[0-9]+/", URLencode(si,reserved=TRUE)))
+    file <- .grep.url(url, paste0("/bitstream/handle/[0-9]+/dryad\\.[0-9]+/",
+                                  URLencode(si,reserved=TRUE)))
     return(.download(.url.redir(paste0("http://datadryad.org",file)), dir, save.name, cache))
 }

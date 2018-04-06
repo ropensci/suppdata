@@ -34,8 +34,7 @@ things easier. This is particularly useful for meta-analyses.
 In most cases, all you need is the DOI of the article you're trying to
 get data from, and which supplement (the first, second, third, etc.)
 that you want to download. For example, to download the third
-supplement from \citet{crabs} (what a lovely paper
-written by such lovely people), run:
+supplement from Pearse \emph{et al.}, run:
 
 <<>>=
 require(suppdata)

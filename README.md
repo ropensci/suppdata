@@ -2,6 +2,7 @@
 [![Build Status](https://api.travis-ci.org/willpearse/suppdata.svg)](https://travis-ci.org/willpearse/suppdata)
 [![DOI](https://zenodo.org/badge/38581632.svg)](https://zenodo.org/badge/latestdoi/38581632)
 [![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
+[![Coverage status](https://codecov.io/gh/willpearse/grabr/branch/master/graph/badge.svg)](https://codecov.io/github/willpearse/grabr?branch=master)
 ## Loading SUPPlementary DATA into R
 
 William D. Pearse and Scott Chamberlain

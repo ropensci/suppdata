@@ -55,7 +55,10 @@
 .grep.text <- function(text, regexp, which=1){
     links <- gregexpr(regexp, text)
     if(which > length(links[[1]]))
-        stop("SI number '", which, "' greater than number of detected SIs (", length(links[[1]]), ")")
+        stop(
+            "SI number '", which, "' greater than number of detected SIs (",
+            length(links[[1]]), ")"
+        )
     pos <- as.numeric(links[[1]][which])
     return(substr(text, pos, pos+attr(links[[1]], "match.length")[which]-1))
 }
@@ -125,7 +128,8 @@
 .fix.param <- function(x, param, name){
     if(length(x) != length(param)){
         if((length(x) %% length(param)) != 0)
-            stop("length of ", "name (", length(param), ") is incompatible with 'x' (", length(x), ")")
+            stop("length of ", "name (", length(param),
+                 ") is incompatible with 'x' (", length(x), ")")
         param <- rep(param, length(x))
     }
     return(param)
