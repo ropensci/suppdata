@@ -23,7 +23,8 @@ suppdata("10.1371/journal.pone.0127900", 1)
 
 This sort of thing is very useful if you're doing meta-analyses, or
 just want to make sure that you know where all your data came from and
-want a completely reproducible "audit trail" of what you've done.
+want a completely reproducible "audit trail" of what you've done. It
+uses `rcrossref` to lookup which journal the article is in.
 
 ## How to install and load this development version
 
