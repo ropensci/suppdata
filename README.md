@@ -49,7 +49,7 @@ link](https://github.com/willpearse/suppdata/wiki/Contributing-to-suppdata).
 
 ## A more detailed set of motivations for `suppdata`
 
-`suppdata` is an R [@R2018] package to provide easy, reproducible
+`suppdata` is an R package to provide easy, reproducible
 access to supplemental materials within R. Thus `suppdata` facilitates
 open, reproducible research workflows: scientists re-analyzing
 published datasets can work with them as easily as if they were stored
@@ -62,9 +62,8 @@ require manually downloading body mass and phylogenetic data from
 published manuscripts. This is time-consuming, difficult (if not
 impossible) to make truly reproducible without re-distributing the
 data, and hard to follow. With `suppdata`, such an analysis is
-straightforward, reproducible, and the sources of the data
-[@Fritz2009,@Jones2009] are clear because their DOIs are embedded
-within the code:
+straightforward, reproducible, and the sources of the data are clear
+because their DOIs are embedded within the code:
 
 ```{R}
 # Load phylogenetics packages
