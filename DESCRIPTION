@@ -5,11 +5,10 @@ Version: 1.0-0
 Author: William D. Pearse, Scott Chamberlain
 Maintainer: William D. Pearse <will.pearse@gmail.com>
 Description: Downloads data supplementary materials from manuscripts,
-    using papers' DOIs as references. Includes some code to download
-    from other Internet APIs (e.g., Xeno-Canto, EPMC).
+    using papers' DOIs as references.
 License: MIT + file LICENSE
-URL: https://github.com/ropensci/fulltext
-BugReports: https://github.com/ropensci/fulltext/issues
+URL: https://github.com/willpearse/suppdata
+BugReports: https://github.com/willpearse/suppdata
 VignetteBuilder: knitr
 LazyLoad: yes
 Suggests: 

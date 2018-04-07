@@ -29,7 +29,8 @@ test_that("suppdata returns...", {
   expect_error(file <- suppdata("10.5061/dryad.34m6j", "datafile.csv"), NA)
   expect_error(data <- read.csv(file), NA)
   expect_equal(dim(data), c(145,49))
-  expect_error(file <- suppdata("10.5061/dryad.55610", "Data (revised).txt"), NA)
+  expect_error(file <- suppdata("10.5061/dryad.55610", "Data (revised).txt"),
+               NA)
   expect_error(data <- read.delim(file), NA)
   expect_equal(dim(data), c(740,25))
     

@@ -44,7 +44,7 @@
 #'     using EPMC (see details)
 #' @param timeout how long to wait for successful download (default 10
 #'     seconds)
-#' @author Will Pearse (\email{will.pearse@usu.edu}) and SCott
+#' @author Will Pearse (\email{will.pearse@usu.edu}) and Scott
 #'     Chamberlain (\email{myrmecocystus@gmail.com})
 #' @note Make sure that the article from which you're attempting to
 #'     download supplementary materials *has* supplementary

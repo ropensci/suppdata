@@ -69,7 +69,7 @@ or your chosen \code{dir})}
 
 \item{list}{if \code{TRUE}, print all files within a zip-file
 downloaded from EPMC (default: FALSE). This is *very* useful if
-using EPMC (see notes)}
+using EPMC (see details)}
 
 \item{timeout}{how long to wait for successful download (default 10
 seconds)}
@@ -86,7 +86,7 @@ you want to download data from, and the number of the supplement
 you want to download (1, 5, etc.). ESA journals don't use DOIs
 (give the article code; see below), and Proceedings, Science, and
 ESA journals need you to give the filename of the supplement to
-download. For FigShare articles, you can give either the number or
+download. For Figshare articles, you can give either the number or
 the name. The file extensions (suffixes) of files are returned as
 \code{suffix} attributes (see first example), which may be useful
 if you don't know the format of the file you're downloading.
@@ -102,9 +102,7 @@ gave them. This may actually be a 'feature', not a 'bug', if you're
 trying to automate some sort of meta-analysis.
 
 Below is a list of all the publishers this supports, and examples
-of articles from them. I'm aware that there isn't perfect overlap
-between these publishers and the rest of the package; I plan to
-correct this in the near future.
+of articles from them.
 
 \describe{
 \item{auto}{Default. Use a cross-ref search
@@ -168,6 +166,6 @@ epmc.fig <- suppdata("10.1371/journal.pone.0126524",
 # (examples not run on CRAN to avoid downloading files repeatedly)
 }
 \author{
-Will Pearse (\email{will.pearse@usu.edu}) and SCott
+Will Pearse (\email{will.pearse@usu.edu}) and Scott
     Chamberlain (\email{myrmecocystus@gmail.com})
 }
