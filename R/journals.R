@@ -39,20 +39,23 @@
     #Download SI HTML page and find SI link
     # - requires check for new Ecology Letters page (...the page seems buggy...)
     html <- tryCatch(as.character(
-        GET(paste0("http://onlinelibrary.wiley.com/doi/", doi, "/full"), httr::timeout(timeout))
-    ), silent=TRUE, error = function(x) NA)
-    if(is.na(html))
-        html <- as.character(GET(paste0("http://onlinelibrary.wiley.com/wol1/doi/", doi, "/full"),
-                                 httr::timeout(timeout)))
-    links <- gregexpr("(asset/supinfo/)[-0-9a-zA-Z\\.\\?\\=\\&\\,\\;_]*", html, useBytes=FALSE)
-    if(any(links[[1]] == -1))
-        links <- gregexpr("(asset/supinfo)[-0-9a-zA-Z\\.\\?\\=\\&\\,\\;_%]*", html, useBytes=FALSE)
+        GET(paste0("https://onlinelibrary.wiley.com/doi/full/", doi),
+            httr::timeout(timeout))), silent=TRUE, error = function(x) NA)
     
-    html <- read_html(html)
-    urls <- xml_attr(xml_find_all(html, '//a[contains(@href,"supinfo")]'), "href")
-    if(si > length(urls))
-        stop("SI number '", si, "' greater than number of detected SIs (", length(urls), ")")
-    url <- urls[si]
+    if(is.na(html))
+        html <- as.character(GET(
+            paste0("http://onlinelibrary.wiley.com/wol1/doi/",
+                   doi, "/full"), httr::timeout(timeout)
+        ))
+    links <- gregexpr('downloadSupplement\\?doi=[0-9a-zA-Z\\%;=\\.&]+', html)
+    links <- substring(html, as.numeric(links[[1]]),
+                       links[[1]]+attr(links[[1]],"match.length")-1)
+    links <- paste0("https://onlinelibrary.wiley.com/action/", links)
+
+    if(si > length(links))
+        stop("SI number '", si, "' greater than number of detected SIs (",
+             length(links), ")")
+    url <- links[si]
     
     #Download and return
     destination <- file.path(dir, save.name)
@@ -72,19 +75,23 @@
     
     #Find, download, and return
     html <- read_html(content(GET(paste0("https://doi.org/", doi)), "text"))
-    results <- fromJSON(xml_text(xml_find_first(html, "//script[@type=\"text/json\"]")))$article$files
+    results <- fromJSON(xml_text(xml_find_first(html,
+                          "//script[@type=\"text/json\"]")))$article$files
     if(is.numeric(si)){
         if(si > nrow(results))
-            stop("SI number '", si, "' greater than number of detected SIs (", nrow(results), ")")
+            stop("SI number '", si, "' greater than number of detected SIs (",
+                 nrow(results), ")")
         suffix <- strsplit(results$name[si], "\\.")[[1]]
         suffix <- suffix[length(suffix)]
-        return(.download(results$downloadUrl[si], dir, save.name, cache, suffix))
+        return(.download(results$downloadUrl[si],dir,save.name,cache,suffix))
     }
     if(!si %in% results$name)
-        stop("SI name not in files on FigShare (which are: ", paste(results$name,collapse=","), ")")
+        stop("SI name not in files on FigShare (which are: ",
+             paste(results$name,collapse=","), ")")
     suffix <- strsplit(results$name[si], "\\.")[[1]]
     suffix <- suffix[length(suffix)]
-    return(.download(results$downloadUrl[results$name==si], dir, save.name, cache, suffix))
+    return(.download(results$downloadUrl[results$name==si], dir,
+                     save.name, cache, suffix))
 }
 
 .suppdata.esa_data_archives <- function(esa, si, save.name=NA, dir=NA,
@@ -97,8 +104,8 @@
 
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
-    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/data", "/", si),
-                     dir, save.name, cache))
+    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/data",
+                            "/", si), dir, save.name, cache))
 }
 .suppdata.esa_archives <- function(esa, si, save.name=NA, dir=NA,
                                    cache=TRUE, ...){
@@ -110,7 +117,8 @@
 
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
-    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/", si), dir, save.name, cache))
+    return(.download(paste0("http://esapubs.org/archive/ecol/",esa,"/",si),
+                     dir, save.name, cache))
 }
 
 .suppdata.science <- function(doi, si, save.name=NA, dir=NA,
@@ -122,8 +130,11 @@
     save.name <- .save.name(doi, save.name, si)
 
     #Find, download, and return
-    url <- paste0("http://www.sciencemag.org", .grep.url(paste0("http://www.sciencemag.org/lookup/doi/", doi), "(/content/)[0-9/]*"), "/suppl/DC1")
-    url <- paste0("http://www.sciencemag.org", .grep.url(url, "(/content/suppl/)[A-Z0-9/\\.]*"))
+    url <- paste0("http://www.sciencemag.org",
+                  .grep.url(paste0("http://www.sciencemag.org/lookup/doi/",doi),
+                            "(/content/)[0-9/]*"), "/suppl/DC1")
+    url <- paste0("http://www.sciencemag.org",
+                  .grep.url(url, "(/content/suppl/)[A-Z0-9/\\.]*"))
     return(.download(url, dir, save.name, cache))
 }
 
@@ -157,11 +168,13 @@
     
     #Find, download, and return
     pmc.id <- xml_text(xml_find_first(read_xml(
-        paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/search/query=", doi)), ".//pmcid"))
+        paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/search/query=",
+               doi)), ".//pmcid"))
     url <- paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/",
                   pmc.id[[1]], "/supplementaryFiles")
     zip <- tryCatch(.download(url,dir,zip.save.name,cache),
-                    error=function(x) stop("Cannot find SI for EPMC article ID ",pmc.id[[1]]))
+                    error=function(x)
+                        stop("Cannot find SI for EPMC article ID ",pmc.id[[1]]))
     return(.unzip(zip, dir, save.name, cache, si, list))
 }
 
@@ -176,7 +189,8 @@
     #Find, download, and return
     url <- paste0(.url.redir(paste0("https://doi.org/", doi)), ".figures-only")
     file <- .grep.url(url, "/highwire/filestream/[a-z0-9A-Z\\./_-]*", si)
-    return(.download(.url.redir(paste0("http://biorxiv.org",file)), dir, save.name, cache))
+    return(.download(.url.redir(paste0("http://biorxiv.org",file)),
+                     dir, save.name, cache))
 }
 
 #' @importFrom utils URLencode
@@ -192,5 +206,6 @@
     url <- .url.redir(paste0("https://doi.org/", doi))
     file <- .grep.url(url, paste0("/bitstream/handle/[0-9]+/dryad\\.[0-9]+/",
                                   URLencode(si,reserved=TRUE)))
-    return(.download(.url.redir(paste0("http://datadryad.org",file)), dir, save.name, cache))
+    return(.download(.url.redir(paste0("http://datadryad.org",file)),
+                     dir, save.name, cache))
 }

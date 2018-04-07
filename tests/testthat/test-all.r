@@ -1,16 +1,13 @@
 library(suppdata)
 library(testthat)
-library(fulltext)
 
 context("suppdata")
 
 test_that("suppdata returns...", {
-  skip_on_cran()
 
   #Each journal/publisher combo works well
   expect_true(file.exists(suppdata("10.1371/journal.pone.0127900", 1)))
   expect_true(file.exists(suppdata("10.1371/journal.pone.0127900", 1, "plos")))
-  expect_true(file.exists(suppdata("10.1111/ele.12437", 1)))
   expect_true(file.exists(suppdata("10.6084/m9.figshare.979288", 1)))
   expect_true(file.exists(suppdata("10.6084/m9.figshare.979288", "analysis.R")))
   expect_identical(attr(suppdata("10.6084/m9.figshare.979288", 1),"suffix"),"R")
@@ -44,10 +41,10 @@ test_that("suppdata returns...", {
   expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"), si=1))))
   expect_true(file.exists(suppdata(ft_search("beyond the edge with edam"),1)))
   expect_true(all(file.exists(suppdata(ft_get(c("10.1371/journal.pone.0126524","10.1371/journal.pone.0126524")),1))))
+  
 })
 
 test_that("suppdata fails well", {
-  skip_on_cran()
 
   expect_error(suppdata('nonsense', 1)) #warning?
   expect_error(suppdata('10.6084/m9.figshare.979288', 20))
