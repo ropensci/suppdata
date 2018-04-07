@@ -1,7 +1,7 @@
 Package: suppdata
 Type: Package
 Title: Downloading Supplementary Data from Published Manuscripts
-Version: 0.9-0
+Version: 1.0-0
 Author: William D. Pearse, Scott Chamberlain
 Maintainer: William D. Pearse <will.pearse@gmail.com>
 Description: Downloads data supplementary materials from manuscripts,
@@ -20,7 +20,5 @@ Imports:
     httr (>= 1.0.0),
     xml2 (>= 1.2.0),
     jsonlite (>= 1.5),
-    RCurl (>= 1.95-4.10),
-    rcrossref (>= 0.8.0),
-    RCurl (>= 1.95-4.10)
+    rcrossref (>= 0.8.0)
 RoxygenNote: 6.0.1

@@ -12,12 +12,17 @@ test_that("suppdata returns...", {
   expect_true(file.exists(suppdata("10.6084/m9.figshare.979288", "analysis.R")))
   expect_identical(attr(suppdata("10.6084/m9.figshare.979288", 1),"suffix"),"R")
   expect_true(file.exists(suppdata("E093-059", "myco_db.csv", "esa_archives")))
-  expect_identical(attr(suppdata("E093-059", "myco_db.csv", "esa_archives"),"suffix"), "csv")
-  expect_true(file.exists(suppdata("E092-201", "MCDB_communities.csv", "esa_data_archives")))
-  expect_true(file.exists(suppdata("10.1126/science.1255768", "Appendix_BanksLeite_etal.txt")))
-  expect_true(file.exists(suppdata("10.1098/rspb.2015.0338", vol=282, issue=1811, 1)))
+  expect_identical(attr(suppdata("E093-059", "myco_db.csv", "esa_archives"),
+                        "suffix"), "csv")
+  expect_true(file.exists(suppdata("E092-201", "MCDB_communities.csv",
+                                   "esa_data_archives")))
+  expect_true(file.exists(suppdata("10.1126/science.1255768",
+                                   "Appendix_BanksLeite_etal.txt")))
+  expect_true(file.exists(suppdata("10.1098/rspb.2015.0338", vol=282,
+                                   issue=1811, 1)))
   expect_true(file.exists(suppdata("10.1101/016386", 1)))
-  expect_true(file.exists(suppdata("10.1371/journal.pone.0126524", "pone.0126524.g005.jpg", "epmc")))
+  expect_true(file.exists(suppdata("10.1371/journal.pone.0126524",
+                                   "pone.0126524.g005.jpg", "epmc")))
   
   #DRYAD
   expect_error(file <- suppdata("10.5061/dryad.34m6j", "datafile.csv"), NA)
@@ -36,16 +41,20 @@ test_that("suppdata returns...", {
   
 
   #Multiple downloads and ft_data are handled well
-  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"), si=1))))
-  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"), si=2:1))))
-  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"), si=1))))
+  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
+                                       si=1))))
+  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
+                                       si=2:1))))
+  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
+                                       si=1))))
   expect_true(file.exists(suppdata(ft_search("beyond the edge with edam"),1)))
-  expect_true(all(file.exists(suppdata(ft_get(c("10.1371/journal.pone.0126524","10.1371/journal.pone.0126524")),1))))
+  expect_true(all(file.exists(suppdata(
+      ft_get(c("10.1371/journal.pone.0126524","10.1371/journal.pone.0126524")),
+      1))))
   
 })
 
 test_that("suppdata fails well", {
-
   expect_error(suppdata('nonsense', 1)) #warning?
   expect_error(suppdata('10.6084/m9.figshare.979288', 20))
   expect_error(suppdata('10.6084/m9.figshare.979288', "does_exist.csv"))

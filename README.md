@@ -2,17 +2,16 @@
 [![Build Status](https://api.travis-ci.org/willpearse/suppdata.svg)](https://travis-ci.org/willpearse/suppdata)
 [![DOI](https://zenodo.org/badge/38581632.svg)](https://zenodo.org/badge/latestdoi/38581632)
 [![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
-[![Coverage status](https://codecov.io/gh/willpearse/grabr/branch/master/graph/badge.svg)](https://codecov.io/github/willpearse/grabr?branch=master)
+[![Coverage status](https://codecov.io/gh/willpearse/suppdata/branch/master/graph/badge.svg)](https://codecov.io/github/willpearse/suppdata?branch=master)
 ## Loading SUPPlementary DATA into R
 
 William D. Pearse and Scott Chamberlain
 
-## Overview 
+## Overview
 
 The aim of this package is to aid downloading data from published
-papers, and to provide some wrappers for APIs that are missing from R
-(e.g., Xeno-Canto). To download the supplementary data from a PLoS
-paper, for example, you would simply type:
+papers. To download the supplementary data from a PLoS paper, for
+example, you would simply type:
 
 ```
 library(suppdata)
@@ -34,21 +33,52 @@ install_github("willpearse/suppdata")
 library(suppdata)
 ```
 
-## How to contribute to the package
+## For more information, read the wiki!
 
-*Thank you* for helping out! Before making a pull request, make sure
- that you:
-* Discuss what you want to do in the 'issues' section on GitHub. That
-  way no one duplicates effort; I keep a track of all the things I
-  want to do there (including the journals in need of download scripts)
-* Please use the internal functions I've written (in ```utils.R```)
-  for downloading, findng URLs, etc. By all means write a new internal
-  function or improve on something that's in there :D
-* I won't accept a pull request that doesn't contain unit tests for
-  the code you've written. I realise I don't always write tests as I
-  go, but you have to :p
+[For more details on how to use the package, check out the wiki page
+by clicking this
+link](https://github.com/willpearse/suppdata/wiki/Using-suppdata).
 
-Again - *thank you*! If you've contributed a non-trivial improvement
-to the package (i.e., you've written a function longer than two lines)
-I'll add you to the authors list. Do tell me how you want your name
-spelt etc.
+[For more details on how to contribute to the package, check out the
+wiki page by clicking this
+link](https://github.com/willpearse/suppdata/wiki/Contributing-to-suppdata).
+
+## A more detailed set of motivations for `suppdata`
+
+`suppdata` is an R [@R2018] package to provide easy, reproducible
+access to supplemental materials within R. Thus `suppdata` facilitates
+open, reproducible research workflows: scientists re-analyzing
+published datasets can work with them as easily as if they were stored
+on their own computer, and others can track their analysis workflow
+painlessly.
+
+For example, imagine you were conducting an analysis of the evolution
+of body mass in mammals. Without `suppdata`, such an analysis would
+require manually downloading body mass and phylogenetic data from
+published manuscripts. This is time-consuming, difficult (if not
+impossible) to make truly reproducible without re-distributing the
+data, and hard to follow. With `suppdata`, such an analysis is
+straightforward, reproducible, and the sources of the data
+[@Fritz2009,@Jones2009] are clear because their DOIs are embedded
+within the code:
+
+```{R}
+# Load phylogenetics packages
+library(ape)
+library(caper)
+library(phytools)
+
+# Load suppdata
+library(suppdata)
+
+# Load two published datasets
+tree <- read.nexus(suppdata("10.1111/j.1461-0248.2009.01307.x", 1))[[1]]
+traits <- read.delim(suppdata("E090-184", "PanTHERIA_1-0_WR05_Aug2008.txt", "esa_archives"))
+
+# Merge datasets
+traits <- with(traits, data.frame(body.mass = log10(X5.1_AdultBodyMass_g), species=gsub(" ","_",MSW05_Binomial)))
+c.data <- comparative.data(tree, traits, species)
+
+# Calculate phylogenetic signal
+phylosig(c.data$phy, c.data$data$body.mass)
+```
