@@ -38,7 +38,7 @@
 #' \url{http://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
 #' \code{vol} and \code{issue} of the article.}
 #' \item{figshare}{Figshare, (e.g.,
-#' \url{http://bit.ly/figshare-example})}
+#' \url{https://doi.org/10.6084/m9.figshare.979288.v1})}
 #' \item{esa_data_archives & esa_data}{You must give article codes,
 #' not DOIs, for these, which you can find on the article itself. An
 #' ESA Data Archive paper - not to be confused with an ESA Archive,
