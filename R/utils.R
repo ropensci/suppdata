@@ -9,7 +9,9 @@
     if(grepl("dryad", x))
         return("dryad")
     pub <- cr_works(x)$data
-    
+
+    if(is.null(pub))
+        stop("Cannot find publisher for DOI: ", x)
     if(pub$prefix=="http://id.crossref.org/prefix/10.0000")
         stop("Cannot find publisher for DOI: ", x)
     
