@@ -133,7 +133,7 @@ suppdata.character <- function(x, si,
     if(from == "auto")
         from <- .suppdata.pub(x)
     func <- .suppdata.func(from)
-    return(func(x, si, save.name=save.name, cache=cache,
+    return(func(x, si, save.name=save.name, dir=dir, cache=cache,
                 vol=vol, issue=issue, list=list, timeout=timeout))
 }
 #' @export
