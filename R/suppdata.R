@@ -41,7 +41,7 @@
 #'     \code{numeric})
 #' @param list if \code{TRUE}, print all files within a zip-file
 #'     downloaded from EPMC (default: FALSE). This is *very* useful if
-#'     using EPMC (see notes)
+#'     using EPMC (see details)
 #' @param timeout how long to wait for successful download (default 10
 #'     seconds)
 #' @author Will Pearse (\email{will.pearse@usu.edu}) and SCott
