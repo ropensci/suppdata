@@ -144,7 +144,7 @@ suppdata.ft_data <- function(x, si, from=NA, save.name=NA, dir=NA,
     if(!is.na(from))
         stop("Cannot use 'from' argument with 'ft_data' input")
     from <- names(x)
-    x <- unlist(vapply(x, function(x) x$dois,"character"))
+    x <- unlist(lapply(x, function(x) x$dois))
     from <- .fix.param(x, from, "from")
     return(setNames(unlist(
         mapply(
