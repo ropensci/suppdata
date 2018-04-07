@@ -33,6 +33,10 @@ install_github("willpearse/suppdata")
 library(suppdata)
 ```
 
+This package depends on the packages `httr`, `httr`, `xml2`,
+`jsonlite`, and `rcrossref`.
+
+
 ## For more information, read the wiki!
 
 [For more details on how to use the package, check out the wiki page
