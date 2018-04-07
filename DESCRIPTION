@@ -15,7 +15,8 @@ LazyLoad: yes
 Suggests: 
     knitr (>= 1.6),
     testthat (>= 2.0.0),
-    covr (>= 3.0.1)
+    covr (>= 3.0.1),
+    fulltext (>= 0.1.4.9000)
 Imports:
     httr (>= 1.0.0),
     xml2 (>= 1.2.0),

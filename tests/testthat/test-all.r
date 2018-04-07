@@ -1,5 +1,6 @@
 library(suppdata)
 library(testthat)
+library(fulltext)
 
 context("suppdata")
 
