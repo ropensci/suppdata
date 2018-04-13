@@ -85,3 +85,46 @@ c.data <- comparative.data(tree, traits, species)
 # Calculate phylogenetic signal
 phylosig(c.data$phy, c.data$data$body.mass)
 ```
+
+# A guided walk through `suppdata`
+
+The aim of `suppdata` is to make it as easy as possible for you to write reproducible analysis scripts that make use of published data. So let's start with that first, simplest case: how to make use of published data in an analysis.
+
+## Learning by example
+Below is an example of an analysis run using `suppdata`. Read through it first, and then we'll go through what all the parts mean.
+
+```{R}
+# Load phylogenetics packages
+library(ape)
+library(caper)
+library(phytools)
+
+###############################
+# LOAD TWO PUBLISHED DATASETS #
+#       USING SUPPDATA        #
+###############################
+library(suppdata)
+tree <- read.nexus(suppdata("10.1111/j.1461-0248.2009.01307.x", 1))[[1]]
+traits <- read.delim(suppdata("E090-184", "PanTHERIA_1-0_WR05_Aug2008.txt", "esa_archives"))
+
+# Merge datasets
+traits <- with(traits, data.frame(body.mass = log10(X5.1_AdultBodyMass_g), species=gsub(" ","_",MSW05_Binomial)))
+c.data <- comparative.data(tree, traits, species)
+
+# Calculate phylogenetic signal
+phylosig(c.data$phy, c.data$data$body.mass)
+```
+
+This short script loads some `R` packages focused on modelling the evolution of species' traits, then it gets to the "good stuff": using `suppdata`. First, we load the `suppdata` package using `library(suppdata)`. The next line uses a function called `read.nexus`, which loads something called a phylogeny (you might be familiar with this if you're a biologist). Normally, this function would take the location of a file on our hard-drive as a single argument, but now we're giving it the output from a call to the `suppdata` function.
+
+`suppdata` is going to the website of the article whose DOI is _10.1111/j.1461-0248.2009.01307.x_ ([it's this paper by Fritz et al.](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1461-0248.2009.01307.x)), and then taking the first (`1`) supplement from that article. It saves that to a temporary location on your hard-drive, and then gives that location to `read.nexus`. _This works with any function that expects a file at a location on your hard-drive_. What particularly neat is that `suppdata` remembers that it has downloaded that file already (see below for more details), such that you only have to download something once per `R` session.
+
+The second call to `suppdata`, which makes use of `read.delim`, shows two of the potential complexities of `suppdata`. First of all, because some journal publishers store their supplementary materials using numbers and others using specific file-names, `suppdata` takes either a number (like in the first example), or a name (like in the second example) depending on the journal publisher you're taking data from. If you look in the help file for `suppdata`, there is a table outlining those options. Sorry, you've just got to read up on it :-( Secondly, if you're an ecologist you might be familiar with the Ecological Society of America's data archives section. While they've moved over to a new way of storing data more recently, if you're hoping to load an older dataset from that journal you need to give the ESA data archive reference and specify that you're downloading from ESA (as in this example). If you're not an ecologist, don't worry about it, as this doesn't apply to you :D
+
+That's it! You now know all you need to in order to use `suppdata`! The rest of the lines of code merge these datasets together, and then calculate something called _phylogenetic signal_ in these datasets. If you're an evolutionary biologist, those lines might be interesting to you. If you're not, then don't worry about them.
+
+## Caching and saving to a specific directory
+
+Sometimes, you will want to use `suppdata` to build a store of files on your hard-drive. If so, you should know that `suppdata` takes three optional arguments: `cache`, `dir`, and `save.name`. If you specify `cache=FALSE`, it will turn off `suppdata`'s caching of files: this will force it to download your data again. This is mostly useful if you somehow make `suppdata` foul itself up (maybe you hit control-c or stop during a download) and so `suppdata` has only half-downloaded a file, and so thinks it's cached something when it hasn't. If you get an error when using `suppdata`, this is a good thing to try setting.
+
+`dir` specifies a directory where `suppdata` should store files, and `save.name` specifies the name that the file should be saved under when saved. This is useful if you want to make a folder on your computer that contains certain files you use a lot: `suppdata` will cache from this folder if you tell it to, and so you can build up a reproducible selection of data to use inbetween `R` sessions.
