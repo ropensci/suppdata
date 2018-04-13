@@ -40,7 +40,7 @@ This package depends on the packages `httr`, `httr`, `xml2`,
 # Contributing
 
 [For more details on how to contribute to the package, check out the
-guide in `CONTRIBUTING.MD`](https://github.com/willpearse/suppdata/CONTRIBUTING.md).
+guide in `CONTRIBUTING.MD`](https://github.com/willpearse/suppdata/blob/master/CONTRIBUTING.md).
 
 # A more detailed set of motivations for `suppdata`
 
