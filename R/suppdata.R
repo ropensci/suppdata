@@ -146,8 +146,11 @@ suppdata.ft_data <- function(x, si, from=c("auto","plos","wiley","science","proc
     from <- match.arg(from)
     if(from != "auto")
         stop("Must use 'auto' for 'from' argument with 'ft_data' input")
-    x <- unlist(lapply(x, function(x) x$data$id))
-    from <- .fix.param(x, from, "from")
+    x <- unlist(lapply(x, function(x) x$dois))
+    if(length(x) > 1)
+        stop("More than one DOI found in fulltext search")
+    if(length(x) == 0)
+        stop("No DOI found in fulltext search")
     return(setNames(unlist(
         mapply(
             suppdata.character, x=x,si=si,from=from,save.name=save.name,
