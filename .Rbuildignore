@@ -7,3 +7,4 @@ paper.md
 paper.bib
 man-roxygen/*
 ^codecov\.yml$
+CONTRIBUTING.md

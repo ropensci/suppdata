@@ -138,13 +138,15 @@ suppdata.character <- function(x, si,
 }
 #' @export
 #' @rdname suppdata
-suppdata.ft_data <- function(x, si, from=NA, save.name=NA, dir=NA,
+suppdata.ft_data <- function(x, si, from=c("auto","plos","wiley","science","proceedings",
+                            "figshare","esa_data_archives","esa_archives",
+                            "biorxiv","epmc"), save.name=NA, dir=NA,
                              cache=TRUE, vol=NA, issue=NA, list=FALSE,
                              timeout=10){
-    if(!is.na(from))
-        stop("Cannot use 'from' argument with 'ft_data' input")
-    from <- names(x)
-    x <- unlist(lapply(x, function(x) x$dois))
+    from <- match.arg(from)
+    if(from != "auto")
+        stop("Must use 'auto' for 'from' argument with 'ft_data' input")
+    x <- unlist(lapply(x, function(x) x$data$id))
     from <- .fix.param(x, from, "from")
     return(setNames(unlist(
         mapply(
@@ -155,15 +157,19 @@ suppdata.ft_data <- function(x, si, from=NA, save.name=NA, dir=NA,
 }
 #' @export
 #' @rdname suppdata
-suppdata.ft <- function(x, si, from=NA, save.name=NA, dir=NA, cache=TRUE,
+suppdata.ft <- function(x, si, from=c("auto","plos","wiley","science","proceedings",
+                            "figshare","esa_data_archives","esa_archives",
+                            "biorxiv","epmc"), save.name=NA, dir=NA, cache=TRUE,
                         vol=NA, issue=NA, list=FALSE, timeout=10){
-    if(!is.na(from))
-        stop("Cannot use 'from' argument with 'ft' input")
+    from <- match.arg(from)
+    if(from != "auto")
+        stop("Must use 'auto' for 'from' argument with 'ft' input")
     x <- unlist(lapply(x, function(y) y$data$id))
-    from <- names(x)
-    return(setNames(unlist(
-        mapply(suppdata.character, x=x,si=si,from=from,save.name=save.name,
+    if(length(x) > 1)
+        stop("More than one DOI found in fulltext search")
+    if(length(x) == 0)
+        stop("No DOI found in fulltext search")
+    return(suppdata.character(x=x,si=si,from=from,save.name=save.name,
                dir=dir,cache=cache,vol=vol,issue=issue,list=list,
-               timeout=timeout)
-    ),x))
+               timeout=timeout))
 }

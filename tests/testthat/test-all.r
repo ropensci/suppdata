@@ -49,7 +49,8 @@ test_that("suppdata returns...", {
                                        si=2:1))))
   expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
                                        si=1))))
-  expect_true(file.exists(suppdata(ft_search("beyond the edge with edam"),1)))
+  expect_true(file.exists(suppdata(ft_search("beyond the edge with edam", limit=1),1)))
+  expect_error(suppdata(ft_search("beyond the edge with edam"),1))
   expect_true(all(file.exists(suppdata(
       ft_get(c("10.1371/journal.pone.0126524","10.1371/journal.pone.0126524")),
       1))))
