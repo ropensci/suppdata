@@ -3,11 +3,11 @@
 [![DOI](https://zenodo.org/badge/38581632.svg)](https://zenodo.org/badge/latestdoi/38581632)
 [![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
 [![Coverage status](https://codecov.io/gh/willpearse/suppdata/branch/master/graph/badge.svg)](https://codecov.io/github/willpearse/suppdata?branch=master)
-## Loading SUPPlementary DATA into R
+# Loading SUPPlementary DATA into R
 
 William D. Pearse and Scott Chamberlain
 
-## Overview
+# Overview
 
 The aim of this package is to aid downloading data from published
 papers. To download the supplementary data from a PLoS paper, for
@@ -25,7 +25,7 @@ just want to make sure that you know where all your data came from and
 want a completely reproducible "audit trail" of what you've done. It
 uses `rcrossref` to lookup which journal the article is in.
 
-## How to install and load this development version
+# How to install and load this development version
 
 ```
 library(devtools)
@@ -37,17 +37,12 @@ This package depends on the packages `httr`, `httr`, `xml2`,
 `jsonlite`, and `rcrossref`.
 
 
-## For more information, read the wiki!
-
-[For more details on how to use the package, check out the wiki page
-by clicking this
-link](https://github.com/willpearse/suppdata/wiki/Using-suppdata).
+# Contributing
 
 [For more details on how to contribute to the package, check out the
-wiki page by clicking this
-link](https://github.com/willpearse/suppdata/wiki/Contributing-to-suppdata).
+guide in `CONTRIBUTING.MD`](https://github.com/willpearse/suppdata/CONTRIBUTING.md).
 
-## A more detailed set of motivations for `suppdata`
+# A more detailed set of motivations for `suppdata`
 
 `suppdata` is an R package to provide easy, reproducible
 access to supplemental materials within R. Thus `suppdata` facilitates
