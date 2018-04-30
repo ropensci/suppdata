@@ -123,3 +123,6 @@ That's it! You now know all you need to in order to use `suppdata`! The rest of 
 Sometimes, you will want to use `suppdata` to build a store of files on your hard-drive. If so, you should know that `suppdata` takes three optional arguments: `cache`, `dir`, and `save.name`. If you specify `cache=FALSE`, it will turn off `suppdata`'s caching of files: this will force it to download your data again. This is mostly useful if you somehow make `suppdata` foul itself up (maybe you hit control-c or stop during a download) and so `suppdata` has only half-downloaded a file, and so thinks it's cached something when it hasn't. If you get an error when using `suppdata`, this is a good thing to try setting.
 
 `dir` specifies a directory where `suppdata` should store files, and `save.name` specifies the name that the file should be saved under when saved. This is useful if you want to make a folder on your computer that contains certain files you use a lot: `suppdata` will cache from this folder if you tell it to, and so you can build up a reproducible selection of data to use inbetween `R` sessions.
+
+[![rofooter](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
+
