@@ -8,3 +8,4 @@ paper.bib
 man-roxygen/*
 ^codecov\.yml$
 CONTRIBUTING.md
+CODE_OF_CONDUCT.md
