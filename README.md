@@ -1,8 +1,8 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Build Status](https://api.travis-ci.org/willpearse/suppdata.svg)](https://travis-ci.org/willpearse/suppdata)
+[![Build Status](https://api.travis-ci.org/ropensci/suppdata.svg)](https://travis-ci.org/ropensci/suppdata)
 [![DOI](https://zenodo.org/badge/38581632.svg)](https://zenodo.org/badge/latestdoi/38581632)
 [![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
-[![Coverage status](https://codecov.io/gh/willpearse/suppdata/branch/master/graph/badge.svg)](https://codecov.io/github/willpearse/suppdata?branch=master)
+[![Coverage status](https://codecov.io/gh/ropensci/suppdata/branch/master/graph/badge.svg)](https://codecov.io/github/willpearse/ropensci?branch=master)
 # Loading SUPPlementary DATA into R
 
 William D. Pearse and Scott Chamberlain
