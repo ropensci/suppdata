@@ -1,6 +1,6 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://api.travis-ci.org/ropensci/suppdata.svg)](https://travis-ci.org/ropensci/suppdata)
-[![DOI](https://zenodo.org/badge/38581632.svg)](https://zenodo.org/badge/latestdoi/38581632)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1238947.svg)](https://doi.org/10.5281/zenodo.1238947)
 [![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
 [![codecov](https://codecov.io/gh/ropensci/suppdata/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/suppdata)
 
