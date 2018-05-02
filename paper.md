@@ -18,7 +18,8 @@ affiliations:
   index: 1
 - name:  rOpenSci
   index: 2
-date: 2 February 2017
+date: 2 May 2017
+bibliography: paper.bib
 ---
 
 # Summary
