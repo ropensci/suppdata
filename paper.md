@@ -1,25 +1,26 @@
 ---
 title: 'Suppdata: Downloading Supplementary Data from Published Manuscripts'
+authors:
+- affiliation: 1
+  name: William D Pearse
+  orcid: 0000-0002-6241-3164
+- affiliation: 2
+  name: Scott A Chamberlain
+  orcid: 0000-0003-1444-9135
+date: "2 May 2017"
+bibliography: paper.bib
 tags:
 - supplementary materials
 - supplemental information
 - open data
 - meta-analysis
 - DOI
-authors:
-- name: William D Pearse
-  orcid: 0000-0002-6241-3164
-  affiliation: 1
-- name: Scott A Chamberlain
-  orcid: 0000-0003-1444-9135
-  affiliation: 2
 affiliations:
-- name: Department of Biology & Ecology Center, Utah State University, Logan, Utah, USA
-  index: 1
-- name:  rOpenSci
-  index: 2
-date: 2 May 2017
-bibliography: paper.bib
+- index: 1
+  name: Department of Biology & Ecology Center, Utah State University, Logan, Utah,
+    USA
+- index: 2
+  name: rOpenSci
 ---
 
 # Summary
@@ -65,7 +66,7 @@ phylosig(c.data$phy, c.data$data$body.mass)
 The above example makes use of code from the packages `ape`
 [@Paradis2004], `caper` [@Orme2013], and `phytools` [@Revell2012].
 
-As `suppdata` was, originally, part of `fulltext` [@Chamberlain2016],
+As `suppdata` was, originally, part of `fulltext` [@Chamberlain2018],
 it is already being used in a number of research projects. One such
 project is `natdb`, a package that builds a database of functional
 traits from published sources. The software is currently available on
