@@ -1,0 +1,10 @@
+citEntry(entry="Article",
+         title = "Suppdata: Downloading Supplementary Data from Published Manuscripts",
+         author = personList(as.person("W. D. Pearse"), as.person("S. Chamberlain")),
+         journal = "Journal of Open Source Software",
+         year="2018",
+         pages="721",
+         volume="3",
+         number="25",
+         doi = "10.21105/joss.00721",
+         textVersion = "Pearse, W.D., & Chamberlain, S. (2018). Suppdata: Downloading Supplementary Data from Published Manuscripts. Journal of Open Source Software, 3(25), 721, https://doi.org/10.21105/joss.00721.")
