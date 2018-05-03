@@ -2,16 +2,23 @@ Package: suppdata
 Type: Package
 Title: Downloading Supplementary Data from Published Manuscripts
 Version: 1.0-0
-Authors@R: c(person("William D.", "Pearse", email = "will.pearse@gmail.com", role = c("aut", "cre")),
-    person("Scott", "Chamberlain", role = "aut"),
+Authors@R: c(person("William D.", "Pearse", email = "will.pearse@gmail.com", role = c("aut", "cre"), comment=c(ORCID="0000-0002-6241-3164")),
+    person("Scott", "Chamberlain", role = "aut", comment=c(ORCID="0000-0003-1444-9135")),
     person("Ross", "Mounce", role = c("rev"), comment = "Ross Mounce reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/195"), 
     person("Sarah", "Supp", role = c("rev"), comment = "Sarah Supp reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/195"))
 Maintainer: William D. Pearse <will.pearse@gmail.com>
 Description: Downloads data supplementary materials from manuscripts,
-    using papers' DOIs as references.
+    using papers' DOIs as references. Facilitates open, reproducible
+    research workflows: scientists re-analyzing published datasets can
+    work with them as easily as if they were stored on their own
+    computer, and others can track their analysis workflow
+    painlessly. The main function 'suppdata' returns a (temporary)
+    location on the user's computer where the file is stored, making
+    it simple to use 'suppdata' with standard functions like
+    'read.csv.
 License: MIT + file LICENSE
-URL: https://github.com/willpearse/suppdata
-BugReports: https://github.com/willpearse/suppdata
+URL: https://github.com/ropensci/suppdata
+BugReports: https://github.com/ropensci/suppdata
 VignetteBuilder: knitr
 LazyLoad: yes
 Suggests: 
