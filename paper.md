@@ -39,7 +39,7 @@ published manuscripts. This is time-consuming, difficult (if not
 impossible) to make truly reproducible without re-distributing the
 data, and hard to follow. With `suppdata`, such an analysis is
 straightforward, reproducible, and the sources of the data
-[@Fritz2009,@Jones2009] are clear because their DOIs are embedded
+[@Fritz2009, @Jones2009] are clear because their DOIs are embedded
 within the code:
 
 ```{R}
@@ -53,10 +53,13 @@ library(suppdata)
 
 # Load two published datasets
 tree <- read.nexus(suppdata("10.1111/j.1461-0248.2009.01307.x", 1))[[1]]
-traits <- read.delim(suppdata("E090-184", "PanTHERIA_1-0_WR05_Aug2008.txt", "esa_archives"))
+traits <- read.delim(suppdata(
+		"E090-184", "PanTHERIA_1-0_WR05_Aug2008.txt",
+		"esa_archives"))
 
 # Merge datasets
-traits <- with(traits, data.frame(body.mass = log10(X5.1_AdultBodyMass_g), species=gsub(" ","_",MSW05_Binomial)))
+traits <- with(traits, data.frame(body.mass = log10(X5.1_AdultBodyMass_g),
+             	       species=gsub(" ","_",MSW05_Binomial)))
 c.data <- comparative.data(tree, traits, species)
 
 # Calculate phylogenetic signal
