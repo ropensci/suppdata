@@ -36,18 +36,21 @@
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
 
-    #Download SI HTML page and find SI link
-    # - requires check for new Ecology Letters page (...the page seems buggy...)
+    # Download SI HTML page and find SI link
     html <- tryCatch(as.character(
         GET(paste0("https://onlinelibrary.wiley.com/doi/full/", doi),
             httr::timeout(timeout))), silent=TRUE, error = function(x) NA)
     
-    if(is.na(html))
-        html <- as.character(GET(
-            paste0("http://onlinelibrary.wiley.com/wol1/doi/",
-                   doi, "/full"), httr::timeout(timeout)
-        ))
-    links <- gregexpr('downloadSupplement\\?doi=[0-9a-zA-Z\\%;=\\.&]+', html)
+    links <- gregexpr('downloadSupplement\\?doi=[0-9a-zA-Z\\%;=\\.&-]+', html)
+    # Check to see if we've failed (likely because it's a weird data journal)
+    if(links[[1]][1] == -1){
+        html <- tryCatch(as.character(
+            GET(paste0("https://onlinelibrary.wiley.com/doi/abs/", doi),
+                httr::timeout(timeout))), silent=TRUE, error = function(x) NA)
+        links <- gregexpr('downloadSupplement\\?doi=[0-9a-zA-Z\\%;=\\.&-]+', html)
+        if(links[[1]][1] == -1)
+            stop("Cannot find SI for this article")
+    }
     links <- substring(html, as.numeric(links[[1]]),
                        links[[1]]+attr(links[[1]],"match.length")-1)
     links <- paste0("https://onlinelibrary.wiley.com/action/", links)
