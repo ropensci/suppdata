@@ -230,7 +230,7 @@
   
   #Get XML metadata of article
   crossref_links <- rcrossref::cr_works(dois = doi)$data$link[[1]]
-  xml_url <- rcrossref::crossref_links[which(crossref_links$content.type == "application/xml"),1]$URL
+  xml_url <- crossref_links[which(crossref_links$content.type == "application/xml"),1]$URL
   xml_metadata <- xml2::read_xml(xml_url)
   peerj_id <- xml2::xml_text(xml2::xml_find_first(xml_metadata, paste0(".//article-id[@pub-id-type='publisher-id']")))
   
