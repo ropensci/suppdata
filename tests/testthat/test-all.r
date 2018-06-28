@@ -41,7 +41,6 @@ test_that("suppdata returns...", {
   expect_true(file.exists(suppdata("10.1002/ece3.1679", si=2)))
   expect_error(suppdata('10.1111/ele.12437', si=3))
   
-
   #Multiple downloads and ft_data are handled well
   expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
                                        si=1))))
@@ -56,10 +55,22 @@ test_that("suppdata returns...", {
       1))
   expect_true(file.exists(suppdata(ft_get("10.1371/journal.pone.0126524"),1)))
   
+  
+  #Extra checks for PeerJ
+  expect_true(all(file.exists(suppdata(c("10.7287/peerj.preprints.26561v1",
+                                         "10.7717/peerj.3006"),
+                                       si = 1))))
+  expect_true(all(file.exists(suppdata(c("10.7287/peerj.preprints.26561v1",
+                                         "10.7717/peerj.3006"),
+                                       si = "supp-2"))))
+  expect_equal(attr(suppdata("10.7717/peerj.3006", si = 1), which = "suffix"), "docx")
+  expect_equal(attr(suppdata("10.7287/peerj.preprints.26561", si = 1), which = "suffix"), "csv")
 })
 
 test_that("suppdata fails well", {
   expect_error(suppdata('nonsense', 1)) #warning?
   expect_error(suppdata('10.6084/m9.figshare.979288', 20))
   expect_error(suppdata('10.6084/m9.figshare.979288', "does_exist.csv"))
+  expect_error(suppdata("10.7717/peerj.3006", si = 99))
+  expect_error(suppdata("10.7717/peerj.3006", si = "si_1"))
 })

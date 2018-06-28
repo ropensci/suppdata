@@ -212,3 +212,40 @@
     return(.download(.url.redir(paste0("http://datadryad.org",file)),
                      dir, save.name, cache))
 }
+
+#' @importFrom xml2 xml_text xml_find_all xml_find_first read_xml
+#' @importFrom rcrossref cr_works
+.suppdata.peerj <- function(doi, si, save.name=NA, dir=NA,
+                              cache=TRUE, ...){
+  si_id <- "supp-1"
+  #Argument handling
+  if (is.character(si) && startsWith(si, "supp-"))
+    si_id <- si
+  else if (is.numeric(si))
+    si_id <- paste0("supp-", si)
+  else stop("PeerJ download requires numeric SI info or character starting with 'supp-'.")
+  
+  dir <- .tmpdir(dir)
+  save.name <- .save.name(doi, save.name, si_id)
+  
+  #Get XML metadata of article
+  crossref_links <- rcrossref::cr_works(dois = doi)$data$link[[1]]
+  xml_url <- rcrossref::crossref_links[which(crossref_links$content.type == "application/xml"),1]$URL
+  xml_metadata <- xml2::read_xml(xml_url)
+  peerj_id <- xml2::xml_text(xml2::xml_find_first(xml_metadata, paste0(".//article-id[@pub-id-type='publisher-id']")))
+  
+  #Find download URL
+  xml_si <- xml2::xml_find_first(xml_metadata, paste0(".//supplementary-material[@id='", si_id, "']"))
+  si_url <- xml2::xml_attr(xml_si, "href")
+  
+  # Download and return
+  tryCatch(return(.download(url = si_url,
+                            dir = dir,
+                            save.name = save.name,
+                            cache = cache
+                            # leave suffix detection to .download
+                            )),
+                  error = function(x) {
+                    stop("Cannot download SI for Peerj ", peerj_id, ": ", x)
+                    })
+}
