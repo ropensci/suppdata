@@ -1,6 +1,6 @@
 # Overview
 
-Thank you for your interest in contributing to `suppdata`! The most important contribution you can make to `suppdata` is to add code to download data from another publisher's journals. There are XXX steps you have to go through to do that; I go through them in detail below, but briefly, they are:
+Thank you for your interest in contributing to `suppdata`! The most important contribution you can make to `suppdata` is to add code to download data from another publisher's journals. There are five steps you have to go through to do that; I go through them in detail below, but briefly, they are:
 
 1. Write a download function for a publisher
 2. Modify the DOI lookup function so it knows about your download function
