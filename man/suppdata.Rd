@@ -51,7 +51,7 @@ an ESA journal (\code{esa_data_archives},
 (i.e., auto-detect journal; default), \code{plos},
 \code{wiley}, \code{science}, \code{proceedings},
 \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-\code{biorxiv}, or \code{epmc}.}
+\code{biorxiv}, \code{epmc}, or \code{peerj}.}
 
 \item{save.name}{a name for the file to download
 (\code{character}). If \code{NULL} (default) this will be a
