@@ -25,7 +25,7 @@
 #'     (i.e., auto-detect journal; default), \code{plos},
 #'     \code{wiley}, \code{science}, \code{proceedings},
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-#'     \code{biorxiv}, or \code{epmc}.
+#'     \code{biorxiv}, \code{epmc}, or \code{peerj}.
 #' @param save.name a name for the file to download
 #'     (\code{character}). If \code{NULL} (default) this will be a
 #'     combination of the DOI and SI number
