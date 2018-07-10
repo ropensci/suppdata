@@ -28,14 +28,14 @@
 #' determine the publisher.}
 #' \item{plos}{Public Library of Science journals (e.g., PLoS One;
 #' \url{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126524})}
-#' \item{wiley}{Wiley journals, (e.g.,
-#' \url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract}}
+#' \item{wiley}{Wiley journals (e.g.,
+#' \url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract})}
 #' \item{science}{Science magazine (e.g.,
 #' \url{http://www.sciencemag.org/content/345/6200/1041.short})}
 #' \item{proceedings}{Royal Society of London journals (e.g.,
 #' \url{http://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
 #' \code{vol} and \code{issue} of the article.}
-#' \item{figshare}{Figshare, (e.g.,
+#' \item{figshare}{Figshare (e.g.,
 #' \url{https://doi.org/10.6084/m9.figshare.979288.v1})}
 #' \item{esa_data_archives & esa_data}{You must give article codes,
 #' not DOIs, for these, which you can find on the article itself. An
@@ -54,4 +54,6 @@
 #' then download the file using their supplementary materials API
 #' (\url{http://europepmc.org/restfulwebservice}). See comments above
 #' in 'notes' about EPMC.}
+#' \item{peerj}{PeerJ journals  (e.g., \url{https://doi.org/10.7717/peerj.3006})
+#' and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
 #' }

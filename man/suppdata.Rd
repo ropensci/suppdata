@@ -8,24 +8,21 @@
 \title{Download supplementary materials from journals}
 \usage{
 suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
-  "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc"),
+  "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj"),
   save.name = NA, dir = NA, cache = TRUE, vol = NA, issue = NA,
   list = FALSE, timeout = 10)
 
 \method{suppdata}{character}(x, si, from = c("auto", "plos", "wiley",
   "science", "proceedings", "figshare", "esa_data_archives", "esa_archives",
-  "biorxiv", "epmc"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10)
+  "biorxiv", "epmc", "peerj"), save.name = NA, dir = NA, cache = TRUE,
+  vol = NA, issue = NA, list = FALSE, timeout = 10)
 
-\method{suppdata}{ft_data}(x, si, from = c("auto", "plos", "wiley", "science",
-  "proceedings", "figshare", "esa_data_archives", "esa_archives", "biorxiv",
-  "epmc"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10)
+\method{suppdata}{ft_data}(x, si, from = c("auto"), save.name = NA,
+  dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
+  timeout = 10)
 
-\method{suppdata}{ft}(x, si, from = c("auto", "plos", "wiley", "science",
-  "proceedings", "figshare", "esa_data_archives", "esa_archives", "biorxiv",
-  "epmc"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10)
+\method{suppdata}{ft}(x, si, from = c("auto"), save.name = NA, dir = NA,
+  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10)
 }
 \arguments{
 \item{x}{One of: vector of DOI(s) of article(s) (a
@@ -37,7 +34,7 @@ code (e.g., E092-201).}
 
 \item{si}{number of the supplement to be downloaded (1, 2, 3,
 etc.), or (for ESA and Science journals) the name of the
-supplment (e.g., "S1_data.csv"). Can be a \code{character} or
+supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 \code{numeric}.}
 
 \item{from}{Publisher of article (\code{character}). The default
@@ -114,14 +111,14 @@ of articles from them.
 determine the publisher.}
 \item{plos}{Public Library of Science journals (e.g., PLoS One;
 \url{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126524})}
-\item{wiley}{Wiley journals, (e.g.,
-\url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract}}
+\item{wiley}{Wiley journals (e.g.,
+\url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract})}
 \item{science}{Science magazine (e.g.,
 \url{http://www.sciencemag.org/content/345/6200/1041.short})}
 \item{proceedings}{Royal Society of London journals (e.g.,
 \url{http://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
 \code{vol} and \code{issue} of the article.}
-\item{figshare}{Figshare, (e.g.,
+\item{figshare}{Figshare (e.g.,
 \url{https://doi.org/10.6084/m9.figshare.979288.v1})}
 \item{esa_data_archives & esa_data}{You must give article codes,
 not DOIs, for these, which you can find on the article itself. An
@@ -140,6 +137,8 @@ an \code{esa_data_archive} whose article code is E092-201-D1;
 then download the file using their supplementary materials API
 (\url{http://europepmc.org/restfulwebservice}). See comments above
 in 'notes' about EPMC.}
+\item{peerj}{PeerJ journals  (e.g., \url{https://doi.org/10.7717/peerj.3006})
+and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
 }
 }
 \note{

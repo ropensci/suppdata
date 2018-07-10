@@ -12,7 +12,7 @@
 #'     code (e.g., E092-201).
 #' @param si number of the supplement to be downloaded (1, 2, 3,
 #'     etc.), or (for ESA and Science journals) the name of the
-#'     supplment (e.g., "S1_data.csv"). Can be a \code{character} or
+#'     supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 #'     \code{numeric}.
 #' @param from Publisher of article (\code{character}). The default
 #'     (\code{auto}) uses crossref (\code{\link[rcrossref]{cr_works}})
@@ -76,7 +76,7 @@
 suppdata <- function(x, si,
                      from=c("auto","plos","wiley","science","proceedings",
                             "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc"),
+                            "biorxiv","epmc", "peerj"),
                      save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA,
                      list=FALSE, timeout=10)
     UseMethod("suppdata")
@@ -86,7 +86,7 @@ suppdata.character <- function(x, si,
                                from=c("auto","plos","wiley","science",
                                       "proceedings","figshare",
                                       "esa_data_archives","esa_archives",
-                                      "biorxiv","epmc"),
+                                      "biorxiv","epmc","peerj"),
                                save.name=NA, dir=NA, cache=TRUE,
                                vol=NA, issue=NA, list=FALSE, timeout=10){
     #Basic argument handling
@@ -138,9 +138,7 @@ suppdata.character <- function(x, si,
 }
 #' @export
 #' @rdname suppdata
-suppdata.ft_data <- function(x, si, from=c("auto","plos","wiley","science","proceedings",
-                            "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc"), save.name=NA, dir=NA,
+suppdata.ft_data <- function(x, si, from=c("auto"), save.name=NA, dir=NA,
                              cache=TRUE, vol=NA, issue=NA, list=FALSE,
                              timeout=10){
     from <- match.arg(from)
@@ -160,9 +158,7 @@ suppdata.ft_data <- function(x, si, from=c("auto","plos","wiley","science","proc
 }
 #' @export
 #' @rdname suppdata
-suppdata.ft <- function(x, si, from=c("auto","plos","wiley","science","proceedings",
-                            "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc"), save.name=NA, dir=NA, cache=TRUE,
+suppdata.ft <- function(x, si, from=c("auto"), save.name=NA, dir=NA, cache=TRUE,
                         vol=NA, issue=NA, list=FALSE, timeout=10){
     from <- match.arg(from)
     if(from != "auto")
