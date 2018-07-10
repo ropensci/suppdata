@@ -14,18 +14,15 @@ suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
 
 \method{suppdata}{character}(x, si, from = c("auto", "plos", "wiley",
   "science", "proceedings", "figshare", "esa_data_archives", "esa_archives",
-  "biorxiv", "epmc"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10)
+  "biorxiv", "epmc", "peerj"), save.name = NA, dir = NA, cache = TRUE,
+  vol = NA, issue = NA, list = FALSE, timeout = 10)
 
-\method{suppdata}{ft_data}(x, si, from = c("auto", "plos", "wiley", "science",
-  "proceedings", "figshare", "esa_data_archives", "esa_archives", "biorxiv",
-  "epmc"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10)
+\method{suppdata}{ft_data}(x, si, from = c("auto"), save.name = NA,
+  dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
+  timeout = 10)
 
-\method{suppdata}{ft}(x, si, from = c("auto", "plos", "wiley", "science",
-  "proceedings", "figshare", "esa_data_archives", "esa_archives", "biorxiv",
-  "epmc"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10)
+\method{suppdata}{ft}(x, si, from = c("auto"), save.name = NA, dir = NA,
+  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10)
 }
 \arguments{
 \item{x}{One of: vector of DOI(s) of article(s) (a
