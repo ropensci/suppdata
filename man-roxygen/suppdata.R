@@ -54,4 +54,6 @@
 #' then download the file using their supplementary materials API
 #' (\url{http://europepmc.org/restfulwebservice}). See comments above
 #' in 'notes' about EPMC.}
+#' \item{peerj}{PeerJ journals  (e.g., \url{https://doi.org/10.7717/peerj.3006})
+#' and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
 #' }

@@ -76,7 +76,7 @@
 suppdata <- function(x, si,
                      from=c("auto","plos","wiley","science","proceedings",
                             "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc"),
+                            "biorxiv","epmc", "peerj"),
                      save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA,
                      list=FALSE, timeout=10)
     UseMethod("suppdata")
@@ -86,7 +86,7 @@ suppdata.character <- function(x, si,
                                from=c("auto","plos","wiley","science",
                                       "proceedings","figshare",
                                       "esa_data_archives","esa_archives",
-                                      "biorxiv","epmc"),
+                                      "biorxiv","epmc","peerj"),
                                save.name=NA, dir=NA, cache=TRUE,
                                vol=NA, issue=NA, list=FALSE, timeout=10){
     #Basic argument handling

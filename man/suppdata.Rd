@@ -8,7 +8,7 @@
 \title{Download supplementary materials from journals}
 \usage{
 suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
-  "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc"),
+  "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj"),
   save.name = NA, dir = NA, cache = TRUE, vol = NA, issue = NA,
   list = FALSE, timeout = 10)
 
@@ -140,6 +140,8 @@ an \code{esa_data_archive} whose article code is E092-201-D1;
 then download the file using their supplementary materials API
 (\url{http://europepmc.org/restfulwebservice}). See comments above
 in 'notes' about EPMC.}
+\item{peerj}{PeerJ journals  (e.g., \url{https://doi.org/10.7717/peerj.3006})
+and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
 }
 }
 \note{
