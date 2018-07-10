@@ -12,7 +12,7 @@
 #'     code (e.g., E092-201).
 #' @param si number of the supplement to be downloaded (1, 2, 3,
 #'     etc.), or (for ESA and Science journals) the name of the
-#'     supplment (e.g., "S1_data.csv"). Can be a \code{character} or
+#'     supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 #'     \code{numeric}.
 #' @param from Publisher of article (\code{character}). The default
 #'     (\code{auto}) uses crossref (\code{\link[rcrossref]{cr_works}})
