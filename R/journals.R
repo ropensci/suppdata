@@ -249,3 +249,40 @@
                     stop("Cannot download SI for Peerj ", peerj_id, ": ", x)
                     })
 }
+
+#' Copernicus supports one supplemental file, a zip archive
+#' @importFrom xml2 read_html xml_find_first
+.suppdata.copernicus <- function(doi, si=1, save.name=NA, dir=NA,
+                           cache=TRUE, list=FALSE, unzip.after.download=TRUE, ...){
+  #Argument handling
+  if (!is.numeric(si) || si != 1)
+    stop("Copernius only supports one supplemental archive, si must be numeric '1'")
+  dir <- .tmpdir(dir)
+  # use Copernicus default file naming and ignore save.name
+  save.name <- paste0(unlist(strsplit(x = doi,
+                                      split = "/"))[[2]],
+                           "-supplement.zip")
+  
+  #Find link in the HTML, download, and return (alternatively could parse DOI and construct a well-known URL),
+  #but then we would not check for existence of a Supplement link
+  cop_landing_page <- read_html(x = paste0("https://doi.org/", doi))
+  url <- xml_attr(x = xml_find_first(x = cop_landing_page, xpath = ".//a[text()='Supplement']"),
+                   attr = "href")
+  if (is.na(url))
+    stop("No supplement found for article ", doi)
+  
+  zip <- tryCatch(.download(url, dir, save.name, cache),
+                  error = function(x)
+                    stop("Cannot download supplemental zip for article ", doi))
+  
+  if (unzip.after.download) {
+    output_dir <- file.path(dir, tools::file_path_sans_ext(save.name))
+    files <- unzip(zipfile = zip, exdir = output_dir)
+    if (list) {
+      cat("Files in ZIP:")
+      print(files)
+    }
+    return(file.path(output_dir))
+  }
+  else return(file.path(dir, save.name))
+}

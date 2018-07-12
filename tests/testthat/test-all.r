@@ -65,6 +65,16 @@ test_that("suppdata returns...", {
                                        si = "supp-2"))))
   expect_equal(attr(suppdata("10.7717/peerj.3006", si = 1), which = "suffix"), "docx")
   expect_equal(attr(suppdata("10.7287/peerj.preprints.26561", si = 1), which = "suffix"), "csv")
+  
+  #Checks for Copernicus
+  cop_unzipped_files <- suppdata("10.5194/bg-14-1739-2017", si = 1)
+  expect_true(dir.exists(cop_unzipped_files))
+  expect_length(list.files(cop_unzipped_files), 8)
+  cop_zipfile_only <- suppdata("10.5194/bg-14-1739-2017", si = 1, unzip.after.download = FALSE)
+  expect_true(file.exists(cop_zipfile_only))
+  expect_false(dir.exists(cop_zipfile_only))
+  expect_error(suppdata("10.5194/bg-14-1739-2017", si = 2), "one supplemental archive")
+  expect_error(suppdata("10.5194/bg-14-1739-2017", si = "1"), "one supplemental archive")
 })
 
 test_that("suppdata fails well", {
@@ -73,4 +83,6 @@ test_that("suppdata fails well", {
   expect_error(suppdata('10.6084/m9.figshare.979288', "does_exist.csv"))
   expect_error(suppdata("10.7717/peerj.3006", si = 99))
   expect_error(suppdata("10.7717/peerj.3006", si = "si_1"))
+  expect_error(suppdata("10.5194/bg-15-3625-2018", si = 1), "No supplement found")
+  expect_error(suppdata("10.5194/bg-15-3625-xxxx", si = 1), "Cannot find publisher")
 })

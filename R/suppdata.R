@@ -25,7 +25,7 @@
 #'     (i.e., auto-detect journal; default), \code{plos},
 #'     \code{wiley}, \code{science}, \code{proceedings},
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-#'     \code{biorxiv}, \code{epmc}, or \code{peerj}.
+#'     \code{biorxiv}, \code{epmc}, \code{peerj}, or \code{copernicus}.
 #' @param save.name a name for the file to download
 #'     (\code{character}). If \code{NULL} (default) this will be a
 #'     combination of the DOI and SI number
@@ -42,6 +42,7 @@
 #' @param list if \code{TRUE}, print all files within a zip-file
 #'     downloaded from EPMC (default: FALSE). This is *very* useful if
 #'     using EPMC (see details)
+#' @param ... Additional arguments for specific download sources
 #' @param timeout how long to wait for successful download (default 10
 #'     seconds)
 #' @author Will Pearse (\email{will.pearse@usu.edu}) and Scott
@@ -76,9 +77,9 @@
 suppdata <- function(x, si,
                      from=c("auto","plos","wiley","science","proceedings",
                             "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc", "peerj"),
+                            "biorxiv","epmc", "peerj", "copernicus"),
                      save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA,
-                     list=FALSE, timeout=10)
+                     list=FALSE, timeout=10, ...)
     UseMethod("suppdata")
 #' @export
 #' @rdname suppdata
@@ -86,9 +87,9 @@ suppdata.character <- function(x, si,
                                from=c("auto","plos","wiley","science",
                                       "proceedings","figshare",
                                       "esa_data_archives","esa_archives",
-                                      "biorxiv","epmc","peerj"),
+                                      "biorxiv","epmc","peerj", "copernicus"),
                                save.name=NA, dir=NA, cache=TRUE,
-                               vol=NA, issue=NA, list=FALSE, timeout=10){
+                               vol=NA, issue=NA, list=FALSE, timeout=10, ...){
     #Basic argument handling
     if(length(x) == 0)
         stop("'x' must contain some data!")
@@ -134,13 +135,14 @@ suppdata.character <- function(x, si,
         from <- .suppdata.pub(x)
     func <- .suppdata.func(from)
     return(func(x, si, save.name=save.name, dir=dir, cache=cache,
-                vol=vol, issue=issue, list=list, timeout=timeout))
+                vol=vol, issue=issue, list=list, timeout=timeout,
+                ...=...))
 }
 #' @export
 #' @rdname suppdata
 suppdata.ft_data <- function(x, si, from=c("auto"), save.name=NA, dir=NA,
                              cache=TRUE, vol=NA, issue=NA, list=FALSE,
-                             timeout=10){
+                             timeout=10, ...){
     from <- match.arg(from)
     if(from != "auto")
         stop("Must use 'auto' for 'from' argument with 'ft_data' input")
@@ -152,14 +154,15 @@ suppdata.ft_data <- function(x, si, from=c("auto"), save.name=NA, dir=NA,
     return(setNames(unlist(
         mapply(
             suppdata.character, x=x,si=si,from=from,save.name=save.name,
-            dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout
+            dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout,
+            ...=...
         )
     ),x))
 }
 #' @export
 #' @rdname suppdata
 suppdata.ft <- function(x, si, from=c("auto"), save.name=NA, dir=NA, cache=TRUE,
-                        vol=NA, issue=NA, list=FALSE, timeout=10){
+                        vol=NA, issue=NA, list=FALSE, timeout=10, ...){
     from <- match.arg(from)
     if(from != "auto")
         stop("Must use 'auto' for 'from' argument with 'ft' input")
@@ -170,5 +173,5 @@ suppdata.ft <- function(x, si, from=c("auto"), save.name=NA, dir=NA, cache=TRUE,
         stop("No DOI found in fulltext search")
     return(suppdata.character(x=x,si=si,from=from,save.name=save.name,
                dir=dir,cache=cache,vol=vol,issue=issue,list=list,
-               timeout=timeout))
+               timeout=timeout,...=...))
 }
