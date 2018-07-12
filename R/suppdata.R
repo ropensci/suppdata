@@ -11,7 +11,7 @@
 #'     using ESA journal, you can *only* use the ESA-specific article
 #'     code (e.g., E092-201).
 #' @param si number of the supplement to be downloaded (1, 2, 3,
-#'     etc.), or (for ESA and Science journals) the name of the
+#'     etc.), or (for ESA, Science, and Copernicus journals) the name of the
 #'     supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 #'     \code{numeric}.
 #' @param from Publisher of article (\code{character}). The default
@@ -66,9 +66,15 @@
 #'                                         "esa_archives"))
 #' mammals <- read.csv(suppdata("E092-201", "MCDB_communities.csv",
 #'                                             "esa_data_archives"))
+#'
 #' epmc.fig <- suppdata("10.1371/journal.pone.0126524",
 #'                        "pone.0126524.g005.jpg", "epmc")
 #' #...note this 'SI' is not actually an SI, but rather an image from the paper.
+#' 
+#' copernicus.csv <- suppdata("10.5194/bg-14-1739-2017",
+#'                            "Table S1 v2 UFK FOR_PUBLICATION.csv",
+#'                            save.name = "data.csv")
+#' #...note this 'SI' is not an SI but the name of a file in the suppdata archive.
 #' }
 #' # (examples not run on CRAN to avoid downloading files repeatedly)
 #' @template suppdata

@@ -56,9 +56,14 @@
 #' in 'notes' about EPMC.}
 #' \item{peerj}{PeerJ journals (e.g., \url{https://doi.org/10.7717/peerj.3006})
 #' and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
-#' \item{copernicus}{Copernicus Publications journals (e.g., \url{https://doi.org/10.5194/bg-14-1739-2017}),
-#' see \url{https://publications.copernicus.org/open-access_journals/open_access_journals_a_z.html}
-#' for a full list of journals. Only one supplemental file is supported, so the paramter \code{si} 
-#' must be \code{1}. The additional parameter \code{unzip.after.download} can be set to \code{FALSE}
-#' to only download the supplemental archive.
+#' \item{copernicus}{Copernicus Publications journals (e.g., 
+#' \url{https://doi.org/10.5194/bg-14-1739-2017}), see
+#' \url{https://publications.copernicus.org/open-access_journals/open_access_journals_a_z.html}
+#' for a full list of journals. Only one supplemental archive is used, 
+#' so a numeric \code{si} parameter must be \code{1} to download the 
+#' whole archive, which is saved using Copernicus naming scheme 
+#' (\code{save.name} is ignored). The additional parameter 
+#' \code{unzip.after.download} can be set to \code{FALSE} to not unzip 
+#' the suppdata archive. \code{si} may be the name of a file in that 
+#' archive, so only that file is extracted and saved to \code{save.name}.}
 #' }

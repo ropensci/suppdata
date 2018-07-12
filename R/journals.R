@@ -250,18 +250,22 @@
                     })
 }
 
-#' Copernicus supports one supplemental file, a zip archive
 #' @importFrom xml2 read_html xml_find_first
 .suppdata.copernicus <- function(doi, si=1, save.name=NA, dir=NA,
                            cache=TRUE, list=FALSE, unzip.after.download=TRUE, ...){
+  # Copernicus supports one supplemental file, a zip archive
+  # If si is numeric, the full archive is downloaded.
+  # If si is a character, it must be the name of a file in the suppdata archive.
+  
   #Argument handling
-  if (!is.numeric(si) || si != 1)
-    stop("Copernius only supports one supplemental archive, si must be numeric '1'")
+  if (is.numeric(si) && si != 1)
+    stop("Copernius only supports one supplemental archive, a numeric si must be '1'")
+  save.name <- .save.name(doi, save.name, si)
+  zip.save.name <- paste0(unlist(strsplit(x = doi,
+                                          split = "/"))[[2]],
+                          "-supplement.zip")
+    
   dir <- .tmpdir(dir)
-  # use Copernicus default file naming and ignore save.name
-  save.name <- paste0(unlist(strsplit(x = doi,
-                                      split = "/"))[[2]],
-                           "-supplement.zip")
   
   #Find link in the HTML, download, and return (alternatively could parse DOI and construct a well-known URL),
   #but then we would not check for existence of a Supplement link
@@ -271,18 +275,23 @@
   if (is.na(url))
     stop("No supplement found for article ", doi)
   
-  zip <- tryCatch(.download(url, dir, save.name, cache),
+  zip <- tryCatch(.download(url, dir, zip.save.name, cache),
                   error = function(x)
                     stop("Cannot download supplemental zip for article ", doi))
   
-  if (unzip.after.download) {
-    output_dir <- file.path(dir, tools::file_path_sans_ext(save.name))
-    files <- unzip(zipfile = zip, exdir = output_dir)
-    if (list) {
-      cat("Files in ZIP:")
-      print(files)
+  if (is.numeric(si)) {
+    if (unzip.after.download) {
+      output_dir <- file.path(dir, tools::file_path_sans_ext(save.name))
+      files <- unzip(zipfile = zip, exdir = output_dir)
+      if (list) {
+        cat("Files in ZIP:")
+        print(files)
+      }
+      return(file.path(output_dir))
     }
-    return(file.path(output_dir))
+    # return only zip file path
+    else return(file.path(dir, zip.save.name))
   }
-  else return(file.path(dir, save.name))
+  # return only one file from the archive
+  else return(.unzip(zip, dir, save.name, cache, si, list))
 }
