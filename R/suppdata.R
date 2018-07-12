@@ -27,10 +27,10 @@
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
 #'     \code{biorxiv}, \code{epmc}, \code{peerj}, or \code{copernicus}.
 #' @param save.name a name for the file to download
-#'     (\code{character}). If \code{NULL} (default) this will be a
+#'     (\code{character}). If \code{NA} (default) this will be a
 #'     combination of the DOI and SI number
 #' @param dir directory to save file to (\code{character}). If
-#'     \code{NULL} (default) this will be a temporary directory
+#'     \code{NA} (default) this will be a temporary directory
 #'     created for your files
 #' @param cache if \code{TRUE} (default), the file won't be downloaded
 #'     again if it already exists (in a temporary directory creates,
