@@ -116,3 +116,25 @@ test_that("suppdata fails well", {
   expect_warning(expect_error(suppdata("10.5194/bg-15-3625-xxxx", si = 1), "Cannot find publisher"), "404")
   expect_error(suppdata("10.5194/bg-14-1739-2017", si = "not a file.csv"), "file not in zipfile")
 })
+
+test_that("file name can be set", {
+  filename <- "myfile.R"
+  saved_file <- suppdata("10.6084/m9.figshare.979288", "analysis.R", save.name = filename)
+  expect_true(file.exists(saved_file))
+  expect_equal(basename(saved_file), filename)
+})
+
+test_that("output dir can be set", {
+  testdir <- file.path(tempdir(), "testdir")
+  dir.create(testdir)
+  saved_file <- suppdata("10.6084/m9.figshare.979288", "analysis.R", dir = testdir)
+  expect_true(file.exists(file.path(testdir, "10.6084_m9.figshare.979288_analysis.R")))
+  unlink(testdir)
+})
+
+test_that("zipfile contents can be listed", {
+  expect_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_19799_Fig1_HTML.jpg", list = TRUE), "Files in ZIP")
+  expect_error(expect_output(suppdata(x = "10.1038/nbt.1883", si = "1", list = TRUE), "41598_2018_19799_MOESM1_ESM.pdf"))
+  expect_equal(capture_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_19799_Fig1_HTML.jpg")), "")
+  expect_equal(capture_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_19799_Fig1_HTML.jpg", list = FALSE)), "")
+})
