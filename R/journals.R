@@ -253,7 +253,7 @@
 #' @importFrom xml2 read_html xml_find_first
 .suppdata.copernicus <- function(doi, si=1, save.name=NA, dir=NA,
                            cache=TRUE, list=FALSE, unzip.after.download=TRUE, ...){
-  # Copernicus supports one supplemental file, a zip archive
+  # Copernicus supports one supplemental file, a zip archive or a PDF
   # If si is numeric, the full archive is downloaded.
   # If si is a character, it must be the name of a file in the suppdata archive.
   
@@ -275,23 +275,40 @@
   if (is.na(url))
     stop("No supplement found for article ", doi)
   
-  zip <- tryCatch(.download(url, dir, zip.save.name, cache),
-                  error = function(x)
-                    stop("Cannot download supplemental zip for article ", doi))
-  
-  if (is.numeric(si)) {
-    if (unzip.after.download) {
-      output_dir <- file.path(dir, tools::file_path_sans_ext(save.name))
-      files <- unzip(zipfile = zip, exdir = output_dir)
-      if (list) {
-        cat("Files in ZIP:")
-        print(files)
+  # distinguish pdf or zip via URL suffix
+  if (endsWith(x = url, suffix = "zip")) {
+    zip <- tryCatch(.download(url, dir, zip.save.name, cache),
+                    error = function(x)
+                      stop("Cannot download supplemental zip for article ", doi))
+    
+    if (is.numeric(si)) {
+      if (unzip.after.download) {
+        output_dir <- file.path(dir, tools::file_path_sans_ext(save.name))
+        files <- unzip(zipfile = zip, exdir = output_dir)
+        if (list) {
+          cat("Files in ZIP:")
+          print(files)
+        }
+        return(file.path(output_dir))
       }
-      return(file.path(output_dir))
+      # return only zip file path
+      else return(file.path(dir, zip.save.name))
     }
-    # return only zip file path
-    else return(file.path(dir, zip.save.name))
+    # return only one file from the archive
+    else return(.unzip(zip, dir, save.name, cache, si, list))
   }
-  # return only one file from the archive
-  else return(.unzip(zip, dir, save.name, cache, si, list))
+  else if (endsWith(x = url, suffix = "pdf")) {
+    tryCatch(return(.download(url = url,
+                              dir = dir,
+                              save.name = save.name,
+                              cache = cache
+                              # leave suffix detection to .download
+    )),
+    error = function(x) {
+      stop("Cannot download pdf for Copernicus using ", url, " : ", x)
+    })
+  }
+  else {
+    stop("Unsupported file extension in URL, only zip and pdf are supported but have ", url)
+  }
 }

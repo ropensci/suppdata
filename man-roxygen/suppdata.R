@@ -59,10 +59,11 @@
 #' \item{copernicus}{Copernicus Publications journals (e.g., 
 #' \url{https://doi.org/10.5194/bg-14-1739-2017}), see
 #' \url{https://publications.copernicus.org/open-access_journals/open_access_journals_a_z.html}
-#' for a full list of journals. Only one supplemental archive is used, 
-#' so a numeric \code{si} parameter must be \code{1} to download the 
+#' for a full list of journals. Only one supplemental is supported,
+#' which can be a zip archive or a PDF file. 
+#' A numeric \code{si} parameter must be \code{1} to download the 
 #' whole archive, which is saved using Copernicus naming scheme 
-#' (\code{save.name} is ignored). The additional parameter 
+#' (\code{save.name} is ignored), or download the PDF. The additional parameter 
 #' \code{unzip.after.download} can be set to \code{FALSE} to not unzip 
 #' the suppdata archive. \code{si} may be the name of a file in that 
 #' archive, so only that file is extracted and saved to \code{save.name}.}

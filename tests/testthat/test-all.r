@@ -100,6 +100,10 @@ test_that("Copernicus works", {
   expect_true(file.exists(suppdata("10.5194/bg-14-1739-2017", si = "Table S1 v2 UFK FOR_PUBLICATION.csv", save.name = "data.csv")))
   expect_error(suppdata("10.5194/bg-14-1739-2017", si = 2), "one supplemental archive")
   expect_error(suppdata("10.5194/bg-14-1739-2017", si = "1"), "file not in zipfile")
+  
+  cop_pdf_file <- suppdata("10.5194/acp-2016-189", si = 1)
+  expect_true(file.exists(cop_pdf_file))
+  expect_equal(attr(cop_pdf_file, which = "suffix"), "pdf")
 })
 
 test_that("suppdata fails well", {
