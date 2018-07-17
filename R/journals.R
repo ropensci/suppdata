@@ -164,7 +164,7 @@
                            cache=TRUE, list=FALSE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("EPMB download requires numeric SI info")
+        stop("EPMB download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")
