@@ -62,9 +62,11 @@
 #' for a full list of journals. Only one supplemental is supported,
 #' which can be a zip archive or a PDF file. 
 #' A numeric \code{si} parameter must be \code{1} to download the 
-#' whole archive, which is saved using Copernicus naming scheme 
-#' (\code{save.name} is ignored), or download the PDF. The additional parameter 
-#' \code{unzip.after.download} can be set to \code{FALSE} to not unzip 
-#' the suppdata archive. \code{si} may be the name of a file in that 
+#' whole archive, which is saved using Copernicus naming scheme
+#' (<journalname>-<volume>-<firstpage>-<year>-supplement.zip)
+#' and \code{save.name} is ignored, or to download the PDF.
+#' If \code{si} matches the name of the supllemental archive (i.e. uses the
+#' Copernics naming scheme), then the suppdata archive is not unzipped.
+#' \code{si} may be the name of a file in that 
 #' archive, so only that file is extracted and saved to \code{save.name}.}
 #' }
