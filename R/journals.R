@@ -252,7 +252,7 @@
 
 #' @importFrom xml2 read_html xml_find_first
 .suppdata.copernicus <- function(doi, si=1, save.name=NA, dir=NA,
-                           cache=TRUE, list=FALSE, unzip.after.download=TRUE, ...){
+                           cache=TRUE, list=FALSE, ...){
   # Copernicus supports one supplemental file, a zip archive or a PDF
   # If si is numeric, the full archive is downloaded.
   # If si is a character, it must be the name of a file in the suppdata archive.

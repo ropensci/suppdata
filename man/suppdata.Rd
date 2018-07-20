@@ -10,19 +10,19 @@
 suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
   "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj",
   "copernicus"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10, ...)
+  issue = NA, list = FALSE, timeout = 10)
 
 \method{suppdata}{character}(x, si, from = c("auto", "plos", "wiley",
   "science", "proceedings", "figshare", "esa_data_archives", "esa_archives",
   "biorxiv", "epmc", "peerj", "copernicus"), save.name = NA, dir = NA,
-  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10, ...)
+  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10)
 
 \method{suppdata}{ft_data}(x, si, from = c("auto"), save.name = NA,
   dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
-  timeout = 10, ...)
+  timeout = 10)
 
 \method{suppdata}{ft}(x, si, from = c("auto"), save.name = NA, dir = NA,
-  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10, ...)
+  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10)
 }
 \arguments{
 \item{x}{One of: vector of DOI(s) of article(s) (a
@@ -74,8 +74,6 @@ using EPMC (see details)}
 
 \item{timeout}{how long to wait for successful download (default 10
 seconds)}
-
-\item{...}{Additional arguments for specific download sources}
 }
 \description{
 Put a call to this function where you would put a file-path - everything 
