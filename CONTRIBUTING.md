@@ -73,7 +73,7 @@ library(roxygen2)
 roxygenize("path/to/suppdata")
 ```
 
-...if you're an RStudio person there's a button for this I think. If you're an emacs person like me, there are several and you probably have a strong opinion about which is best :p
+...if you're an RStudio person there's a button for this in the "Build" tab ("More" > "Document"). If you're an emacs person like me, there are several and you probably have a strong opinion about which is best :p
 
 ## (4) Write a brief unit test checking your function works
 

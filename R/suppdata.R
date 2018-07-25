@@ -11,7 +11,7 @@
 #'     using ESA journal, you can *only* use the ESA-specific article
 #'     code (e.g., E092-201).
 #' @param si number of the supplement to be downloaded (1, 2, 3,
-#'     etc.), or (for ESA and Science journals) the name of the
+#'     etc.), or (for ESA, Science, and Copernicus journals) the name of the
 #'     supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 #'     \code{numeric}.
 #' @param from Publisher of article (\code{character}). The default
@@ -25,12 +25,12 @@
 #'     (i.e., auto-detect journal; default), \code{plos},
 #'     \code{wiley}, \code{science}, \code{proceedings},
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-#'     \code{biorxiv}, \code{epmc}, or \code{peerj}.
+#'     \code{biorxiv}, \code{epmc}, \code{peerj}, or \code{copernicus}.
 #' @param save.name a name for the file to download
-#'     (\code{character}). If \code{NULL} (default) this will be a
+#'     (\code{character}). If \code{NA} (default) this will be a
 #'     combination of the DOI and SI number
 #' @param dir directory to save file to (\code{character}). If
-#'     \code{NULL} (default) this will be a temporary directory
+#'     \code{NA} (default) this will be a temporary directory
 #'     created for your files
 #' @param cache if \code{TRUE} (default), the file won't be downloaded
 #'     again if it already exists (in a temporary directory creates,
@@ -65,9 +65,15 @@
 #'                                         "esa_archives"))
 #' mammals <- read.csv(suppdata("E092-201", "MCDB_communities.csv",
 #'                                             "esa_data_archives"))
+#'
 #' epmc.fig <- suppdata("10.1371/journal.pone.0126524",
 #'                        "pone.0126524.g005.jpg", "epmc")
 #' #...note this 'SI' is not actually an SI, but rather an image from the paper.
+#' 
+#' copernicus.csv <- suppdata("10.5194/bg-14-1739-2017",
+#'                            "Table S1 v2 UFK FOR_PUBLICATION.csv",
+#'                            save.name = "data.csv")
+#' #...note this 'SI' is not an SI but the name of a file in the suppdata archive.
 #' }
 #' # (examples not run on CRAN to avoid downloading files repeatedly)
 #' @template suppdata
@@ -76,7 +82,7 @@
 suppdata <- function(x, si,
                      from=c("auto","plos","wiley","science","proceedings",
                             "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc", "peerj"),
+                            "biorxiv","epmc", "peerj", "copernicus"),
                      save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA,
                      list=FALSE, timeout=10)
     UseMethod("suppdata")
@@ -86,7 +92,7 @@ suppdata.character <- function(x, si,
                                from=c("auto","plos","wiley","science",
                                       "proceedings","figshare",
                                       "esa_data_archives","esa_archives",
-                                      "biorxiv","epmc","peerj"),
+                                      "biorxiv","epmc","peerj", "copernicus"),
                                save.name=NA, dir=NA, cache=TRUE,
                                vol=NA, issue=NA, list=FALSE, timeout=10){
     #Basic argument handling
@@ -152,9 +158,8 @@ suppdata.ft_data <- function(x, si, from=c("auto"), save.name=NA, dir=NA,
     return(setNames(unlist(
         mapply(
             suppdata.character, x=x,si=si,from=from,save.name=save.name,
-            dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout
-        )
-    ),x))
+            dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout)
+        ), x))
 }
 #' @export
 #' @rdname suppdata

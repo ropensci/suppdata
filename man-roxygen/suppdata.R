@@ -54,6 +54,19 @@
 #' then download the file using their supplementary materials API
 #' (\url{http://europepmc.org/restfulwebservice}). See comments above
 #' in 'notes' about EPMC.}
-#' \item{peerj}{PeerJ journals  (e.g., \url{https://doi.org/10.7717/peerj.3006})
+#' \item{peerj}{PeerJ journals (e.g., \url{https://doi.org/10.7717/peerj.3006})
 #' and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
+#' \item{copernicus}{Copernicus Publications journals (e.g., 
+#' \url{https://doi.org/10.5194/bg-14-1739-2017}), see
+#' \url{https://publications.copernicus.org/open-access_journals/open_access_journals_a_z.html}
+#' for a full list of journals. Only one supplemental is supported,
+#' which can be a zip archive or a PDF file. 
+#' A numeric \code{si} parameter must be \code{1} to download the 
+#' whole archive, which is saved using Copernicus naming scheme
+#' (<journalname>-<volume>-<firstpage>-<year>-supplement.zip)
+#' and \code{save.name} is ignored, or to download the PDF.
+#' If \code{si} matches the name of the supllemental archive (i.e. uses the
+#' Copernics naming scheme), then the suppdata archive is not unzipped.
+#' \code{si} may be the name of a file in that 
+#' archive, so only that file is extracted and saved to \code{save.name}.}
 #' }

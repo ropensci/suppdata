@@ -8,14 +8,14 @@
 \title{Download supplementary materials from journals}
 \usage{
 suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
-  "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj"),
-  save.name = NA, dir = NA, cache = TRUE, vol = NA, issue = NA,
-  list = FALSE, timeout = 10)
+  "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj",
+  "copernicus"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
+  issue = NA, list = FALSE, timeout = 10)
 
 \method{suppdata}{character}(x, si, from = c("auto", "plos", "wiley",
   "science", "proceedings", "figshare", "esa_data_archives", "esa_archives",
-  "biorxiv", "epmc", "peerj"), save.name = NA, dir = NA, cache = TRUE,
-  vol = NA, issue = NA, list = FALSE, timeout = 10)
+  "biorxiv", "epmc", "peerj", "copernicus"), save.name = NA, dir = NA,
+  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10)
 
 \method{suppdata}{ft_data}(x, si, from = c("auto"), save.name = NA,
   dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
@@ -33,7 +33,7 @@ using ESA journal, you can *only* use the ESA-specific article
 code (e.g., E092-201).}
 
 \item{si}{number of the supplement to be downloaded (1, 2, 3,
-etc.), or (for ESA and Science journals) the name of the
+etc.), or (for ESA, Science, and Copernicus journals) the name of the
 supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 \code{numeric}.}
 
@@ -48,14 +48,14 @@ an ESA journal (\code{esa_data_archives},
 (i.e., auto-detect journal; default), \code{plos},
 \code{wiley}, \code{science}, \code{proceedings},
 \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-\code{biorxiv}, \code{epmc}, or \code{peerj}.}
+\code{biorxiv}, \code{epmc}, \code{peerj}, or \code{copernicus}.}
 
 \item{save.name}{a name for the file to download
-(\code{character}). If \code{NULL} (default) this will be a
+(\code{character}). If \code{NA} (default) this will be a
 combination of the DOI and SI number}
 
 \item{dir}{directory to save file to (\code{character}). If
-\code{NULL} (default) this will be a temporary directory
+\code{NA} (default) this will be a temporary directory
 created for your files}
 
 \item{cache}{if \code{TRUE} (default), the file won't be downloaded
@@ -137,8 +137,21 @@ an \code{esa_data_archive} whose article code is E092-201-D1;
 then download the file using their supplementary materials API
 (\url{http://europepmc.org/restfulwebservice}). See comments above
 in 'notes' about EPMC.}
-\item{peerj}{PeerJ journals  (e.g., \url{https://doi.org/10.7717/peerj.3006})
+\item{peerj}{PeerJ journals (e.g., \url{https://doi.org/10.7717/peerj.3006})
 and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
+\item{copernicus}{Copernicus Publications journals (e.g., 
+\url{https://doi.org/10.5194/bg-14-1739-2017}), see
+\url{https://publications.copernicus.org/open-access_journals/open_access_journals_a_z.html}
+for a full list of journals. Only one supplemental is supported,
+which can be a zip archive or a PDF file. 
+A numeric \code{si} parameter must be \code{1} to download the 
+whole archive, which is saved using Copernicus naming scheme
+(<journalname>-<volume>-<firstpage>-<year>-supplement.zip)
+and \code{save.name} is ignored, or to download the PDF.
+If \code{si} matches the name of the supllemental archive (i.e. uses the
+Copernics naming scheme), then the suppdata archive is not unzipped.
+\code{si} may be the name of a file in that 
+archive, so only that file is extracted and saved to \code{save.name}.}
 }
 }
 \note{
@@ -162,9 +175,15 @@ fungi <- read.csv(suppdata("E093-059", "myco_db.csv",
                                         "esa_archives"))
 mammals <- read.csv(suppdata("E092-201", "MCDB_communities.csv",
                                             "esa_data_archives"))
+
 epmc.fig <- suppdata("10.1371/journal.pone.0126524",
                        "pone.0126524.g005.jpg", "epmc")
 #...note this 'SI' is not actually an SI, but rather an image from the paper.
+
+copernicus.csv <- suppdata("10.5194/bg-14-1739-2017",
+                           "Table S1 v2 UFK FOR_PUBLICATION.csv",
+                           save.name = "data.csv")
+#...note this 'SI' is not an SI but the name of a file in the suppdata archive.
 }
 # (examples not run on CRAN to avoid downloading files repeatedly)
 }

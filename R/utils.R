@@ -26,7 +26,8 @@
                      "221" = .suppdata.science,
                      "175" = .suppdata.proceedings,
                      "246" = .suppdata.biorxiv,
-                     "4443" = .suppdata.peerj
+                     "4443" = .suppdata.peerj,
+                     "3145" = .suppdata.copernicus
                      )
     if(!is.null(output))
         return(output)
@@ -43,7 +44,8 @@
                      "biorxiv" = .suppdata.biorxiv,
                      "epmc" = .suppdata.epmc,
                      "dryad" = .suppdata.dryad,
-                     "peerj" = .suppdata.peerj
+                     "peerj" = .suppdata.peerj,
+                     "copernicus" = .suppdata.copernicus
                      )
     #If all else fails, try EPMC
     if(is.null(output))
