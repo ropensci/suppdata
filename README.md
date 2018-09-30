@@ -30,7 +30,7 @@ uses `rcrossref` to lookup which journal the article is in.
 
 ```
 library(devtools)
-install_github("willpearse/suppdata")
+install_github("ropensci/suppdata")
 library(suppdata)
 ```
 
