@@ -19,9 +19,11 @@ test_that("ESA archives works", {
   expect_true(file.exists(suppdata("E093-059", "myco_db.csv", "esa_archives")))
   expect_identical(attr(suppdata("E093-059", "myco_db.csv", "esa_archives"),
                         "suffix"), "csv")
+  })
+
+test_that("ESA data archives works", {
   expect_true(file.exists(suppdata("E092-201", "MCDB_communities.csv",
                                    "esa_data_archives")))
-  
 })
 
 test_that("Science works", {
