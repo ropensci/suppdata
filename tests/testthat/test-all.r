@@ -19,9 +19,11 @@ test_that("ESA archives works", {
   expect_true(file.exists(suppdata("E093-059", "myco_db.csv", "esa_archives")))
   expect_identical(attr(suppdata("E093-059", "myco_db.csv", "esa_archives"),
                         "suffix"), "csv")
+  })
+
+test_that("ESA data archives works", {
   expect_true(file.exists(suppdata("E092-201", "MCDB_communities.csv",
                                    "esa_data_archives")))
-  
 })
 
 test_that("Science works", {
@@ -30,8 +32,8 @@ test_that("Science works", {
 })
 
 test_that("'Proceedings of the royal society Biology' (RSBP) works", {
-  expect_true(file.exists(suppdata("10.1098/rspb.2015.0338", vol=282,
-                                   issue=1811, 1)))
+  expect_true(file.exists(suppdata("10.1098/rspb.2015.0338", vol = 282,
+                                   issue = 1811, 1)))
 })
 
 test_that("'bioRxiv works", {
@@ -54,25 +56,27 @@ test_that("DRYAD works", {
 })
 
 test_that("Wiley works", {
-  expect_true(file.exists(suppdata("10.1111/ele.12437", si=1)))
-  expect_true(file.exists(suppdata("10.1111/ele.12437", si=2)))
-  expect_true(file.exists(suppdata("10.1002/ece3.1679", si=2)))
-  expect_error(suppdata('10.1111/ele.12437', si=3))
+  expect_true(file.exists(suppdata("10.1111/ele.12437", si = 1)))
+  expect_true(file.exists(suppdata("10.1111/ele.12437", si = 2)))
+  expect_true(file.exists(suppdata("10.1002/ece3.1679", si = 2)))
+  expect_error(suppdata('10.1111/ele.12437', si = 3))
 })
 
-test_that("multiple downloads and ft_data are handled well", {
+test_that("multiple downloads are handled well", {
   expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
-                                       si=1))))
+                                       si = 1))))
   expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
-                                       si=2:1))))
+                                       si = 2:1))))
   expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"),
-                                       si=1))))
-  expect_true(file.exists(suppdata(ft_search("beyond the edge with edam", limit=1),1)))
-  expect_error(suppdata(ft_search("beyond the edge with edam"),1))
-  expect_error(suppdata(
-      ft_get(c("10.1371/journal.pone.0126524","10.1371/journal.pone.0126524")),
-      1))
-  expect_true(file.exists(suppdata(ft_get("10.1371/journal.pone.0126524"),1)))
+                                       si = 1))))
+})
+
+test_that("fulltext functions as input are handled well", {
+  skip_if_not_installed("fulltext")
+  expect_true(file.exists(suppdata(fulltext::ft_search("beyond the edge with edam", limit = 1), 1)))
+  expect_error(suppdata(fulltext::ft_search("beyond the edge with edam"), 1))
+  expect_error(suppdata(fulltext::ft_get(c("10.1371/journal.pone.0126524","10.1371/journal.pone.0126524")), 1))
+  expect_true(file.exists(suppdata(fulltext::ft_get("10.1371/journal.pone.0126524"), 1)))
 })
 
 test_that("PeerJ works", {
@@ -112,6 +116,7 @@ test_that("Copernicus works", {
 
 test_that("suppdata fails well", {
   expect_error(expect_warning(suppdata('nonsense', 1), "404"), "nonsense")
+  expect_error(suppdata("10.6084/m9.figshare.979288", si = c(1,2,3)), "length")
   expect_error(suppdata('10.6084/m9.figshare.979288', 20))
   expect_error(suppdata('10.6084/m9.figshare.979288', "does_exist.csv"))
   expect_error(suppdata("10.7717/peerj.3006", si = 99))
@@ -119,6 +124,21 @@ test_that("suppdata fails well", {
   expect_error(suppdata("10.5194/bg-15-3625-2018", si = 1), "No supplement found")
   expect_warning(expect_error(suppdata("10.5194/bg-15-3625-xxxx", si = 1), "Cannot find publisher"), "404")
   expect_error(suppdata("10.5194/bg-14-1739-2017", si = "not a file.csv"), "file not in zipfile")
+  expect_error(suppdata("10.5061/dryad.34m6j", si = 999), "character SI info")
+  expect_error(suppdata("10.1101/016386", si = "999"), "numeric SI info")
+  expect_error(suppdata("10.1371/journal.pone.0126524", si = 999, "epmc"), "character SI info")
+  expect_error(suppdata("10.1098/rspb.2015.0338", vol = 282, issue = 1811, "99"), "numeric SI info")
+  expect_error(suppdata("10.1126/science.1255768", 999), "character SI info")
+  expect_error(suppdata("E092-201", 999, "esa_data_archives"), "character SI info")
+  expect_error(suppdata("E093-059", 999, "esa_archives"), "character SI info")
+  expect_error(suppdata("10.6084/m9.figshare.979288", FALSE), "'si' must be numeric or character")
+  expect_error(suppdata:::.suppdata.figshare("10.6084/m9.figshare.979288", FALSE), "numeric or character SI info")
+  expect_error(suppdata("10.1371/journal.pone.0127900", "999"), "numeric SI info")
+  expect_error(suppdata("10.1111/ele.12437", "999"), "numeric SI info")
+  expect_error(suppdata:::.suppdata.plos("10.1111/ele.12437", 1), "Unrecognised PLoS journal")
+  expect_error(suppdata(as.character(c()), "1"), "'x' must contain some data")
+  expect_error(suppdata("10.1371/journal.pone.0127900", 1, dir = "/wrong.path"), "must exist")
+  expect_error(suppdata(fulltext::ft_search("complete ghibberish", limit = 1), 1), "No DOI found in fulltext search")
 })
 
 test_that("file name can be set", {

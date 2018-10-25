@@ -7,22 +7,24 @@
 \alias{suppdata.ft}
 \title{Download supplementary materials from journals}
 \usage{
-suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
-  "figshare", "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj",
-  "copernicus"), save.name = NA, dir = NA, cache = TRUE, vol = NA,
-  issue = NA, list = FALSE, timeout = 10)
-
-\method{suppdata}{character}(x, si, from = c("auto", "plos", "wiley",
-  "science", "proceedings", "figshare", "esa_data_archives", "esa_archives",
+suppdata(x, si, from = c("auto", "plos", "wiley", "science",
+  "proceedings", "figshare", "esa_data_archives", "esa_archives",
   "biorxiv", "epmc", "peerj", "copernicus"), save.name = NA, dir = NA,
   cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10)
+
+\method{suppdata}{character}(x, si, from = c("auto", "plos", "wiley",
+  "science", "proceedings", "figshare", "esa_data_archives",
+  "esa_archives", "biorxiv", "epmc", "peerj", "copernicus"),
+  save.name = NA, dir = NA, cache = TRUE, vol = NA, issue = NA,
+  list = FALSE, timeout = 10)
 
 \method{suppdata}{ft_data}(x, si, from = c("auto"), save.name = NA,
   dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
   timeout = 10)
 
-\method{suppdata}{ft}(x, si, from = c("auto"), save.name = NA, dir = NA,
-  cache = TRUE, vol = NA, issue = NA, list = FALSE, timeout = 10)
+\method{suppdata}{ft}(x, si, from = c("auto"), save.name = NA,
+  dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
+  timeout = 10)
 }
 \arguments{
 \item{x}{One of: vector of DOI(s) of article(s) (a
@@ -32,7 +34,7 @@ suppdata(x, si, from = c("auto", "plos", "wiley", "science", "proceedings",
 using ESA journal, you can *only* use the ESA-specific article
 code (e.g., E092-201).}
 
-\item{si}{number of the supplement to be downloaded (1, 2, 3,
+\item{si}{number of the supplementary information (SI) to be downloaded (1, 2, 3,
 etc.), or (for ESA, Science, and Copernicus journals) the name of the
 supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 \code{numeric}.}
@@ -183,7 +185,7 @@ epmc.fig <- suppdata("10.1371/journal.pone.0126524",
 copernicus.csv <- suppdata("10.5194/bg-14-1739-2017",
                            "Table S1 v2 UFK FOR_PUBLICATION.csv",
                            save.name = "data.csv")
-#...note this 'SI' is not an SI but the name of a file in the suppdata archive.
+#...note this 'SI' is not an SI but the name of a file in the supplementary information archive.
 }
 # (examples not run on CRAN to avoid downloading files repeatedly)
 }

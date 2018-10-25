@@ -18,8 +18,7 @@
         stop("Unrecognised PLoS journal in DOI ", doi)
     journal <- journals[journal]
 
-#Download and return
-    destination <- file.path(dir, save.name)
+    # Download and return
     url <- paste0("http://journals.plos.org/", journal,
                   "/article/asset?unique&id=info:doi/", doi, ".s",
                   formatC(si, width=3, flag="0"))
@@ -61,7 +60,6 @@
     url <- links[si]
     
     #Download and return
-    destination <- file.path(dir, save.name)
     return(.download(url, dir, save.name, cache))
 }
 
@@ -101,7 +99,7 @@
                                         cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("ESA Archives download requires character SI info")
+        stop("ESA Data Archives download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(esa, save.name, si)
 
@@ -164,7 +162,7 @@
                            cache=TRUE, list=FALSE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("EPMB download requires character SI info")
+        stop("EPMC download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")
@@ -201,7 +199,7 @@
                             cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("DataDRYAD download requires numeric SI info")
+        stop("DataDRYAD download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     
