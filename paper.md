@@ -73,7 +73,7 @@ As `suppdata` was, originally, part of `fulltext` [@Chamberlain2018],
 it is already being used in a number of research projects. One such
 project is `natdb`, a package that builds a database of functional
 traits from published sources. The software is currently available on
-GitHub (https://github.com/willpearse/suppdata), and we plan to
+GitHub (https://github.com/ropensci/suppdata), and we plan to
 distribute it through ROpenSci and CRAN.
 
 # References
