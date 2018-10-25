@@ -18,8 +18,7 @@
         stop("Unrecognised PLoS journal in DOI ", doi)
     journal <- journals[journal]
 
-#Download and return
-    destination <- file.path(dir, save.name)
+    # Download and return
     url <- paste0("http://journals.plos.org/", journal,
                   "/article/asset?unique&id=info:doi/", doi, ".s",
                   formatC(si, width=3, flag="0"))
@@ -61,7 +60,6 @@
     url <- links[si]
     
     #Download and return
-    destination <- file.path(dir, save.name)
     return(.download(url, dir, save.name, cache))
 }
 
@@ -201,7 +199,7 @@
                             cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("DataDRYAD download requires numeric SI info")
+        stop("DataDRYAD download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     

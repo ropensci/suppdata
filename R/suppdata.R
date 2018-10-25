@@ -148,7 +148,7 @@ suppdata.ft_data <- function(x, si, from=c("auto"), save.name=NA, dir=NA,
                              cache=TRUE, vol=NA, issue=NA, list=FALSE,
                              timeout=10){
     from <- match.arg(from)
-    if(from != "auto")
+    if(from != "auto") # probably never gets here because of match.arg
         stop("Must use 'auto' for 'from' argument with 'ft_data' input")
     x <- unlist(lapply(x, function(x) x$dois))
     if(length(x) > 1)
