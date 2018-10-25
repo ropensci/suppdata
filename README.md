@@ -8,7 +8,7 @@
 
 William D. Pearse and Scott Chamberlain
 
-# Overview
+## Overview
 
 The aim of this package is to aid downloading data from published
 papers. To download the supplementary data from a PLoS paper, for
@@ -26,7 +26,7 @@ just want to make sure that you know where all your data came from and
 want a completely reproducible "audit trail" of what you've done.
 It uses [`rcrossref`](https://cran.r-project.org/package=rcrossref) to lookup which journal the article is in.
 
-# How to install and load this development version
+## How to install and load this development version
 
 ```
 library(devtools)
@@ -37,7 +37,7 @@ library(suppdata)
 This package depends on the packages `httr`, `xml2`,
 `jsonlite`, and `rcrossref`.
 
-# Supported publishers and repositories
+## Supported publishers and repositories
 
 - [bioRxiv](https://www.biorxiv.org/) (`biorxiv`)
 - [Copernicus Publications](https://publications.copernicus.org/) (`copernicus`)
@@ -53,12 +53,12 @@ This package depends on the packages `httr`, `xml2`,
 
 See a list of potential sources at [#2](https://github.com/ropensci/suppdata/issues/2) - requests welcome!
 
-# Contributing
+## Contributing
 
 [For more details on how to contribute to the package, check out the
 guide in `CONTRIBUTING.MD`](CONTRIBUTING.md).
 
-# A more detailed set of motivations for `suppdata`
+## A more detailed set of motivations for `suppdata`
 
 `suppdata` is an R package to provide easy, reproducible
 access to supplemental materials within R. Thus `suppdata` facilitates
@@ -97,11 +97,11 @@ c.data <- comparative.data(tree, traits, species)
 phylosig(c.data$phy, c.data$data$body.mass)
 ```
 
-# A guided walk through `suppdata`
+## A guided walk through `suppdata`
 
 The aim of `suppdata` is to make it as easy as possible for you to write reproducible analysis scripts that make use of published data. So let's start with that first, simplest case: how to make use of published data in an analysis.
 
-## Learning by example
+### Learning by example
 Below is an example of an analysis run using `suppdata`. Read through it first, and then we'll go through what all the parts mean.
 
 ```{R}
@@ -134,11 +134,10 @@ The second call to `suppdata`, which makes use of `read.delim`, shows two of the
 
 That's it! You now know all you need to in order to use `suppdata`! The rest of the lines of code merge these datasets together, and then calculate something called _phylogenetic signal_ in these datasets. If you're an evolutionary biologist, those lines might be interesting to you. If you're not, then don't worry about them.
 
-## Caching and saving to a specific directory
+### Caching and saving to a specific directory
 
 Sometimes, you will want to use `suppdata` to build a store of files on your hard-drive. If so, you should know that `suppdata` takes three optional arguments: `cache`, `dir`, and `save.name`. If you specify `cache=FALSE`, it will turn off `suppdata`'s caching of files: this will force it to download your data again. This is mostly useful if you somehow make `suppdata` foul itself up (maybe you hit control-c or stop during a download) and so `suppdata` has only half-downloaded a file, and so thinks it's cached something when it hasn't. If you get an error when using `suppdata`, this is a good thing to try setting.
 
 `dir` specifies a directory where `suppdata` should store files, and `save.name` specifies the name that the file should be saved under when saved. This is useful if you want to make a folder on your computer that contains certain files you use a lot: `suppdata` will cache from this folder if you tell it to, and so you can build up a reproducible selection of data to use inbetween `R` sessions.
 
 [![rofooter](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
-
