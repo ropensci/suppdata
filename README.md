@@ -23,8 +23,8 @@ suppdata("10.1371/journal.pone.0127900", 1)
 
 This sort of thing is very useful if you're doing meta-analyses, or
 just want to make sure that you know where all your data came from and
-want a completely reproducible "audit trail" of what you've done. It
-uses `rcrossref` to lookup which journal the article is in.
+want a completely reproducible "audit trail" of what you've done.
+It uses [`rcrossref`](https://cran.r-project.org/package=rcrossref) to lookup which journal the article is in.
 
 # How to install and load this development version
 
@@ -41,7 +41,7 @@ This package depends on the packages `httr`, `xml2`,
 # Contributing
 
 [For more details on how to contribute to the package, check out the
-guide in `CONTRIBUTING.MD`](https://github.com/willpearse/suppdata/blob/master/CONTRIBUTING.md).
+guide in `CONTRIBUTING.MD`](CONTRIBUTING.md).
 
 # A more detailed set of motivations for `suppdata`
 
