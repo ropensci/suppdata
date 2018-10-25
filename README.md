@@ -37,6 +37,21 @@ library(suppdata)
 This package depends on the packages `httr`, `xml2`,
 `jsonlite`, and `rcrossref`.
 
+# Supported publishers and repositories
+
+- [bioRxiv](https://www.biorxiv.org/) (`biorxiv`)
+- [Copernicus Publications](https://publications.copernicus.org/) (`copernicus`)
+- [DRYAD](https://datadryad.org/) (`dryad`)
+- [Ecological Society of Ameria - Ecological Archives](http://esapubs.org/archive/) (`esa_archives` and `esa_data_archives`)
+- [Europe PMC](https://europepmc.org/) (`epmc`, multiple publishers from life-sciences upported including BMJ Journals, eLife, F1000Research, Wellcome Open Research, Gates Open Research)
+- [figshare](https://figshare.com/) (`figshare`)
+- [PeerJ](https://peerj.com/) (`peerj`)
+- [PLOS | Public Library of Science](https://www.plos.org/) (`plos`)
+- [Proceedings of the royal society Biology (RSBP)](http://rspb.royalsocietypublishing.org/) (`proceedings`)
+- [Science](https://www.sciencemag.org/) (`science`)
+- [Wiley](https://onlinelibrary.wiley.com/) (`wiley`)
+
+See a list of potential sources at [#2](https://github.com/ropensci/suppdata/issues/2) - requests welcome!
 
 # Contributing
 
