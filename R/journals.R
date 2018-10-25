@@ -101,7 +101,7 @@
                                         cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("ESA Archives download requires character SI info")
+        stop("ESA Data Archives download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(esa, save.name, si)
 
@@ -164,7 +164,7 @@
                            cache=TRUE, list=FALSE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("EPMB download requires character SI info")
+        stop("EPMC download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")

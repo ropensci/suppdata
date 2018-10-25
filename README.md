@@ -19,7 +19,7 @@ library(suppdata)
 suppdata("10.1371/journal.pone.0127900", 1)
 ```
 
-...and this would download the first SI from the paper.
+...and this would download the first supplementary information (SI) from the paper.
 
 This sort of thing is very useful if you're doing meta-analyses, or
 just want to make sure that you know where all your data came from and

@@ -10,7 +10,7 @@
 #'     \code{fulltext}'s \code{\link[fulltext]{ft_search}}. Note: if
 #'     using ESA journal, you can *only* use the ESA-specific article
 #'     code (e.g., E092-201).
-#' @param si number of the supplement to be downloaded (1, 2, 3,
+#' @param si number of the supplementary information (SI) to be downloaded (1, 2, 3,
 #'     etc.), or (for ESA, Science, and Copernicus journals) the name of the
 #'     supplement (e.g., "S1_data.csv"). Can be a \code{character} or
 #'     \code{numeric}.
@@ -73,7 +73,7 @@
 #' copernicus.csv <- suppdata("10.5194/bg-14-1739-2017",
 #'                            "Table S1 v2 UFK FOR_PUBLICATION.csv",
 #'                            save.name = "data.csv")
-#' #...note this 'SI' is not an SI but the name of a file in the suppdata archive.
+#' #...note this 'SI' is not an SI but the name of a file in the supplementary information archive.
 #' }
 #' # (examples not run on CRAN to avoid downloading files repeatedly)
 #' @template suppdata
