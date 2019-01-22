@@ -173,7 +173,7 @@
                doi)), ".//pmcid"))
     url <- paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/",
                   pmc.id[[1]], "/supplementaryFiles")
-    zip <- tryCatch(.download(url,dir,zip.save.name,cache),
+    zip <- tryCatch(.download(url,dir,zip.save.name,cache,zip=TRUE),
                     error=function(x)
                         stop("Cannot find SI for EPMC article ID ",pmc.id[[1]]))
     return(.unzip(zip, dir, save.name, cache, si, list))
@@ -275,7 +275,7 @@
   
   # distinguish pdf or zip via URL suffix
   if (endsWith(x = url, suffix = "zip")) {
-    zip <- tryCatch(.download(url, dir, zip.save.name, cache),
+    zip <- tryCatch(.download(url, dir, zip.save.name, cache, zip=TRUE),
                     error = function(x)
                       stop("Cannot download supplemental zip for article ", doi))
     

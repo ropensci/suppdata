@@ -77,7 +77,7 @@
 
 # Internal download function
 #' @importFrom utils download.file
-.download <- function(url, dir, save.name, cache=TRUE, suffix=NULL){
+.download <- function(url, dir, save.name, cache=TRUE, suffix=NULL, zip=FALSE){
     destination <- file.path(dir, save.name)
     if(is.null(suffix))
         suffix <- .file.suffix(url, 4)
@@ -87,8 +87,12 @@
             attr(destination, "suffix") <- suffix
         return(destination)
     }
-    
-    result <- download.file(url, destination, quiet=TRUE)
+    # Must download zips *manually* in binary mode, or Windows machines will error
+    if(zip){
+        result <- download.file(url, destination, quiet=TRUE, mode="wb")
+    } else {
+        result <- download.file(url, destination, quiet=TRUE)
+    }
     if(result != 0)
         stop("Error code", result, " downloading file; file may not exist")
     
