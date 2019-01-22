@@ -6,6 +6,7 @@ addons:
   apt:
     packages:
       - libpoppler-cpp-dev
+      - ghostscript
 
 env:
   global:
