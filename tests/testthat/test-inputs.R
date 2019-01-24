@@ -8,7 +8,7 @@ test_that("specifying multiple DOIs works", {
 })
 
 test_that("specifying multiple DOIs with vector of SIs works", {
-  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"), si = c(1:2))))
+  expect_true(all(file.exists(suppdata(c("10.1101/016386", "10.1111/ele.12437"), si = c(1:2)))))
 })
 
 test_that("There is an error on non-existing DOI", {
