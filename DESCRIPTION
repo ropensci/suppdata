@@ -33,4 +33,4 @@ Imports:
     jsonlite (>= 1.5),
     rcrossref (>= 0.8.0)
 Encoding: UTF-8
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

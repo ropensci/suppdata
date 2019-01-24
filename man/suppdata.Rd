@@ -112,13 +112,13 @@ of articles from them.
 (\code{\link[rcrossref:cr_works]{cr_works}}) on the DOI to
 determine the publisher.}
 \item{plos}{Public Library of Science journals (e.g., PLoS One;
-\url{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126524})}
+\url{https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126524})}
 \item{wiley}{Wiley journals (e.g.,
-\url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract})}
+\url{https://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract})}
 \item{science}{Science magazine (e.g.,
-\url{http://www.sciencemag.org/content/345/6200/1041.short})}
+\url{https://www.sciencemag.org/content/345/6200/1041.short})}
 \item{proceedings}{Royal Society of London journals (e.g.,
-\url{http://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
+\url{https://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
 \code{vol} and \code{issue} of the article.}
 \item{figshare}{Figshare (e.g.,
 \url{https://doi.org/10.6084/m9.figshare.979288.v1})}
@@ -134,10 +134,10 @@ an \code{esa_data_archive} whose article code is E092-201-D1;
 \url{http://esapubs.org/Archive/ecol/E093/059/default.htm} is a
 \code{esa_archive} whose code is E093-059-D1.}
 \item{biorxiv}{Load from bioRxiv (e.g.,
-\url{http://biorxiv.org/content/early/2015/09/11/026575})} 
+\url{https://biorxiv.org/content/early/2015/09/11/026575})} 
 \item{epmc}{Look up an article on the Europe PubMed Central, and
 then download the file using their supplementary materials API
-(\url{http://europepmc.org/restfulwebservice}). See comments above
+(\url{https://europepmc.org/restfulwebservice}). See comments above
 in 'notes' about EPMC.}
 \item{peerj}{PeerJ journals (e.g., \url{https://doi.org/10.7717/peerj.3006})
 and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
