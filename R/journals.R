@@ -19,7 +19,7 @@
     journal <- journals[journal]
 
     # Download and return
-    url <- paste0("http://journals.plos.org/", journal,
+    url <- paste0("https://journals.plos.org/", journal,
                   "/article/asset?unique&id=info:doi/", doi, ".s",
                   formatC(si, width=3, flag="0"))
     return(.download(url, dir, save.name, cache))
@@ -131,10 +131,10 @@
     save.name <- .save.name(doi, save.name, si)
 
     #Find, download, and return
-    url <- paste0("http://www.sciencemag.org",
-                  .grep.url(paste0("http://www.sciencemag.org/lookup/doi/",doi),
+    url <- paste0("https://www.sciencemag.org",
+                  .grep.url(paste0("https://www.sciencemag.org/lookup/doi/",doi),
                             "(/content/)[0-9/]*"), "/suppl/DC1")
-    url <- paste0("http://www.sciencemag.org",
+    url <- paste0("https://www.sciencemag.org",
                   .grep.url(url, "(/content/suppl/)[A-Z0-9/\\.]*"))
     return(.download(url, dir, save.name, cache))
 }
@@ -150,9 +150,9 @@
     #Find, download, and return
     journal <- .grep.text(doi, "(rsp)[a-z]")
     tail <- gsub(".", "", .grep.text(doi, "[0-9]+\\.[0-9]*", 2), fixed=TRUE)
-    url <- paste0("http://", journal, ".royalsocietypublishing.org/content/",
+    url <- paste0("https://", journal, ".royalsocietypublishing.org/content/",
                   vol, "/", issue, "/", tail, ".figures-only")
-    url <- paste0("http://rspb.royalsocietypublishing.org/",
+    url <- paste0("https://rspb.royalsocietypublishing.org/",
                   .grep.url(url, "(highwire/filestream)[a-zA-Z0-9_/\\.]*"))
     return(.download(url, dir, save.name))
 }
@@ -190,7 +190,7 @@
     #Find, download, and return
     url <- paste0(.url.redir(paste0("https://doi.org/", doi)), ".figures-only")
     file <- .grep.url(url, "/highwire/filestream/[a-z0-9A-Z\\./_-]*", si)
-    return(.download(.url.redir(paste0("http://biorxiv.org",file)),
+    return(.download(.url.redir(paste0("https://biorxiv.org",file)),
                      dir, save.name, cache))
 }
 
@@ -207,7 +207,7 @@
     url <- .url.redir(paste0("https://doi.org/", doi))
     file <- .grep.url(url, paste0("/bitstream/handle/[0-9]+/dryad\\.[0-9]+/",
                                   URLencode(si,reserved=TRUE)))
-    return(.download(.url.redir(paste0("http://datadryad.org",file)),
+    return(.download(.url.redir(paste0("https://datadryad.org",file)),
                      dir, save.name, cache))
 }
 
