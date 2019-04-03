@@ -63,9 +63,18 @@ test_that("output dir can be set", {
   unlink(testdir)
 })
 
-test_that("zipfile contents can be listed", {
-  expect_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_19799_Fig1_HTML.jpg", list = TRUE), "Files in ZIP")
-  expect_error(expect_output(suppdata(x = "10.1038/nbt.1883", si = "1", list = TRUE), "41598_2018_19799_MOESM1_ESM.pdf"))
-  expect_equal(capture_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_19799_Fig1_HTML.jpg")), "")
-  expect_equal(capture_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_19799_Fig1_HTML.jpg", list = FALSE)), "")
+test_that("no console output by default", {
+  expect_equal(capture_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_37987_Fig1_HTML.jpg")), "")
+})
+
+test_that("no console output if deactivated", {
+  expect_equal(capture_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_37987_Fig1_HTML.jpg", list = FALSE)), "")
+})
+
+test_that("zipfile contents can be listed on the console", {
+  expect_output(suppdata(x = "10.1038/nbt.1883", si = "41598_2018_37987_Fig1_HTML.jpg", list = TRUE), "Files in ZIP")
+})
+
+test_that("zipfile contents are listed on the console even if file is missing", {
+  expect_error(expect_output(suppdata(x = "10.1038/nbt.1883", si = "not_there", list = TRUE), "41598_2018_37987_MOESM1_ESM.pdf"))
 })
