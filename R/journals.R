@@ -314,7 +314,7 @@
   }
 }
 
-#' @importFrom xml2 read_html xxml_find_all xml_find_first
+#' @importFrom xml2 read_html xml_find_first xml_parent xml_text
 #' @importFrom rcrossref cr_works
 .suppdata.mdpi <- function(doi, si=1, save.name=NA, dir=NA,
                             cache=TRUE, ...){
