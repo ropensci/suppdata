@@ -39,7 +39,7 @@ destination <- file.path(dir, save.name)
 return(.download(url, dir, save.name, cache))
 ```
 
-...should suffice. Notice how we're using `R`'s `file.path` to make a sensible path on all distributions, and we're using the internal `.download` to download the gile, and so guaranteeing that we'll obey all the `cache` instructions etc. We're also ensuring that the user will get sensible filename information ("oooh, this looks like a .csv file") as an attribute by using `.download`.
+...should suffice. Notice how we're using `R`'s `file.path` to make a sensible path on all distributions, and we're using the internal `.download` to download the file, and so guaranteeing that we'll obey all the `cache` instructions etc. We're also ensuring that the user will get sensible filename information ("oooh, this looks like a .csv file") as an attribute by using `.download`.
 
 Save your function in [`journals.R`](https://github.com/willpearse/suppdata/blob/master/R/journals.R). There are plenty of examples in there if you get stuck. There is also a list of functions to be written sitting in the issues section on GitHub.
 
@@ -77,7 +77,7 @@ roxygenize("path/to/suppdata")
 
 ## (4) Write a brief unit test checking your function works
 
-Add something [to `tests/testthat/test-all.r`](https://github.com/willpearse/suppdata/blob/master/tests/testthat/test-all.r) to give me something to check that your package works for you, at least! :D
+Add tests to [`tests/testthat/`](https://github.com/willpearse/suppdata/blob/master/tests/testthat/) with a file of the format `test-<name of publisher>.R` (see existing tests to get started) to give the maintainers and the continuous integration services something to check that the publisher works.
 
 ## (5) Add publisher to list in README
 

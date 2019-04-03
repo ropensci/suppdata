@@ -75,7 +75,7 @@
     save.name <- .save.name(doi, save.name, si)
     
     #Find, download, and return
-    html <- read_html(content(GET(paste0("https://doi.org/", doi)), "text"))
+    html <- xml2::read_html(content(GET(paste0("https://doi.org/", doi)), "text"))
     results <- fromJSON(xml_text(xml_find_first(html,
                           "//script[@type=\"text/json\"]")))$article$files
     if(is.numeric(si)){
@@ -267,7 +267,7 @@
   #Find link in the HTML, download, unzip if a zip and not asking to leave it, and return
   #(alternatively could parse DOI and construct a well-known URL, but then we would not 
   #check for existence of a supplement)
-  cop_landing_page <- read_html(x = paste0("https://doi.org/", doi))
+  cop_landing_page <- xml2::read_html(x = paste0("https://doi.org/", doi))
   url <- xml_attr(x = xml_find_first(x = cop_landing_page, xpath = ".//a[text()='Supplement']"),
                    attr = "href")
   if (is.na(url))
@@ -312,4 +312,51 @@
   else {
     stop("Unsupported file extension in URL, only zip and pdf are supported but have ", url)
   }
+}
+
+#' @importFrom xml2 read_html xxml_find_all xml_find_first
+#' @importFrom rcrossref cr_works
+.suppdata.mdpi <- function(doi, si=1, save.name=NA, dir=NA,
+                            cache=TRUE, ...){
+  si_id <- "s1"
+  if (is.character(si))
+    stop("MDPI only supports numeric SI info.")
+  else if (is.numeric(si))
+    si_id <- paste0("s", si)
+  
+  dir <- .tmpdir(dir)
+  save.name <- .save.name(doi, save.name, si_id)
+  
+  crossref_links <- rcrossref::cr_works(dois = doi)$data$link[[1]]
+  pdf_url <- crossref_links[which(endsWith(crossref_links$URL, "/pdf")),1]$URL
+  base_url <- substr(pdf_url, 0, nchar(pdf_url) - 3)
+  si_url <- paste0(base_url, si_id)
+  
+  # get file type from HTML
+  article_landing_page <- xml2::read_html(x = base_url)
+  si_relative_href <- paste0("/", httr::parse_url(si_url)$path)
+  si_paragraph <- xml2::xml_parent(
+    xml2::xml_find_first(x = article_landing_page, xpath = paste0(".//a[@href='", si_relative_href, "']"))
+  )
+  
+  if (is.na(si_paragraph))
+    stop("No SI with id ", si, " found with URL ", si_url)
+  
+  # match content within bracket before , in the text in the paragraph
+  paragraph_text <- regmatches(x = xml2::xml_text(si_paragraph),
+                               m = regexpr(pattern = "\\((.*),",
+                                           text = xml2::xml_text(si_paragraph)))
+  # strip matched ( and ,
+  si_type <- tolower(substr(x = paragraph_text, start = 2, stop = nchar(paragraph_text) - 1))
+  
+  # Download and return
+  tryCatch(return(.download(url = si_url,
+                            dir = dir,
+                            save.name = save.name,
+                            cache = cache,
+                            suffix = si_type
+  )),
+  error = function(x) {
+    stop("Cannot download SI for MDPI ", doi, " using ", si_url, " : ", x)
+  })
 }
