@@ -26,7 +26,8 @@
                      "221" = .suppdata.science,
                      "175" = .suppdata.proceedings,
                      "246" = .suppdata.biorxiv,
-                     "4443" = .suppdata.peerj
+                     "4443" = .suppdata.peerj,
+                     "3145" = .suppdata.copernicus
                      )
     if(!is.null(output))
         return(output)
@@ -43,7 +44,8 @@
                      "biorxiv" = .suppdata.biorxiv,
                      "epmc" = .suppdata.epmc,
                      "dryad" = .suppdata.dryad,
-                     "peerj" = .suppdata.peerj
+                     "peerj" = .suppdata.peerj,
+                     "copernicus" = .suppdata.copernicus
                      )
     #If all else fails, try EPMC
     if(is.null(output))
@@ -75,7 +77,7 @@
 
 # Internal download function
 #' @importFrom utils download.file
-.download <- function(url, dir, save.name, cache=TRUE, suffix=NULL){
+.download <- function(url, dir, save.name, cache=TRUE, suffix=NULL, zip=FALSE){
     destination <- file.path(dir, save.name)
     if(is.null(suffix))
         suffix <- .file.suffix(url, 4)
@@ -85,8 +87,12 @@
             attr(destination, "suffix") <- suffix
         return(destination)
     }
-    
-    result <- download.file(url, destination, quiet=TRUE)
+    # Must download zips *manually* in binary mode, or Windows machines will error
+    if(zip){
+        result <- download.file(url, destination, quiet=TRUE, mode="wb")
+    } else {
+        result <- download.file(url, destination, quiet=TRUE)
+    }
     if(result != 0)
         stop("Error code", result, " downloading file; file may not exist")
     

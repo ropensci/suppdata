@@ -73,13 +73,17 @@ library(roxygen2)
 roxygenize("path/to/suppdata")
 ```
 
-...if you're an RStudio person there's a button for this I think. If you're an emacs person like me, there are several and you probably have a strong opinion about which is best :p
+...if you're an RStudio person there's a button for this in the "Build" tab ("More" > "Document"). If you're an emacs person like me, there are several and you probably have a strong opinion about which is best :p
 
 ## (4) Write a brief unit test checking your function works
 
 Add something [to `tests/testthat/test-all.r`](https://github.com/willpearse/suppdata/blob/master/tests/testthat/test-all.r) to give me something to check that your package works for you, at least! :D
 
-## (5) Submit a pull request
+## (5) Add publisher to list in README
+
+Add the newly supported publisher to the alphabetically ordered list in `README.md`.
+
+## (6) Submit a pull request
 
 Commit your changes, then make a pull request to the `master` branch of `suppdata`. If you need help figuring out how to do that, [take a look at this website](https://help.github.com/articles/creating-a-pull-request/).
 

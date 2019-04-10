@@ -18,9 +18,8 @@
         stop("Unrecognised PLoS journal in DOI ", doi)
     journal <- journals[journal]
 
-#Download and return
-    destination <- file.path(dir, save.name)
-    url <- paste0("http://journals.plos.org/", journal,
+    # Download and return
+    url <- paste0("https://journals.plos.org/", journal,
                   "/article/asset?unique&id=info:doi/", doi, ".s",
                   formatC(si, width=3, flag="0"))
     return(.download(url, dir, save.name, cache))
@@ -61,7 +60,6 @@
     url <- links[si]
     
     #Download and return
-    destination <- file.path(dir, save.name)
     return(.download(url, dir, save.name, cache))
 }
 
@@ -101,7 +99,7 @@
                                         cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("ESA Archives download requires character SI info")
+        stop("ESA Data Archives download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(esa, save.name, si)
 
@@ -133,10 +131,10 @@
     save.name <- .save.name(doi, save.name, si)
 
     #Find, download, and return
-    url <- paste0("http://www.sciencemag.org",
-                  .grep.url(paste0("http://www.sciencemag.org/lookup/doi/",doi),
+    url <- paste0("https://www.sciencemag.org",
+                  .grep.url(paste0("https://www.sciencemag.org/lookup/doi/",doi),
                             "(/content/)[0-9/]*"), "/suppl/DC1")
-    url <- paste0("http://www.sciencemag.org",
+    url <- paste0("https://www.sciencemag.org",
                   .grep.url(url, "(/content/suppl/)[A-Z0-9/\\.]*"))
     return(.download(url, dir, save.name, cache))
 }
@@ -152,9 +150,9 @@
     #Find, download, and return
     journal <- .grep.text(doi, "(rsp)[a-z]")
     tail <- gsub(".", "", .grep.text(doi, "[0-9]+\\.[0-9]*", 2), fixed=TRUE)
-    url <- paste0("http://", journal, ".royalsocietypublishing.org/content/",
+    url <- paste0("https://", journal, ".royalsocietypublishing.org/content/",
                   vol, "/", issue, "/", tail, ".figures-only")
-    url <- paste0("http://rspb.royalsocietypublishing.org/",
+    url <- paste0("https://rspb.royalsocietypublishing.org/",
                   .grep.url(url, "(highwire/filestream)[a-zA-Z0-9_/\\.]*"))
     return(.download(url, dir, save.name))
 }
@@ -164,7 +162,7 @@
                            cache=TRUE, list=FALSE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("EPMB download requires numeric SI info")
+        stop("EPMC download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")
@@ -175,7 +173,7 @@
                doi)), ".//pmcid"))
     url <- paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/",
                   pmc.id[[1]], "/supplementaryFiles")
-    zip <- tryCatch(.download(url,dir,zip.save.name,cache),
+    zip <- tryCatch(.download(url,dir,zip.save.name,cache,zip=TRUE),
                     error=function(x)
                         stop("Cannot find SI for EPMC article ID ",pmc.id[[1]]))
     return(.unzip(zip, dir, save.name, cache, si, list))
@@ -192,7 +190,7 @@
     #Find, download, and return
     url <- paste0(.url.redir(paste0("https://doi.org/", doi)), ".figures-only")
     file <- .grep.url(url, "/highwire/filestream/[a-z0-9A-Z\\./_-]*", si)
-    return(.download(.url.redir(paste0("http://biorxiv.org",file)),
+    return(.download(.url.redir(paste0("https://biorxiv.org",file)),
                      dir, save.name, cache))
 }
 
@@ -201,7 +199,7 @@
                             cache=TRUE, ...){
     #Argument handling
     if(!is.character(si))
-        stop("DataDRYAD download requires numeric SI info")
+        stop("DataDRYAD download requires character SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     
@@ -209,7 +207,7 @@
     url <- .url.redir(paste0("https://doi.org/", doi))
     file <- .grep.url(url, paste0("/bitstream/handle/[0-9]+/dryad\\.[0-9]+/",
                                   URLencode(si,reserved=TRUE)))
-    return(.download(.url.redir(paste0("http://datadryad.org",file)),
+    return(.download(.url.redir(paste0("https://datadryad.org",file)),
                      dir, save.name, cache))
 }
 
@@ -248,4 +246,70 @@
                   error = function(x) {
                     stop("Cannot download SI for Peerj ", peerj_id, ": ", x)
                     })
+}
+
+#' @importFrom xml2 read_html xml_find_first
+.suppdata.copernicus <- function(doi, si=1, save.name=NA, dir=NA,
+                           cache=TRUE, list=FALSE, ...){
+  # Copernicus supports one supplemental file, a zip archive or a PDF
+  # If si is numeric, the full archive is downloaded and unzipped, unless si is the supplement archive name. 
+  # If si is a character, it must be the name of a file in the suppdata archive.
+  
+  #Argument handling
+  if (is.numeric(si) && si != 1)
+    stop("Copernicus only supports one supplemental archive, a numeric si must be '1'")
+  save.name <- .save.name(doi, save.name, si)
+  zip.save.name <- paste0(unlist(strsplit(x = doi,
+                                          split = "/"))[[2]],
+                          "-supplement.zip")
+  dir <- .tmpdir(dir)
+  
+  #Find link in the HTML, download, unzip if a zip and not asking to leave it, and return
+  #(alternatively could parse DOI and construct a well-known URL, but then we would not 
+  #check for existence of a supplement)
+  cop_landing_page <- read_html(x = paste0("https://doi.org/", doi))
+  url <- xml_attr(x = xml_find_first(x = cop_landing_page, xpath = ".//a[text()='Supplement']"),
+                   attr = "href")
+  if (is.na(url))
+    stop("No supplement found for article ", doi)
+  
+  # distinguish pdf or zip via URL suffix
+  if (endsWith(x = url, suffix = "zip")) {
+    zip <- tryCatch(.download(url, dir, zip.save.name, cache, zip=TRUE),
+                    error = function(x)
+                      stop("Cannot download supplemental zip for article ", doi))
+    
+    if (is.numeric(si)) {
+      # unpack zip
+      output_dir <- file.path(dir, tools::file_path_sans_ext(save.name))
+      files <- unzip(zipfile = zip, exdir = output_dir)
+      if (list) {
+        cat("Files in ZIP:")
+        print(files)
+      }
+      return(file.path(output_dir))
+    }
+    else if (si == zip.save.name) {
+      # return only zip file path
+      return(file.path(dir, zip.save.name))
+    }
+    else {
+      # return only one file from the archive
+      return(.unzip(zip, dir, save.name, cache, si, list))
+    }
+  }
+  else if (endsWith(x = url, suffix = "pdf")) {
+    tryCatch(return(.download(url = url,
+                              dir = dir,
+                              save.name = save.name,
+                              cache = cache
+                              # leave suffix detection to .download
+    )),
+    error = function(x) {
+      stop("Cannot download pdf for Copernicus using ", url, " : ", x)
+    })
+  }
+  else {
+    stop("Unsupported file extension in URL, only zip and pdf are supported but have ", url)
+  }
 }

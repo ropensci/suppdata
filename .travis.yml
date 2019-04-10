@@ -6,6 +6,11 @@ addons:
   apt:
     packages:
       - libpoppler-cpp-dev
+      - ghostscript
+
+env:
+  global:
+    - secure: P6luLeXYYeULHGKAMifCCl0dIx259C8qxF2TXDKEsWwJOZJf9KdkipkninlAV5whsV3h670L68hqH2xs0iXSbT12b6FJj1E1HrpSyoGm753tpg4izEn95GKwN7hCpxQoZHtB4jPuQhgrX2Gk2WbB/ew6qdw7HZNkA6QXOqJ6aj2OmaKLVvUq+fB/wiWFAGpx7K5z3Yv0guduNXaStgfe5sVADCoPY3BJIXj238MZJFKO7Abs1Rb7jf3K6vgc1A97pMria6vaQ4SRX0dP0INBUeR1k5ZUOX0UmYYM7b/cUr6ilthuKlXL5J0KLM3M3y0q6SGk+0qAcd+9OpnKqblbheGCund9fy54I2gx9+0t3lKGRn/h1uD1sEs2zxWL+QNNA/SJ0e10C/JM4lYo3AW98uozLuRlmLWM9whcaU7M0328zligJNu5Ti3NfMzMmquYJpRNRiFSF5FbtlmuZShRzoU9QT0Olh23Col/LEoyCjvicSIEqVy7cEQyzySfPM9sgjDoQuBbvMLYSQTa0jD0zIydMqMb7Cwl7veT4sXHSQ7LfE9qamnf8tYNyuPGiSYAAGPVIU9Vu8pMLH2wXoC/j/DoR2g/AsE0p6192UK0RTdgvnD+OwMVLp+iRWWoXZgS/ahGJuFU+Rtn3lZ9tmVZme+tHRtjPBGceTmyvclWq4U=
 
 r_github_packages:
   - r-lib/covr

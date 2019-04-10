@@ -27,15 +27,15 @@
 #' (\code{\link[rcrossref:cr_works]{cr_works}}) on the DOI to
 #' determine the publisher.}
 #' \item{plos}{Public Library of Science journals (e.g., PLoS One;
-#' \url{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126524})}
-#' \item{wiley}{Wiley journals, (e.g.,
-#' \url{http://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract}}
+#' \url{https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126524})}
+#' \item{wiley}{Wiley journals (e.g.,
+#' \url{https://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract})}
 #' \item{science}{Science magazine (e.g.,
-#' \url{http://www.sciencemag.org/content/345/6200/1041.short})}
+#' \url{https://www.sciencemag.org/content/345/6200/1041.short})}
 #' \item{proceedings}{Royal Society of London journals (e.g.,
-#' \url{http://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
+#' \url{https://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
 #' \code{vol} and \code{issue} of the article.}
-#' \item{figshare}{Figshare, (e.g.,
+#' \item{figshare}{Figshare (e.g.,
 #' \url{https://doi.org/10.6084/m9.figshare.979288.v1})}
 #' \item{esa_data_archives & esa_data}{You must give article codes,
 #' not DOIs, for these, which you can find on the article itself. An
@@ -49,9 +49,24 @@
 #' \url{http://esapubs.org/Archive/ecol/E093/059/default.htm} is a
 #' \code{esa_archive} whose code is E093-059-D1.}
 #' \item{biorxiv}{Load from bioRxiv (e.g.,
-#' \url{http://biorxiv.org/content/early/2015/09/11/026575})} 
+#' \url{https://biorxiv.org/content/early/2015/09/11/026575})} 
 #' \item{epmc}{Look up an article on the Europe PubMed Central, and
 #' then download the file using their supplementary materials API
-#' (\url{http://europepmc.org/restfulwebservice}). See comments above
+#' (\url{https://europepmc.org/restfulwebservice}). See comments above
 #' in 'notes' about EPMC.}
+#' \item{peerj}{PeerJ journals (e.g., \url{https://doi.org/10.7717/peerj.3006})
+#' and PeerJ Preprints (e.g., \url{https://doi.org/10.7287/peerj.preprints.26561v1})}
+#' \item{copernicus}{Copernicus Publications journals (e.g., 
+#' \url{https://doi.org/10.5194/bg-14-1739-2017}), see
+#' \url{https://publications.copernicus.org/open-access_journals/open_access_journals_a_z.html}
+#' for a full list of journals. Only one supplemental is supported,
+#' which can be a zip archive or a PDF file. 
+#' A numeric \code{si} parameter must be \code{1} to download the 
+#' whole archive, which is saved using Copernicus naming scheme
+#' (<journalname>-<volume>-<firstpage>-<year>-supplement.zip)
+#' and \code{save.name} is ignored, or to download the PDF.
+#' If \code{si} matches the name of the supllemental archive (i.e. uses the
+#' Copernics naming scheme), then the suppdata archive is not unzipped.
+#' \code{si} may be the name of a file in that 
+#' archive, so only that file is extracted and saved to \code{save.name}.}
 #' }
