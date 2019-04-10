@@ -9,5 +9,6 @@ test_that("EPMC works", {
 })
 
 test_that("EPMC fails for numeric SI info", {
+    skip_on_cran()
   expect_error(suppdata("10.1371/journal.pone.0126524", si = 999, "epmc"), "character SI info")
 })
