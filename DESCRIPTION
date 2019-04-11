@@ -1,7 +1,7 @@
 Package: suppdata
 Type: Package
 Title: Downloading Supplementary Data from Published Manuscripts
-Version: 1.1.0
+Version: 1.1.0.9000
 Authors@R: c(person("William D.", "Pearse", email = "will.pearse@gmail.com", role = c("aut", "cre"), comment=c(ORCID="0000-0002-6241-3164")),
     person("Scott", "Chamberlain", role = "aut", comment=c(ORCID="0000-0003-1444-9135")),
     person("Daniel", "Nuest", role = "aut", comment=c(ORCID="0000-0002-0024-5046")),

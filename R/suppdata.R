@@ -25,7 +25,8 @@
 #'     (i.e., auto-detect journal; default), \code{plos},
 #'     \code{wiley}, \code{science}, \code{proceedings},
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-#'     \code{biorxiv}, \code{epmc}, \code{peerj}, or \code{copernicus}.
+#'     \code{biorxiv}, \code{epmc}, \code{peerj}, \code{copernicus}, or 
+#'     \code{mdpi}.
 #' @param save.name a name for the file to download
 #'     (\code{character}). If \code{NA} (default) this will be a
 #'     combination of the DOI and SI number
