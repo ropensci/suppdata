@@ -8,5 +8,6 @@ test_that("bioRxiv works", {
 })
 
 test_that("bioRxiv fails with character SI info", {
+    skip_on_cran()
   expect_error(suppdata("10.1101/016386", si = "999"), "numeric SI info")
 })

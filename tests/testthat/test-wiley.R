@@ -23,5 +23,6 @@ test_that("Non-existing SI number is handled for Wiley", {
 })
 
 test_that("Wiley fails with character SI info)", {
+      skip_on_cran()
   expect_error(suppdata("10.1111/ele.12437", "999"), "numeric SI info")
 })

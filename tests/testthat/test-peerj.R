@@ -13,6 +13,7 @@ test_that("PeerJ Preprints works with character SI", {
 })
 
 test_that("PeerJ works with numeric SI", {
+      skip_on_cran()
   expect_true(file.exists(suppdata("10.7717/peerj.3006", si = 1)))
 })
 
