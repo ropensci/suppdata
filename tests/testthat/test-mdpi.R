@@ -4,10 +4,12 @@ library("testthat")
 context("MDPI")
 
 test_that("MDPI journal works with numeric SI", {
+    skip_on_cran()
   expect_true(file.exists(suppdata("10.3390/cosmetics2020066", si = 2)))
 })
 
 test_that("MDPI fails with non-existing SI", {
+    skip_on_cran()
   expect_error(suppdata("10.3390/arts8020048", si = 3), "No SI with id")
 })
 
