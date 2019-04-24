@@ -164,7 +164,7 @@ Make sure that the article from which you're attempting to
     from such cases.
 }
 \examples{
-\dontrun{
+\donttest{
 #Put the function wherever you would put a file path
 crabs <- read.csv(suppdata("10.6084/m9.figshare.979288", 2))
 

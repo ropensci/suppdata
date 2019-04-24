@@ -52,7 +52,7 @@
 #'     materials. 404 errors and 'file not found' errors can result
 #'     from such cases.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Put the function wherever you would put a file path
 #' crabs <- read.csv(suppdata("10.6084/m9.figshare.979288", 2))
 #'
