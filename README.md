@@ -14,7 +14,7 @@ The aim of this package is to aid downloading data from published
 papers. To download the supplementary data from a PLoS paper, for
 example, you would simply type:
 
-```
+```{R}
 library(suppdata)
 suppdata("10.1371/journal.pone.0127900", 1)
 ```
@@ -26,9 +26,20 @@ just want to make sure that you know where all your data came from and
 want a completely reproducible "audit trail" of what you've done.
 It uses [`rcrossref`](https://cran.r-project.org/package=rcrossref) to lookup which journal the article is in.
 
-## How to install and load this development version
+## How to install and load the package
+The version on CRAN is the most stable version. You can install and
+load it like this:
 
+```{R}
+install.packages("suppdata")
+library(suppdata)
 ```
+
+If you want to load the development version, which probably contains
+more features but is not always guaranteed to work, load the `master`
+branch from this repository like this:
+
+```{R}
 library(devtools)
 install_github("ropensci/suppdata")
 library(suppdata)
