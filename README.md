@@ -1,8 +1,11 @@
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/suppdata)](https://cran.r-project.org/package=suppdata)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://api.travis-ci.org/ropensci/suppdata.svg)](https://travis-ci.org/ropensci/suppdata)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.00721/status.svg)](https://doi.org/10.21105/joss.00721)
 [![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
 [![codecov](https://codecov.io/gh/ropensci/suppdata/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/suppdata)
+<!-- badges: end -->
 
 # Loading SUPPlementary DATA into R
 
