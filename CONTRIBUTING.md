@@ -10,6 +10,8 @@ Thank you for your interest in contributing to `suppdata`! The most important co
 
 If you want to make a small change to `suppdata` (i.e., changing <= 5 lines of code) fork the repo, make the change, and then make a pull request with the suggestion. If you want to make a more sweeping change (i.e., > 5 lines of code) then _before writing any code_ make an issue and discuss it with @willpearse. The purpose of this is to make maximal use of everyone's time: small code changes are better off "just done" and then we can talk about it; larger changes require discussion before implementation. You're quite welcome to do whatever you wish with the code (within the boundaries of the license, of course), but please be aware that the maintainers of the package are not obligate to accept all pull requests. Of course, the ROpenSci maintainer rules apply, so we'll always be polite and we'll always let you know why we make any decision! :D
 
+When making version changes, please follow the standards set by CRAN, so the next version after "1.2-9" would be "1.2-10". Package versions numbers are not decimal, so something like "1.2.9.5" won't pass CRAN's checks ([see the R extension guide](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file))
+
 ## (1) Write a download function for a publisher
 
 All `suppdata` download functions start off with, at a minimum, something like:
