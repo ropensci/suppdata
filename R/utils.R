@@ -8,11 +8,11 @@
         return("figshare")
     if(grepl("dryad", x))
         return("dryad")
-    pub <- cr_works(x)$data
+    pub <- rcrossref::cr_works(x)$data
 
-    if(is.null(pub))
+    if(length(pub) < 1)
         stop("Cannot find publisher for DOI: ", x)
-    if(pub$prefix=="http://id.crossref.org/prefix/10.0000")
+    if(pub$prefix == "http://id.crossref.org/prefix/10.0000")
         stop("Cannot find publisher for DOI: ", x)
     
     return(.grep.text(pub$member, "[0-9]+"))
