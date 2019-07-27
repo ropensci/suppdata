@@ -28,7 +28,8 @@
                      "246" = .suppdata.biorxiv,
                      "4443" = .suppdata.peerj,
                      "3145" = .suppdata.copernicus,
-                     "1968" = .suppdata.mdpi
+                     "1968" = .suppdata.mdpi,
+                     "7893" = .suppdata.jstatsoft
                      )
     if(!is.null(output))
         return(output)
@@ -47,7 +48,8 @@
                      "dryad" = .suppdata.dryad,
                      "peerj" = .suppdata.peerj,
                      "copernicus" = .suppdata.copernicus,
-                     "mdpi" = .suppdata.mdpi
+                     "mdpi" = .suppdata.mdpi,
+                     "jstatsoft" = .suppdata.jstatsoft
                      )
     #If all else fails, try EPMC
     if(is.null(output))
@@ -82,7 +84,7 @@
 .download <- function(url, dir, save.name, cache=TRUE, suffix=NULL, zip=FALSE){
     destination <- file.path(dir, save.name)
     if(is.null(suffix))
-        suffix <- .file.suffix(url, 4)
+        suffix <- .file.suffix(url, 5)
     
     if(cache==TRUE & file.exists(destination)){
         if(!is.na(suffix))
