@@ -15,7 +15,7 @@ test_that("specifying multiple DOIs with vector of SIs works", {
 
 test_that("There is an error on non-existing DOI", {    
     skip_on_cran()
-    expect_error(expect_warning(suppdata('nonsense', 1), "404"), "nonsense")
+    expect_error(expect_warning(suppdata('nonsense', 1), "404"), "Cannot find publisher")
 })
 
 test_that("There is an error if SI vector is longer than DOI vector", {    
