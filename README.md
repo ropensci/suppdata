@@ -1,8 +1,12 @@
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/suppdata)](https://cran.r-project.org/package=suppdata)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://api.travis-ci.org/ropensci/suppdata.svg)](https://travis-ci.org/ropensci/suppdata)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/willpearse/suppdata?branch=master&svg=true)](https://ci.appveyor.com/project/willpearse/suppdata)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.00721/status.svg)](https://doi.org/10.21105/joss.00721)
 [![](https://badges.ropensci.org/195_status.svg)](https://github.com/ropensci/onboarding/issues/195)
 [![codecov](https://codecov.io/gh/ropensci/suppdata/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/suppdata)
+<!-- badges: end -->
 
 # Loading SUPPlementary DATA into R
 
@@ -14,7 +18,7 @@ The aim of this package is to aid downloading data from published
 papers. To download the supplementary data from a PLoS paper, for
 example, you would simply type:
 
-```
+```{R}
 library(suppdata)
 suppdata("10.1371/journal.pone.0127900", 1)
 ```
@@ -26,9 +30,20 @@ just want to make sure that you know where all your data came from and
 want a completely reproducible "audit trail" of what you've done.
 It uses [`rcrossref`](https://cran.r-project.org/package=rcrossref) to lookup which journal the article is in.
 
-## How to install and load this development version
+## How to install and load the package
+The version on CRAN is the most stable version. You can install and
+load it like this:
 
+```{R}
+install.packages("suppdata")
+library(suppdata)
 ```
+
+If you want to load the development version, which probably contains
+more features but is not always guaranteed to work, load the `master`
+branch from this repository like this:
+
+```{R}
 library(devtools)
 install_github("ropensci/suppdata")
 library(suppdata)
@@ -45,6 +60,8 @@ This package depends on the packages `httr`, `xml2`,
 - [Ecological Society of Ameria - Ecological Archives](http://esapubs.org/archive/) (`esa_archives` and `esa_data_archives`)
 - [Europe PMC](https://europepmc.org/) (`epmc`, multiple publishers from life-sciences upported including BMJ Journals, eLife, F1000Research, Wellcome Open Research, Gates Open Research)
 - [figshare](https://figshare.com/) (`figshare`)
+- [Journal of Statistical Software](https://www.jstatsoft.org/) (`jstatsoft`)
+- [MDPI](https://www.mdpi.com/) (`mdpi`)
 - [PeerJ](https://peerj.com/) (`peerj`)
 - [PLOS | Public Library of Science](https://www.plos.org/) (`plos`)
 - [Proceedings of the royal society Biology (RSBP)](https://rspb.royalsocietypublishing.org/) (`proceedings`)

@@ -10,6 +10,8 @@ Thank you for your interest in contributing to `suppdata`! The most important co
 
 If you want to make a small change to `suppdata` (i.e., changing <= 5 lines of code) fork the repo, make the change, and then make a pull request with the suggestion. If you want to make a more sweeping change (i.e., > 5 lines of code) then _before writing any code_ make an issue and discuss it with @willpearse. The purpose of this is to make maximal use of everyone's time: small code changes are better off "just done" and then we can talk about it; larger changes require discussion before implementation. You're quite welcome to do whatever you wish with the code (within the boundaries of the license, of course), but please be aware that the maintainers of the package are not obligate to accept all pull requests. Of course, the ROpenSci maintainer rules apply, so we'll always be polite and we'll always let you know why we make any decision! :D
 
+When making version changes, please follow the standards set by CRAN, so the next version after "1.2-9" would be "1.2-10". Package versions numbers are not decimal, so something like "1.2.9.5" won't pass CRAN's checks ([see the R extension guide](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file))
+
 ## (1) Write a download function for a publisher
 
 All `suppdata` download functions start off with, at a minimum, something like:
@@ -39,7 +41,7 @@ destination <- file.path(dir, save.name)
 return(.download(url, dir, save.name, cache))
 ```
 
-...should suffice. Notice how we're using `R`'s `file.path` to make a sensible path on all distributions, and we're using the internal `.download` to download the gile, and so guaranteeing that we'll obey all the `cache` instructions etc. We're also ensuring that the user will get sensible filename information ("oooh, this looks like a .csv file") as an attribute by using `.download`.
+...should suffice. Notice how we're using `R`'s `file.path` to make a sensible path on all distributions, and we're using the internal `.download` to download the file, and so guaranteeing that we'll obey all the `cache` instructions etc. We're also ensuring that the user will get sensible filename information ("oooh, this looks like a .csv file") as an attribute by using `.download`.
 
 Save your function in [`journals.R`](https://github.com/willpearse/suppdata/blob/master/R/journals.R). There are plenty of examples in there if you get stuck. There is also a list of functions to be written sitting in the issues section on GitHub.
 
@@ -77,7 +79,7 @@ roxygenize("path/to/suppdata")
 
 ## (4) Write a brief unit test checking your function works
 
-Add something [to `tests/testthat/test-all.r`](https://github.com/willpearse/suppdata/blob/master/tests/testthat/test-all.r) to give me something to check that your package works for you, at least! :D
+Add tests to [`tests/testthat/`](https://github.com/willpearse/suppdata/blob/master/tests/testthat/) with a file of the format `test-<name of publisher>.R` (see existing tests to get started) to give the maintainers and the continuous integration services something to check that the publisher works.
 
 ## (5) Add publisher to list in README
 

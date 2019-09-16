@@ -25,7 +25,8 @@
 #'     (i.e., auto-detect journal; default), \code{plos},
 #'     \code{wiley}, \code{science}, \code{proceedings},
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-#'     \code{biorxiv}, \code{epmc}, \code{peerj}, or \code{copernicus}.
+#'     \code{biorxiv}, \code{epmc}, \code{peerj}, \code{copernicus},
+#'     \code{mdpi}, \code{jstatsoft}.
 #' @param save.name a name for the file to download
 #'     (\code{character}). If \code{NA} (default) this will be a
 #'     combination of the DOI and SI number
@@ -51,7 +52,7 @@
 #'     materials. 404 errors and 'file not found' errors can result
 #'     from such cases.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Put the function wherever you would put a file path
 #' crabs <- read.csv(suppdata("10.6084/m9.figshare.979288", 2))
 #'
@@ -82,7 +83,8 @@
 suppdata <- function(x, si,
                      from=c("auto","plos","wiley","science","proceedings",
                             "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc", "peerj", "copernicus"),
+                            "biorxiv","epmc", "peerj", "copernicus",
+                            "jstatsoft"),
                      save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA,
                      list=FALSE, timeout=10)
     UseMethod("suppdata")
@@ -92,7 +94,8 @@ suppdata.character <- function(x, si,
                                from=c("auto","plos","wiley","science",
                                       "proceedings","figshare",
                                       "esa_data_archives","esa_archives",
-                                      "biorxiv","epmc","peerj", "copernicus"),
+                                      "biorxiv","epmc","peerj", "copernicus",
+                                      "jstatsoft"),
                                save.name=NA, dir=NA, cache=TRUE,
                                vol=NA, issue=NA, list=FALSE, timeout=10){
     #Basic argument handling

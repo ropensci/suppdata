@@ -8,11 +8,11 @@
         return("figshare")
     if(grepl("dryad", x))
         return("dryad")
-    pub <- cr_works(x)$data
+    pub <- rcrossref::cr_works(x)$data
 
-    if(is.null(pub))
+    if(length(pub) < 1)
         stop("Cannot find publisher for DOI: ", x)
-    if(pub$prefix=="http://id.crossref.org/prefix/10.0000")
+    if(pub$prefix == "http://id.crossref.org/prefix/10.0000")
         stop("Cannot find publisher for DOI: ", x)
     
     return(.grep.text(pub$member, "[0-9]+"))
@@ -27,7 +27,9 @@
                      "175" = .suppdata.proceedings,
                      "246" = .suppdata.biorxiv,
                      "4443" = .suppdata.peerj,
-                     "3145" = .suppdata.copernicus
+                     "3145" = .suppdata.copernicus,
+                     "1968" = .suppdata.mdpi,
+                     "7893" = .suppdata.jstatsoft
                      )
     if(!is.null(output))
         return(output)
@@ -45,7 +47,9 @@
                      "epmc" = .suppdata.epmc,
                      "dryad" = .suppdata.dryad,
                      "peerj" = .suppdata.peerj,
-                     "copernicus" = .suppdata.copernicus
+                     "copernicus" = .suppdata.copernicus,
+                     "mdpi" = .suppdata.mdpi,
+                     "jstatsoft" = .suppdata.jstatsoft
                      )
     #If all else fails, try EPMC
     if(is.null(output))
@@ -80,7 +84,7 @@
 .download <- function(url, dir, save.name, cache=TRUE, suffix=NULL, zip=FALSE){
     destination <- file.path(dir, save.name)
     if(is.null(suffix))
-        suffix <- .file.suffix(url, 4)
+        suffix <- .file.suffix(url, 5)
     
     if(cache==TRUE & file.exists(destination)){
         if(!is.na(suffix))
