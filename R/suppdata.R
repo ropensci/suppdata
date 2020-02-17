@@ -26,7 +26,7 @@
 #'     \code{wiley}, \code{science}, \code{proceedings},
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
 #'     \code{biorxiv}, \code{epmc}, \code{peerj}, \code{copernicus},
-#'     (Data)\code{dryad}), or \code{mdpi}.
+#'     (Data)\code{dryad}), \code{mdpi}, or \code{jstatsoft}.
 #' @param save.name a name for the file to download
 #'     (\code{character}). If \code{NA} (default) this will be a
 #'     combination of the DOI and SI number
@@ -83,7 +83,8 @@
 suppdata <- function(x, si,
                      from=c("auto","plos","wiley","science","proceedings",
                             "figshare","esa_data_archives","esa_archives",
-                            "biorxiv","epmc", "peerj", "copernicus"),
+                            "biorxiv","epmc", "peerj", "copernicus",
+                            "jstatsoft"),
                      save.name=NA, dir=NA, cache=TRUE, vol=NA, issue=NA,
                      list=FALSE, timeout=10)
     UseMethod("suppdata")
@@ -93,7 +94,8 @@ suppdata.character <- function(x, si,
                                from=c("auto","plos","wiley","science",
                                       "proceedings","figshare",
                                       "esa_data_archives","esa_archives",
-                                      "biorxiv","epmc","peerj", "copernicus"),
+                                      "biorxiv","epmc","peerj", "copernicus",
+                                      "jstatsoft"),
                                save.name=NA, dir=NA, cache=TRUE,
                                vol=NA, issue=NA, list=FALSE, timeout=10){
     #Basic argument handling

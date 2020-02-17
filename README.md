@@ -60,6 +60,7 @@ This package depends on the packages `httr`, `xml2`,
 - [Ecological Society of Ameria - Ecological Archives](http://esapubs.org/archive/) (`esa_archives` and `esa_data_archives`)
 - [Europe PMC](https://europepmc.org/) (`epmc`, multiple publishers from life-sciences upported including BMJ Journals, eLife, F1000Research, Wellcome Open Research, Gates Open Research)
 - [figshare](https://figshare.com/) (`figshare`)
+- [Journal of Statistical Software](https://www.jstatsoft.org/) (`jstatsoft`)
 - [MDPI](https://www.mdpi.com/) (`mdpi`)
 - [PeerJ](https://peerj.com/) (`peerj`)
 - [PLOS | Public Library of Science](https://www.plos.org/) (`plos`)

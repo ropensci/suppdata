@@ -76,7 +76,7 @@
     
     #Find, download, and return
     html <- xml2::read_html(content(GET(paste0("https://doi.org/", doi)), "text"))
-    results <- fromJSON(xml_text(xml_find_first(html,
+    results <- fromJSON(xml2::xml_text(xml2::xml_find_first(html,
                           "//script[@type=\"text/json\"]")))$article$files
     if(is.numeric(si)){
         if(si > nrow(results))
@@ -168,7 +168,7 @@
     zip.save.name <- .save.name(doi, NA, "raw_zip.zip")
     
     #Find, download, and return
-    pmc.id <- xml_text(xml_find_first(read_xml(
+    pmc.id <- xml2::xml_text(xml2::xml_find_first(xml2::read_xml(
         paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/search/query=",
                doi)), ".//pmcid"))
     url <- paste0("https://www.ebi.ac.uk/europepmc/webservices/rest/",
@@ -268,7 +268,7 @@
   #(alternatively could parse DOI and construct a well-known URL, but then we would not 
   #check for existence of a supplement)
   cop_landing_page <- xml2::read_html(x = paste0("https://doi.org/", doi))
-  url <- xml_attr(x = xml_find_first(x = cop_landing_page, xpath = ".//a[text()='Supplement']"),
+  url <- xml2::xml_attr(x = xml2::xml_find_first(x = cop_landing_page, xpath = ".//a[text()='Supplement']"),
                    attr = "href")
   if (is.na(url))
     stop("No supplement found for article ", doi)
@@ -360,3 +360,42 @@
     stop("Cannot download SI for MDPI ", doi, " using ", si_url, " : ", x)
   })
 }
+
+#' @importFrom xml2 read_html xml_find_first
+.suppdata.jstatsoft <- function(doi, si=1, save.name=NA, dir=NA,
+                                 cache=TRUE, list=FALSE, ...){
+  # If si is numeric, the number es ordered on the website is used. 
+  # If si is a character, it must be the name of a supplement file
+  
+  #Find supplement table in the HTML and create list of file names and download links
+  article_page <- xml2::read_html(x = paste0("https://doi.org/", doi))
+  supplement_table_rows <- xml2::xml_find_all(x = article_page, xpath = ".//table[contains(@class, 'supplementfiles')]/tr")
+  supplements <- sapply(X = supplement_table_rows, FUN = function(row) {
+    supplement <- xml2::xml_contents(xml2::xml_children(row))
+    url <- xml2::xml_attr(x = supplement[3], attr = "href")
+    names(url) <- strsplit(x = xml2::xml_text(supplement[[1]]), split = ":")[[1]][[1]]
+    url
+  })
+  
+  url <- NA
+  if (is.numeric(si) || is.character(si)) {
+    url <- supplements[si]
+  }
+  
+  if (is.na(url))
+    stop("No supplement found for article ", doi)
+  
+  if (save.name == .save.name(doi, NA, si))
+    save.name <- .save.name(doi, names(url), si)
+  dir <- .tmpdir(dir)
+  
+  tryCatch(return(.download(url = url,
+                            dir = dir,
+                            save.name = save.name,
+                            cache = cache
+  )),
+  error = function(x) {
+    stop("Cannot download pdf for Copernicus using ", url, " : ", x)
+  })
+}
+
