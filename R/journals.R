@@ -204,11 +204,11 @@
     save.name <- .save.name(doi, save.name, si)
     
     #Find, download, and return
-    url <- .url.redir(paste0("https://doi.org/", doi))
-    file <- .grep.url(url, paste0("/bitstream/handle/[0-9]+/dryad\\.[0-9]+/",
-                                  URLencode(si,reserved=TRUE)))
-    return(.download(.url.redir(paste0("https://datadryad.org",file)),
-                     dir, save.name, cache))
+    html <- xml2::read_html(content(GET(paste0("https://doi.org/", doi)), "text"))
+    url <- paste0("https://datadryad.org",
+                  xml_attr(xml_find_first(html, paste0("//a[@title='",si,"']")), "href")
+                  )
+    return(.download(url, dir, save.name, cache))
 }
 
 #' @importFrom xml2 xml_text xml_find_all xml_find_first read_xml

@@ -10,10 +10,10 @@
 #'     \code{fulltext}'s \code{\link[fulltext]{ft_search}}. Note: if
 #'     using ESA journal, you can *only* use the ESA-specific article
 #'     code (e.g., E092-201).
-#' @param si number of the supplementary information (SI) to be downloaded (1, 2, 3,
-#'     etc.), or (for ESA, Science, and Copernicus journals) the name of the
-#'     supplement (e.g., "S1_data.csv"). Can be a \code{character} or
-#'     \code{numeric}.
+#' @param si number of the supplementary information (SI) to be
+#'     downloaded (1, 2, 3, etc.), or (for ESA, Science, and
+#'     Copernicus journals) the name of the supplement (e.g.,
+#'     "S1_data.csv"). Can be a \code{character} or \code{numeric}.
 #' @param from Publisher of article (\code{character}). The default
 #'     (\code{auto}) uses crossref (\code{\link[rcrossref]{cr_works}})
 #'     to detect the journal's publisher. Specifying the journal can
@@ -25,14 +25,14 @@
 #'     (i.e., auto-detect journal; default), \code{plos},
 #'     \code{wiley}, \code{science}, \code{proceedings},
 #'     \code{figshare}, \code{esa_data_archives}, \code{esa_archives},
-#'     \code{biorxiv}, \code{epmc}, \code{peerj}, \code{copernicus}, or 
-#'     \code{mdpi}.
+#'     \code{biorxiv}, \code{epmc}, \code{peerj}, \code{copernicus},
+#'     (Data)\code{dryad}), or \code{mdpi}.
 #' @param save.name a name for the file to download
 #'     (\code{character}). If \code{NA} (default) this will be a
 #'     combination of the DOI and SI number
 #' @param dir directory to save file to (\code{character}). If
-#'     \code{NA} (default) this will be a temporary directory
-#'     created for your files
+#'     \code{NA} (default) this will be a temporary directory created
+#'     for your files
 #' @param cache if \code{TRUE} (default), the file won't be downloaded
 #'     again if it already exists (in a temporary directory creates,
 #'     or your chosen \code{dir})
