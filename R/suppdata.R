@@ -68,7 +68,7 @@
 #'                                             "esa_data_archives"))
 #'
 #' epmc.fig <- suppdata("10.1371/journal.pone.0126524",
-#'                        "pone.0126524.g005.jpg", "epmc")
+#'                        "pone.0126524.s002.jpg", "epmc")
 #' #...note this 'SI' is not actually an SI, but rather an image from the paper.
 #' 
 #' copernicus.csv <- suppdata("10.5194/bg-14-1739-2017",

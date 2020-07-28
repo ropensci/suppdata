@@ -7,25 +7,61 @@
 \alias{suppdata.ft}
 \title{Download supplementary materials from journals}
 \usage{
-suppdata(x, si, from = c("auto", "plos", "wiley", "science",
-  "proceedings", "figshare", "esa_data_archives", "esa_archives",
-  "biorxiv", "epmc", "peerj", "copernicus", "jstatsoft"), save.name = NA,
-  dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
-  timeout = 10)
+suppdata(
+  x,
+  si,
+  from = c("auto", "plos", "wiley", "science", "proceedings", "figshare",
+    "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj", "copernicus",
+    "jstatsoft"),
+  save.name = NA,
+  dir = NA,
+  cache = TRUE,
+  vol = NA,
+  issue = NA,
+  list = FALSE,
+  timeout = 10
+)
 
-\method{suppdata}{character}(x, si, from = c("auto", "plos", "wiley",
-  "science", "proceedings", "figshare", "esa_data_archives",
-  "esa_archives", "biorxiv", "epmc", "peerj", "copernicus", "jstatsoft"),
-  save.name = NA, dir = NA, cache = TRUE, vol = NA, issue = NA,
-  list = FALSE, timeout = 10)
+\method{suppdata}{character}(
+  x,
+  si,
+  from = c("auto", "plos", "wiley", "science", "proceedings", "figshare",
+    "esa_data_archives", "esa_archives", "biorxiv", "epmc", "peerj", "copernicus",
+    "jstatsoft"),
+  save.name = NA,
+  dir = NA,
+  cache = TRUE,
+  vol = NA,
+  issue = NA,
+  list = FALSE,
+  timeout = 10
+)
 
-\method{suppdata}{ft_data}(x, si, from = c("auto"), save.name = NA,
-  dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
-  timeout = 10)
+\method{suppdata}{ft_data}(
+  x,
+  si,
+  from = c("auto"),
+  save.name = NA,
+  dir = NA,
+  cache = TRUE,
+  vol = NA,
+  issue = NA,
+  list = FALSE,
+  timeout = 10
+)
 
-\method{suppdata}{ft}(x, si, from = c("auto"), save.name = NA,
-  dir = NA, cache = TRUE, vol = NA, issue = NA, list = FALSE,
-  timeout = 10)
+\method{suppdata}{ft}(
+  x,
+  si,
+  from = c("auto"),
+  save.name = NA,
+  dir = NA,
+  cache = TRUE,
+  vol = NA,
+  issue = NA,
+  list = FALSE,
+  timeout = 10
+)
 }
 \arguments{
 \item{x}{One of: vector of DOI(s) of article(s) (a
@@ -181,7 +217,7 @@ mammals <- read.csv(suppdata("E092-201", "MCDB_communities.csv",
                                             "esa_data_archives"))
 
 epmc.fig <- suppdata("10.1371/journal.pone.0126524",
-                       "pone.0126524.g005.jpg", "epmc")
+                       "pone.0126524.s002.jpg", "epmc")
 #...note this 'SI' is not actually an SI, but rather an image from the paper.
 
 copernicus.csv <- suppdata("10.5194/bg-14-1739-2017",
