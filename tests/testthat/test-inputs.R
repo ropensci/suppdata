@@ -76,20 +76,20 @@ test_that("output dir can be set", {
 
 test_that("no console output by default", {    
     skip_on_cran()
-    expect_equal(capture_output(suppdata(x = "10.1371/journal.pone.0126524", si = "pone.0126524.s002.jpg")), "")
+    expect_equal(capture_output(suppdata(x = "10.1371/journal.pone.0126524", si = 1)), "")
 })
 
 test_that("no console output if deactivated", {    
     skip_on_cran()
-    expect_equal(capture_output(suppdata(x = "10.1371/journal.pone.0126524", si = "pone.0126524.s002.jpg", list = FALSE)), "")
+    expect_equal(capture_output(suppdata(x = "10.1371/journal.pone.0126524", si = 1, list = FALSE)), "")
 })
 
 test_that("zipfile contents can be listed on the console", {    
     skip_on_cran()
-    expect_output(suppdata(x = "10.1371/journal.pone.0126524", si = "pone.0126524.s002.jpg", list = TRUE), "Files in ZIP")
+    expect_output(suppdata(x = "10.1371/journal.pone.0126524", si = "pone.0126524.s002.jpg", list = TRUE, from="epmc"), "Files in ZIP")
 })
 
 test_that("zipfile contents are listed on the console even if file is missing", {    
     skip_on_cran()
-    expect_error(expect_output(suppdata(x = "10.1371/journal.pone.0126524", si = "not_there", list = TRUE), "41598_2018_37987_MOESM1_ESM.pdf"))
+    expect_error(expect_output(suppdata(x = "10.1371/journal.pone.0126524", si = "not_there", from="epmc", list = TRUE), "Files in ZIP"))
 })
