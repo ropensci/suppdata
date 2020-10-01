@@ -10,7 +10,7 @@
 
 # Loading SUPPlementary DATA into R
 
-William D. Pearse and Scott Chamberlain
+William D. Pearse, Daniel Nuest, and Scott Chamberlain
 
 ## Overview
 

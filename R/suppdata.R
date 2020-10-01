@@ -56,17 +56,16 @@
 #' #Put the function wherever you would put a file path
 #' crabs <- read.csv(suppdata("10.6084/m9.figshare.979288", 2))
 #'
-#' #View the suffix (file extension) of downloaded files
-#' # - note that not all files are uploaded/stored with useful file extensions!
-#' suppdata("10.6084/m9.figshare.979288", 2)
-#' attr(suppdata("10.6084/m9.figshare.979288", 2), "suffix")
-#'
 #' #ESA data papers and regular articles *must* be marked
 #' fungi <- read.csv(suppdata("E093-059", "myco_db.csv",
 #'                                         "esa_archives"))
 #' mammals <- read.csv(suppdata("E092-201", "MCDB_communities.csv",
 #'                                             "esa_data_archives"))
-#'
+#' #View the suffix (file extension) of downloaded files
+#' # - note that not all files are uploaded/stored with useful file extensions!
+#' suppdata("E093-059","myco_db.csv","esa_archives")
+#' attr( suppdata("E093-059","myco_db.csv","esa_archives"), "suffix")
+#' 
 #' epmc.fig <- suppdata("10.1371/journal.pone.0126524",
 #'                        "pone.0126524.s002.jpg", "epmc")
 #' #...note this 'SI' is not actually an SI, but rather an image from the paper.

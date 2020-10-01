@@ -4,8 +4,7 @@
 #' you want to download (1, 5, etc.). ESA journals don't use DOIs
 #' (give the article code; see below), and Proceedings, Science, and
 #' ESA journals need you to give the filename of the supplement to
-#' download. For Figshare articles, you can give either the number or
-#' the name. The file extensions (suffixes) of files are returned as
+#' download. The file extensions (suffixes) of files are returned as
 #' \code{suffix} attributes (see first example), which may be useful
 #' if you don't know the format of the file you're downloading.
 #'

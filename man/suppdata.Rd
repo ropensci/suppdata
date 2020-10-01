@@ -127,8 +127,7 @@ you want to download data from, and the number of the supplement
 you want to download (1, 5, etc.). ESA journals don't use DOIs
 (give the article code; see below), and Proceedings, Science, and
 ESA journals need you to give the filename of the supplement to
-download. For Figshare articles, you can give either the number or
-the name. The file extensions (suffixes) of files are returned as
+download. The file extensions (suffixes) of files are returned as
 \code{suffix} attributes (see first example), which may be useful
 if you don't know the format of the file you're downloading.
 
@@ -205,16 +204,15 @@ Make sure that the article from which you're attempting to
 #Put the function wherever you would put a file path
 crabs <- read.csv(suppdata("10.6084/m9.figshare.979288", 2))
 
-#View the suffix (file extension) of downloaded files
-# - note that not all files are uploaded/stored with useful file extensions!
-suppdata("10.6084/m9.figshare.979288", 2)
-attr(suppdata("10.6084/m9.figshare.979288", 2), "suffix")
-
 #ESA data papers and regular articles *must* be marked
 fungi <- read.csv(suppdata("E093-059", "myco_db.csv",
                                         "esa_archives"))
 mammals <- read.csv(suppdata("E092-201", "MCDB_communities.csv",
                                             "esa_data_archives"))
+#View the suffix (file extension) of downloaded files
+# - note that not all files are uploaded/stored with useful file extensions!
+suppdata("E093-059","myco_db.csv","esa_archives")
+attr( suppdata("E093-059","myco_db.csv","esa_archives"), "suffix")
 
 epmc.fig <- suppdata("10.1371/journal.pone.0126524",
                        "pone.0126524.s002.jpg", "epmc")

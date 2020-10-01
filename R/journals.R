@@ -69,30 +69,14 @@
 .suppdata.figshare <- function(doi, si, save.name=NA, dir=NA,
                                cache=TRUE, ...){
     #Argument handling
-    if(!(is.numeric(si) | is.character(si)))
-        stop("FigShare download requires numeric or character SI info")
+    if(!is.numeric(si))
+        stop("FigShare download requires numeric SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
     
     #Find, download, and return
-    html <- xml2::read_html(content(GET(paste0("https://doi.org/", doi)), "text"))
-    results <- fromJSON(xml2::xml_text(xml2::xml_find_first(html,
-                          "//script[@type=\"text/json\"]")))$article$files
-    if(is.numeric(si)){
-        if(si > nrow(results))
-            stop("SI number '", si, "' greater than number of detected SIs (",
-                 nrow(results), ")")
-        suffix <- strsplit(results$name[si], "\\.")[[1]]
-        suffix <- suffix[length(suffix)]
-        return(.download(results$downloadUrl[si],dir,save.name,cache,suffix))
-    }
-    if(!si %in% results$name)
-        stop("SI name not in files on FigShare (which are: ",
-             paste(results$name,collapse=","), ")")
-    suffix <- strsplit(results$name[si], "\\.")[[1]]
-    suffix <- suffix[length(suffix)]
-    return(.download(results$downloadUrl[results$name==si], dir,
-                     save.name, cache, suffix))
+    result <- .grep.url(paste0("https://doi.org/", doi), "https://ndownloader.figshare.com/files/[0-9]*", si)
+    return(.download(result, dir, save.name, cache, suffix=NULL))
 }
 
 .suppdata.esa_data_archives <- function(esa, si, save.name=NA, dir=NA,
