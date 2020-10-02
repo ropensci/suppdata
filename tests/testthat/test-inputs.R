@@ -30,7 +30,6 @@ test_that("There is an error if SI number is too large", {
 
 test_that("There are errors for non-existing SIs", {    
     skip_on_cran()
-    expect_error(suppdata('10.6084/m9.figshare.979288', "does_exist.csv"))
     expect_error(suppdata("10.7717/peerj.3006", si = 99))
     expect_error(suppdata("10.7717/peerj.3006", si = "si_1"))
     expect_error(suppdata("10.5194/bg-15-3625-2018", si = 1), "No supplement found")
@@ -43,8 +42,8 @@ test_that("There is an error for non-existing publishers", {
 
 test_that("There is an error for boolean SI info", {    
     skip_on_cran()
-    expect_error(suppdata("10.6084/m9.figshare.979288", FALSE), "'si' must be numeric or character")
-    expect_error(suppdata:::.suppdata.figshare("10.6084/m9.figshare.979288", FALSE), "numeric or character SI info")
+    expect_error(suppdata("10.6084/m9.figshare.979288", FALSE), "FigShare download requires numeric SI info")
+    expect_error(suppdata:::.suppdata.figshare("10.6084/m9.figshare.979288", FALSE), "FigShare download requires numeric SI info")
 })
 
 test_that("There is an error on empty DOI vector", {    
@@ -60,7 +59,7 @@ test_that("There is an error if target dir does not exist", {
 test_that("file name can be set", {    
     skip_on_cran()
     filename <- "myfile.R"
-    saved_file <- suppdata("10.6084/m9.figshare.979288", "analysis.R", save.name = filename)
+    saved_file <- suppdata("10.6084/m9.figshare.979288", 1, save.name = filename)
     expect_true(file.exists(saved_file))
     expect_equal(basename(saved_file), filename)
 })
@@ -69,7 +68,7 @@ test_that("output dir can be set", {
     skip_on_cran()
     testdir <- file.path(tempdir(), "testdir")
     dir.create(testdir)
-    saved_file <- suppdata("10.6084/m9.figshare.979288", "analysis.R", dir = testdir)
+    saved_file <- suppdata("10.6084/m9.figshare.979288", 1, dir = testdir)
     expect_true(file.exists(file.path(testdir, "10.6084_m9.figshare.979288_analysis.R")))
     unlink(testdir)
 })
