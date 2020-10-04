@@ -142,7 +142,7 @@
 .fix.param <- function(x, param, name){
     if(length(x) != length(param)){
         if((length(x) %% length(param)) != 0)
-            stop("length of ", "name (", length(param),
+            stop("length of ", name, " (", length(param),
                  ") is incompatible with 'x' (", length(x), ")")
         param <- rep(param, length(x))
     }

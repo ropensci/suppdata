@@ -42,7 +42,7 @@ test_that("There is an error for non-existing publishers", {
 
 test_that("There is an error for boolean SI info", {    
     skip_on_cran()
-    expect_error(suppdata("10.6084/m9.figshare.979288", FALSE), "FigShare download requires numeric SI info")
+    expect_error(suppdata("10.6084/m9.figshare.979288", FALSE), "'si' must be numeric or character")
     expect_error(suppdata:::.suppdata.figshare("10.6084/m9.figshare.979288", FALSE), "FigShare download requires numeric SI info")
 })
 
@@ -69,7 +69,7 @@ test_that("output dir can be set", {
     testdir <- file.path(tempdir(), "testdir")
     dir.create(testdir)
     saved_file <- suppdata("10.6084/m9.figshare.979288", 1, dir = testdir)
-    expect_true(file.exists(file.path(testdir, "10.6084_m9.figshare.979288_analysis.R")))
+    expect_true(file.exists(file.path(testdir, "10.6084_m9.figshare.979288_1")))
     unlink(testdir)
 })
 
