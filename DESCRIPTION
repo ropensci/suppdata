@@ -18,8 +18,8 @@ Description: Downloads data supplementary materials from manuscripts,
     it simple to use suppdata() with standard functions like
     read.csv().
 License: MIT + file LICENSE
-URL: https://docs.ropensci.org/suppdata, https://github.com/ropensci/suppdata
-BugReports: https://github.com/ropensci/suppdata
+URL: https://docs.ropensci.org/suppdata, https://github.com/ropensci/suppdata/
+BugReports: https://github.com/ropensci/suppdata/
 VignetteBuilder: knitr
 LazyLoad: yes
 Suggests: 

@@ -151,11 +151,11 @@ determine the publisher.}
 \item{plos}{Public Library of Science journals (e.g., PLoS One;
 \url{https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126524})}
 \item{wiley}{Wiley journals (e.g.,
-\url{https://onlinelibrary.wiley.com/doi/10.1111/ele.12289/abstract})}
+\url{https://onlinelibrary.wiley.com/doi/10.1111/ele.12289/})}
 \item{science}{Science magazine (e.g.,
-\url{https://www.sciencemag.org/content/345/6200/1041.short})}
+\url{https://science.sciencemag.org/content/345/6200/1041/})}
 \item{proceedings}{Royal Society of London journals (e.g.,
-\url{https://rspb.royalsocietypublishing.org/content/282/1814/20151215}). Requires
+\url{https://royalsocietypublishing.org/doi/full/10.1098/rspb.2015.1215/}). Requires
 \code{vol} and \code{issue} of the article.}
 \item{figshare}{Figshare (e.g.,
 \url{https://doi.org/10.6084/m9.figshare.979288.v1})}
