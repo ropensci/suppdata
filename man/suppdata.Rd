@@ -19,7 +19,8 @@ suppdata(
   vol = NA,
   issue = NA,
   list = FALSE,
-  timeout = 10
+  timeout = 10,
+  zip = FALSE
 )
 
 \method{suppdata}{character}(
@@ -34,7 +35,8 @@ suppdata(
   vol = NA,
   issue = NA,
   list = FALSE,
-  timeout = 10
+  timeout = 10,
+  zip = FALSE
 )
 
 \method{suppdata}{ft_data}(
@@ -47,7 +49,8 @@ suppdata(
   vol = NA,
   issue = NA,
   list = FALSE,
-  timeout = 10
+  timeout = 10,
+  zip = FALSE
 )
 
 \method{suppdata}{ft}(
@@ -114,6 +117,10 @@ using EPMC (see details)}
 
 \item{timeout}{how long to wait for successful download (default 10
 seconds)}
+
+\item{zip}{if \code{TRUE}, force download in binary format in order
+to ensure that zipped files will work on Windows (default
+FALSE).}
 }
 \description{
 Put a call to this function where you would put a file-path - everything 

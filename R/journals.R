@@ -1,4 +1,4 @@
-.suppdata.plos <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, ...){
+.suppdata.plos <- function(doi, si, save.name=NA, dir=NA, cache=TRUE, zip=FALSE, ...){
     #Argument handling
     if(!is.numeric(si))
         stop("PLoS download requires numeric SI info")
@@ -22,13 +22,13 @@
     url <- paste0("https://journals.plos.org/", journal,
                   "/article/asset?unique&id=info:doi/", doi, ".s",
                   formatC(si, width=3, flag="0"))
-    return(.download(url, dir, save.name, cache))
+    return(.download(url, dir, save.name, cache, zip=zip))
 }
 
 #' @importFrom httr timeout GET
 #' @importFrom xml2 read_html xml_attr xml_find_all
 .suppdata.wiley <- function(doi, si, save.name=NA, dir=NA,
-                            cache=TRUE, timeout=10, ...){
+                            cache=TRUE, timeout=10, zip=FALSE, ...){
     #Argument handling
     if(!is.numeric(si))
         stop("Wiley download requires numeric SI info")
@@ -60,14 +60,14 @@
     url <- links[si]
     
     #Download and return
-    return(.download(url, dir, save.name, cache))
+    return(.download(url, dir, save.name, cache, zip=zip))
 }
 
 #' @importFrom jsonlite fromJSON
 #' @importFrom xml2 xml_text xml_find_first
 #' @importFrom httr content
 .suppdata.figshare <- function(doi, si, save.name=NA, dir=NA,
-                               cache=TRUE, ...){
+                               cache=TRUE, zip=FALSE,  ...){
     #Argument handling
     if(!is.numeric(si))
         stop("FigShare download requires numeric SI info")
@@ -76,11 +76,11 @@
     
     #Find, download, and return
     result <- .grep.url(paste0("https://doi.org/", doi), "https://ndownloader.figshare.com/files/[0-9]*", si)
-    return(.download(result, dir, save.name, cache, suffix=NULL))
+    return(.download(result, dir, save.name, cache, suffix=NULL, zip=zip))
 }
 
 .suppdata.esa_data_archives <- function(esa, si, save.name=NA, dir=NA,
-                                        cache=TRUE, ...){
+                                        cache=TRUE, zip=FALSE, ...){
     #Argument handling
     if(!is.character(si))
         stop("ESA Data Archives download requires character SI info")
@@ -90,10 +90,10 @@
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
     return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/data",
-                            "/", si), dir, save.name, cache))
+                            "/", si), dir, save.name, cache, zip=zip))
 }
 .suppdata.esa_archives <- function(esa, si, save.name=NA, dir=NA,
-                                   cache=TRUE, ...){
+                                   cache=TRUE, zip=FALSE, ...){
     #Argument handling
     if(!is.character(si))
         stop("ESA Archives download requires character SI info")
@@ -103,11 +103,11 @@
     #Download, and return
     esa <- gsub("-", "/", esa, fixed=TRUE)
     return(.download(paste0("http://esapubs.org/archive/ecol/",esa,"/",si),
-                     dir, save.name, cache))
+                     dir, save.name, cache, zip=zip))
 }
 
 .suppdata.science <- function(doi, si, save.name=NA, dir=NA,
-                              cache=TRUE, ...){
+                              cache=TRUE, zip=FALSE, ...){
     #Argument handling
     if(!is.character(si))
         stop("Science download requires character SI info")
@@ -120,11 +120,11 @@
                             "(/content/)[0-9/]*"), "/suppl/DC1")
     url <- paste0("https://www.sciencemag.org",
                   .grep.url(url, "(/content/suppl/)[A-Z0-9/\\.]*"))
-    return(.download(url, dir, save.name, cache))
+    return(.download(url, dir, save.name, cache, zip=zip))
 }
 
 .suppdata.proceedings <- function(doi, si, vol, issue, save.name=NA, dir=NA,
-                                  cache=TRUE, ...){
+                                  cache=TRUE, zip=FALSE, ...){
     #Argument handling
     if(!is.numeric(si))
         stop("Proceedings download requires numeric SI info")
@@ -138,12 +138,12 @@
                   vol, "/", issue, "/", tail, ".figures-only")
     url <- paste0("https://rspb.royalsocietypublishing.org/",
                   .grep.url(url, "(highwire/filestream)[a-zA-Z0-9_/\\.]*"))
-    return(.download(url, dir, save.name))
+    return(.download(url, dir, save.name, zip=zip))
 }
 
 #' @importFrom xml2 xml_text xml_find_first read_xml
 .suppdata.epmc <- function(doi, si, save.name=NA, dir=NA,
-                           cache=TRUE, list=FALSE, ...){
+                           cache=TRUE, list=FALSE, zip=FALSE, ...){
     #Argument handling
     if(!is.character(si))
         stop("EPMC download requires character SI info")
@@ -164,7 +164,7 @@
 }
 
 .suppdata.biorxiv <- function(doi, si, save.name=NA, dir=NA,
-                              cache=TRUE, ...){
+                              cache=TRUE, zip=FALSE, ...){
     #Argument handling
     if(!is.numeric(si))
         stop("bioRxiv download requires numeric SI info")
@@ -175,12 +175,12 @@
     url <- paste0(.url.redir(paste0("https://doi.org/", doi)), ".figures-only")
     file <- .grep.url(url, "/highwire/filestream/[a-z0-9A-Z\\./_-]*", si)
     return(.download(.url.redir(paste0("https://biorxiv.org",file)),
-                     dir, save.name, cache))
+                     dir, save.name, cache, zip=zip))
 }
 
 #' @importFrom utils URLencode
 .suppdata.dryad <- function(doi, si, save.name=NA, dir=NA,
-                            cache=TRUE, ...){
+                            cache=TRUE, zip=FALSE, ...){
     #Argument handling
     if(!is.character(si))
         stop("DataDRYAD download requires character SI info")
@@ -192,13 +192,13 @@
     url <- paste0("https://datadryad.org",
                   xml_attr(xml_find_first(html, paste0("//a[@title='",si,"']")), "href")
                   )
-    return(.download(url, dir, save.name, cache))
+    return(.download(url, dir, save.name, cache, zip=zip))
 }
 
 #' @importFrom xml2 xml_text xml_find_all xml_find_first read_xml
 #' @importFrom rcrossref cr_works
 .suppdata.peerj <- function(doi, si, save.name=NA, dir=NA,
-                              cache=TRUE, ...){
+                              cache=TRUE, zip=FALSE, ...){
   si_id <- "supp-1"
   #Argument handling
   if (is.character(si) && startsWith(si, "supp-"))
@@ -224,7 +224,7 @@
   tryCatch(return(.download(url = si_url,
                             dir = dir,
                             save.name = save.name,
-                            cache = cache
+                            cache = cache, zip=zip
                             # leave suffix detection to .download
                             )),
                   error = function(x) {
@@ -234,7 +234,7 @@
 
 #' @importFrom xml2 read_html xml_find_first
 .suppdata.copernicus <- function(doi, si=1, save.name=NA, dir=NA,
-                           cache=TRUE, list=FALSE, ...){
+                           cache=TRUE, list=FALSE, zip=FALSE, ...){
   # Copernicus supports one supplemental file, a zip archive or a PDF
   # If si is numeric, the full archive is downloaded and unzipped, unless si is the supplement archive name. 
   # If si is a character, it must be the name of a file in the suppdata archive.
@@ -286,7 +286,7 @@
     tryCatch(return(.download(url = url,
                               dir = dir,
                               save.name = save.name,
-                              cache = cache
+                              cache = cache, zip=zip
                               # leave suffix detection to .download
     )),
     error = function(x) {
@@ -301,7 +301,7 @@
 #' @importFrom xml2 read_html xml_find_first xml_parent xml_text
 #' @importFrom rcrossref cr_works
 .suppdata.mdpi <- function(doi, si=1, save.name=NA, dir=NA,
-                            cache=TRUE, ...){
+                            cache=TRUE, zip=FALSE, ...){
   si_id <- "s1"
   if (is.character(si))
     stop("MDPI only supports numeric SI info.")
@@ -338,7 +338,7 @@
                             dir = dir,
                             save.name = save.name,
                             cache = cache,
-                            suffix = si_type
+                            suffix = si_type, zip=zip
   )),
   error = function(x) {
     stop("Cannot download SI for MDPI ", doi, " using ", si_url, " : ", x)
@@ -347,7 +347,7 @@
 
 #' @importFrom xml2 read_html xml_find_first
 .suppdata.jstatsoft <- function(doi, si=1, save.name=NA, dir=NA,
-                                 cache=TRUE, list=FALSE, ...){
+                                 cache=TRUE, list=FALSE, zip=FALSE,  ...){
   # If si is numeric, the number es ordered on the website is used. 
   # If si is a character, it must be the name of a supplement file
   
@@ -376,7 +376,7 @@
   tryCatch(return(.download(url = url,
                             dir = dir,
                             save.name = save.name,
-                            cache = cache
+                            cache = cache, zip=zip
   )),
   error = function(x) {
     stop("Cannot download pdf for Copernicus using ", url, " : ", x)
