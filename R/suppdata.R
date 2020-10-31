@@ -170,7 +170,7 @@ suppdata.ft_data <- function(x, si, from=c("auto"), save.name=NA, dir=NA,
 #' @export
 #' @rdname suppdata
 suppdata.ft <- function(x, si, from=c("auto"), save.name=NA, dir=NA, cache=TRUE,
-                        vol=NA, issue=NA, list=FALSE, timeout=10){
+                        vol=NA, issue=NA, list=FALSE, timeout=10, zip=FALSE){
     from <- match.arg(from)
     if(from != "auto")
         stop("Must use 'auto' for 'from' argument with 'ft' input")

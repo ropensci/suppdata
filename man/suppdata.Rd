@@ -63,7 +63,8 @@ suppdata(
   vol = NA,
   issue = NA,
   list = FALSE,
-  timeout = 10
+  timeout = 10,
+  zip = FALSE
 )
 }
 \arguments{
