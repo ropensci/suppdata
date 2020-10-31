@@ -36,16 +36,21 @@
     save.name <- .save.name(doi, save.name, si)
 
     # Download SI HTML page and find SI link
-    html <- tryCatch(as.character(
-        GET(paste0("https://onlinelibrary.wiley.com/doi/full/", doi),
-            httr::timeout(timeout))), silent=TRUE, error = function(x) NA)
+    full.url <- paste0("https://onlinelibrary.wiley.com/doi/full/", doi)
+    html <- tryCatch(
+        as.character(GET(abs.url, httr::timeout(timeout))),
+        silent=TRUE, error = function(x)
+            stop("Could not download Wiley article at", full.url))
     
     links <- gregexpr('downloadSupplement\\?doi=[0-9a-zA-Z\\%;=\\.&-]+', html)
     # Check to see if we've failed (likely because it's a weird data journal)
     if(links[[1]][1] == -1){
-        html <- tryCatch(as.character(
-            GET(paste0("https://onlinelibrary.wiley.com/doi/abs/", doi),
-                httr::timeout(timeout))), silent=TRUE, error = function(x) NA)
+        abs.url <- paste0("https://onlinelibrary.wiley.com/doi/abs/", doi)
+        html <- tryCatch(
+            as.character(GET(abs.url, httr::timeout(timeout))),
+            silent=TRUE, error = function(x)
+                stop("Could not download Wiley article at", full.url,
+                     "or", abs.url))
         links <- gregexpr('downloadSupplement\\?doi=[0-9a-zA-Z\\%;=\\.&-]+', html)
         if(links[[1]][1] == -1)
             stop("Cannot find SI for this article")
@@ -77,33 +82,6 @@
     #Find, download, and return
     result <- .grep.url(paste0("https://doi.org/", doi), "https://ndownloader.figshare.com/files/[0-9]*", si)
     return(.download(result, dir, save.name, cache, suffix=NULL, zip=zip))
-}
-
-.suppdata.esa_data_archives <- function(esa, si, save.name=NA, dir=NA,
-                                        cache=TRUE, zip=FALSE, ...){
-    #Argument handling
-    if(!is.character(si))
-        stop("ESA Data Archives download requires character SI info")
-    dir <- .tmpdir(dir)
-    save.name <- .save.name(esa, save.name, si)
-
-    #Download, and return
-    esa <- gsub("-", "/", esa, fixed=TRUE)
-    return(.download(paste0("http://esapubs.org/archive/ecol/", esa, "/data",
-                            "/", si), dir, save.name, cache, zip=zip))
-}
-.suppdata.esa_archives <- function(esa, si, save.name=NA, dir=NA,
-                                   cache=TRUE, zip=FALSE, ...){
-    #Argument handling
-    if(!is.character(si))
-        stop("ESA Archives download requires character SI info")
-    dir <- .tmpdir(dir)
-    save.name <- .save.name(esa, save.name, si)
-
-    #Download, and return
-    esa <- gsub("-", "/", esa, fixed=TRUE)
-    return(.download(paste0("http://esapubs.org/archive/ecol/",esa,"/",si),
-                     dir, save.name, cache, zip=zip))
 }
 
 .suppdata.science <- function(doi, si, save.name=NA, dir=NA,

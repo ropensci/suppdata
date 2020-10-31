@@ -41,8 +41,6 @@
                      "science" = .suppdata.science,
                      "proceedings" = .suppdata.proceedings,
                      "figshare" = .suppdata.figshare,
-                     "esa_data_archives" = .suppdata.esa_data_archives,
-                     "esa_archives" = .suppdata.esa_archives,
                      "biorxiv" = .suppdata.biorxiv,
                      "epmc" = .suppdata.epmc,
                      "dryad" = .suppdata.dryad,
@@ -98,7 +96,7 @@
         result <- download.file(url, destination, quiet=TRUE)
     }
     if(result != 0)
-        stop("Error code", result, " downloading file; file may not exist")
+        stop("Error code", result, " downloading file;", url, "may not exist")
     
     if(!is.na(suffix))
         attr(destination, "suffix") <- suffix
@@ -117,7 +115,11 @@
         stop("Required file not in zipfile ", zip)
     file <- unzip(zip, si)
     file.rename(file, file.path(dir, save.name))
-    return(file.path(dir, save.name))
+    suffix <- .file.suffix(si, 5)
+    output <- file.path(dir, save.name)
+    if(!is.na(suffix))
+        attr(output, "suffix") <- suffix
+    return(output)
 }
 
 # Internal URL 'redirect' function

@@ -1,3 +1,10 @@
+# suppdata 1.1-5
+
+- Added fall-back for zip downloads on Windows (thanks Alban Sagouis)
+- New errors for moved download URLs
+- Moved all help file examples back to \dontrun (at CRAN's request)
+- Removed ESA data archives; site down at time of required submission
+
 # suppdata 1.1-4
 
 - FigShare website change --> no longer supports named SI
