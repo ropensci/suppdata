@@ -80,7 +80,7 @@
     save.name <- .save.name(doi, save.name, si)
     
     #Find, download, and return
-    result <- .grep.url(paste0("https://doi.org/", doi), "https://ndownloader.figshare.com/files/[0-9]*", si)
+    result <- .grep.url(paste0("https://doi.org/", doi), "https://figshare.com/ndownloader/files/[0-9]*", si)
     return(.download(result, dir, save.name, cache, suffix=NULL, zip=zip))
 }
 

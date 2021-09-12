@@ -1,3 +1,9 @@
+# suppdata 1.1-7
+- Changed FigShare download URL to match recent change online
+
+# suppdata 1.1-6
+- Hotfixes for CRAN
+
 # suppdata 1.1-5
 
 - Added fall-back for zip downloads on Windows (thanks Alban Sagouis)
