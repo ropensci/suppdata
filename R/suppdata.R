@@ -5,11 +5,7 @@
 #' in the same session.
 #' 
 #' @param x One of: vector of DOI(s) of article(s) (a
-#'     \code{character}), output from \code{fulltext}'s
-#'     \code{\link[fulltext]{ft_get}}, or output from
-#'     \code{fulltext}'s \code{\link[fulltext]{ft_search}}. Note: if
-#'     using ESA journal, you can *only* use the ESA-specific article
-#'     code (e.g., E092-201).
+#'     \code{character}) or ESA-specific article code.
 #' @param si number of the supplementary information (SI) to be
 #'     downloaded (1, 2, 3, etc.), or (for ESA, Science, and
 #'     Copernicus journals) the name of the supplement (e.g.,
@@ -143,39 +139,4 @@ suppdata.character <- function(x, si,
     func <- .suppdata.func(from)
     return(func(x, si, save.name=save.name, dir=dir, cache=cache,
                 vol=vol, issue=issue, list=list, timeout=timeout, zip=zip))
-}
-#' @export
-#' @rdname suppdata
-suppdata.ft_data <- function(x, si, from=c("auto"), save.name=NA, dir=NA,
-                             cache=TRUE, vol=NA, issue=NA, list=FALSE,
-                             timeout=10, zip=FALSE){
-    from <- match.arg(from)
-    if(from != "auto") # probably never gets here because of match.arg
-        stop("Must use 'auto' for 'from' argument with 'ft_data' input")
-    x <- unlist(lapply(x, function(x) x$dois))
-    if(length(x) > 1)
-        stop("More than one DOI found in fulltext search")
-    if(length(x) == 0)
-        stop("No DOI found in fulltext search")
-    return(setNames(unlist(
-        mapply(
-            suppdata.character, x=x,si=si,from=from,save.name=save.name,
-            dir=dir,cache=cache,vol=vol,issue=issue,list=list,timeout=timeout)
-        ), x))
-}
-#' @export
-#' @rdname suppdata
-suppdata.ft <- function(x, si, from=c("auto"), save.name=NA, dir=NA, cache=TRUE,
-                        vol=NA, issue=NA, list=FALSE, timeout=10, zip=FALSE){
-    from <- match.arg(from)
-    if(from != "auto")
-        stop("Must use 'auto' for 'from' argument with 'ft' input")
-    x <- unlist(lapply(x, function(y) y$data$id))
-    if(length(x) > 1)
-        stop("More than one DOI found in fulltext search")
-    if(length(x) == 0)
-        stop("No DOI found in fulltext search")
-    return(suppdata.character(x=x,si=si,from=from,save.name=save.name,
-               dir=dir,cache=cache,vol=vol,issue=issue,list=list,
-               timeout=timeout, zip=FALSE))
 }
