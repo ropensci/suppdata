@@ -1,3 +1,6 @@
+# suppdata 1.1-9
+- Changed FigShare (again!) to match the new online interface
+
 # suppdata 1.1-7
 - Changed FigShare download URL to match recent change online
 

@@ -78,9 +78,16 @@
         stop("FigShare download requires numeric SI info")
     dir <- .tmpdir(dir)
     save.name <- .save.name(doi, save.name, si)
-    
     #Find, download, and return
-    result <- .grep.url(paste0("https://doi.org/", doi), "https://figshare.com/ndownloader/files/[0-9]*", si)
+    # - must be done differently depending on number because of changes to FigShare
+    # - page viewing system
+    if(si==1){
+        result <- .grep.url(paste0("https://doi.org/", doi), "https://figshare.com/ndownloader/files/[0-9]*", si)
+    } else {
+        result <- .grep.url(paste0("https://doi.org/", doi), 'sheetName":"[[:digit:]]*', si-1)
+        result <- substr(result, nchar('sheetName":"')+1, nchar(result))
+        result <- paste0("https://figshare.com/ndownloader/files/", result, collapse="")
+    }
     return(.download(result, dir, save.name, cache, suffix=NULL, zip=zip))
 }
 
