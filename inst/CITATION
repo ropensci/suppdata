@@ -1,4 +1,4 @@
-citEntry(entry="Article",
+bibentry(bibtype="Article",
          title = "Suppdata: Downloading Supplementary Data from Published Manuscripts",
          author = personList(as.person("W. D. Pearse"), as.person("S. Chamberlain")),
          journal = "Journal of Open Source Software",
