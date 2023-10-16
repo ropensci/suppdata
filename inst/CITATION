@@ -1,6 +1,6 @@
 bibentry(bibtype="Article",
          title = "Suppdata: Downloading Supplementary Data from Published Manuscripts",
-         author = personList(as.person("W. D. Pearse"), as.person("S. Chamberlain")),
+         author = c(person("W. D. Pearse"), person("S. Chamberlain")),
          journal = "Journal of Open Source Software",
          year="2018",
          pages="721",
